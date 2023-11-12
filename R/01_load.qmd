@@ -1,0 +1,39 @@
+---
+title: "01_load.qmd"
+author: "Group12"
+format: html
+editor: visual
+---
+
+## Extract data
+
+```{r load_libraries}
+#| echo: false
+#| message: false
+library(tidyverse)
+library(readr)
+library(archive)
+
+```
+
+```{r get_data}
+#| echo: false
+
+filename <-  "DiseaseOutbreaks.7z"
+dir_name <- "../_raw/"
+
+if( !dir.exists(dir_name) ){
+  dir.create(path = dir_name)
+}
+
+if ( !file.exists(str_c(dir_name, filename))) {
+  print("No file named DiseaseOutbreaks.7z exists in directory _raw")
+} else if ( file.exists(str_c(dir_name, filename)) ){ 
+  a <- archive_extract(str_c(dir_name, filename), dir = "../_raw/")
+  rawdons <- read.csv("../_raw/DiseaseOutbreaks/DONsRaw.csv")
+}
+
+# covidoutbreaks <- read.csv("../_raw/DiseaseOutbreaks/COVIDOutbreaks.csv")
+# outbreaks <- read.csv("../_raw/DiseaseOutbreaks/Outbreaks.csv")
+# uniquedons <- read.csv("../_raw/DiseaseOutbreaks/UniqueDONS.csv")
+```
