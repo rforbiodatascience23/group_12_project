@@ -5,14 +5,13 @@ format: html
 editor: visual
 ---
 
-## Extract data THIS IS A TEST
+## Extract data 
 
 ```{r load_libraries}
 
 #| echo: false
 #| message: false
 library(tidyverse)
-library(readr)
 library(archive)
 
 ```
