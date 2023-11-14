@@ -15,7 +15,7 @@ The data used in this project can be found [here](https://figshare.com/articles/
 This variable is a dataset containing the raw data from 2721 DONs (Disease Outbreak News) extracted from www.who.int/emergencies/disease-outbreak-news. The dataset presents information from 1996 to March 2022 (last DON was registered on 25 March 2022).
 
 
-Further, we used data from the world bank, to incorporate data on socio-economic status of the countries: 
+Further, we used data from the world bank, to incorporate data on socio-economic status of the countries 
 [here](https://datacatalog.worldbank.org/search/dataset/0037712/World-Development-Indicators)
 
 2. Download WDI_CSV.zip into \_raw folder

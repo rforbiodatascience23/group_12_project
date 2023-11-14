@@ -1,0 +1,42 @@
+---
+title: "Project presentation"
+author: "Group 12"
+format: revealjs
+editor: visual
+---
+
+## Introduction
+
+We found inspiration in this article
+
+![https://doi.org/10.1038/s41597-022-01797-2](~group_12_project/images/artikelheader.PNG){width=250}
+
+* Their aim was to create a new dataset of infectious disease outbreaks from 
+  + Disease Outbreak News
+  + Coronavirus Dashbord (WHO)
+
+* Our aim was 
+  + to reproduce their findings
+  + to add socio-economical informations to the dataset from the World Bank
+
+## Material and Methods 1
+
+\- something
+
+## Material and Methods 2
+
+## Results 1
+
+\- something
+
+## Results 2
+
+\#
+
+\- Something
+
+## Analysis and Discussion
+
+\- Something
+
+\- 
