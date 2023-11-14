@@ -5,7 +5,7 @@ format: html
 editor: visual
 ---
 
-## Extract data 
+## Extract data
 
 ```{r load_libraries}
 
@@ -20,6 +20,7 @@ library(archive)
 #| echo: false
 
 filename <-  "DiseaseOutbreaks.7z"
+filename2 <-  "WDI_CSV.zip"
 dir_name <- "../_raw/"
 
 if( !dir.exists(dir_name) ){
@@ -36,4 +37,21 @@ if ( !file.exists(str_c(dir_name, filename))) {
 # covidoutbreaks <- read.csv("../_raw/DiseaseOutbreaks/COVIDOutbreaks.csv")
 # outbreaks <- read.csv("../_raw/DiseaseOutbreaks/Outbreaks.csv")
 # uniquedons <- read.csv("../_raw/DiseaseOutbreaks/UniqueDONS.csv")
+
+if ( !file.exists(str_c(dir_name, filename2))) {
+  print("No file named WDI_CSV exists in directory _raw")
+} else if ( file.exists(str_c(dir_name, filename2)) ){ 
+  a  <- archive_extract(str_c(dir_name, filename2), dir = "../_raw/")#why do we need to assign the function to "a" ? and do we now need to assign it to "b" istead?
+  wdi <- read.csv("../_raw/WDI_CSV/WDICountry.csv")
+}
+
+
+```
+
+```{r merge and export data}
+####we need to export data to an 01_dat_load_tsv fil on gitignore
+#| echo: false
+
+
+
 ```
