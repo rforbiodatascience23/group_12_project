@@ -20,4 +20,4 @@ Further, we used data from the world bank, to incorporate data on socio-economic
 
 2. Download WDI_CSV.zip into \_raw folder
 
-3.  Run 01_load.qmd in R folder to extract the files and create a rawdons variable.
+3.  Run 01_load.qmd in R folder to extract the files and create variables for each file.

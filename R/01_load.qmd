@@ -11,15 +11,15 @@ editor: visual
 
 #| echo: false
 #| message: false
+#| warnin: false
 library(tidyverse)
-library(archive)
 
 ```
 
 ```{r get_data}
 #| echo: false
 
-filename <-  "DiseaseOutbreaks.7z"
+filename <-  "DiseaseOutbreaks.zip"
 filename2 <-  "WDI_CSV.zip"
 dir_name <- "../_raw/"
 
@@ -29,20 +29,26 @@ if( !dir.exists(dir_name) ){
 
 if ( !file.exists(str_c(dir_name, filename))) {
   print("No file named DiseaseOutbreaks.7z exists in directory _raw")
+  break
 } else if ( file.exists(str_c(dir_name, filename)) ){ 
-  a <- archive_extract(str_c(dir_name, filename), dir = "../_raw/")
-  rawdons <- read.csv("../_raw/DiseaseOutbreaks/DONsRaw.csv")
+  rawdons <- unzip(str_c("../_raw/",filename), files="DONsRaw.csv") |> 
+    read.csv()
+  covidoutbreaks <- unzip(str_c("../_raw/",filename), files="COVIDOutbreaks.csv") |> 
+    read.csv()
+outbreaks <- unzip(str_c("../_raw/",filename), files="Outbreaks.csv") |> 
+    read.csv()
+uniquedons <- unzip(str_c("../_raw/",filename), files="UniqueDONs.csv") |> 
+    read.csv()
+#icd1011 <- unzip(str_c("../_raw/",filename), files="icd1011.csv") |> 
+    read.csv()
+isocodes <- unzip(str_c("../_raw/",filename), files="isocodes.csv") |> 
+    read.csv()
 }
-
-# covidoutbreaks <- read.csv("../_raw/DiseaseOutbreaks/COVIDOutbreaks.csv")
-# outbreaks <- read.csv("../_raw/DiseaseOutbreaks/Outbreaks.csv")
-# uniquedons <- read.csv("../_raw/DiseaseOutbreaks/UniqueDONS.csv")
-
 if ( !file.exists(str_c(dir_name, filename2))) {
   print("No file named WDI_CSV exists in directory _raw")
 } else if ( file.exists(str_c(dir_name, filename2)) ){ 
-  a  <- archive_extract(str_c(dir_name, filename2), dir = "../_raw/")#why do we need to assign the function to "a" ? and do we now need to assign it to "b" istead?
-  wdi <- read.csv("../_raw/WDI_CSV/WDICountry.csv")
+  wdi <- unzip(str_c("../_raw/",filename2), files="WDICountry.csv") |> 
+    read.csv()
 }
 
 
