@@ -58,6 +58,17 @@ if ( !file.exists(str_c(dir_name, filename2))) {
 ####we need to export data to an 01_dat_load_tsv fil on gitignore
 #| echo: false
 
+######## MERGE WDICountry to Outbreaks #########
+outbreaks <- read.csv("~/projects/group_12_project/_raw/Outbreaks.csv") #this line can be deleted. WE NEED TO CHECK FILE NAMES ARE ALIGNED
 
+wdi_clean <- wdi |> 
+  select(Country.Code, Income.Group) |> 
+  rename(iso3 = Country.Code) |> 
+  filter(Income.Group !="")
+
+outbreaks_wdi <-  
+  left_join(outbreaks, wdi_clean, by = "iso3")
+
+write.csv(outbreaks_wdi, "~/projects/group_12_project/_raw/outbreaks_wdi.csv")
 
 ```
