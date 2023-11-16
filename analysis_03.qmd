@@ -1,0 +1,20 @@
+---
+title: "analysis_03"
+author: "Group_12"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Need to add in echo / eval....
+
+```{r}
+library(tidyverse)
+```
+
+read data
+
+```{r}
+outwdi <- read.csv("~/projects/group_12_project/_raw/outbreaks_wdi.csv")
+```
