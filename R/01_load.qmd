@@ -11,7 +11,7 @@ editor: visual
 
 #| echo: false
 #| message: false
-#| warnin: false
+#| warning: false
 library(tidyverse)
 
 ```
@@ -19,7 +19,7 @@ library(tidyverse)
 ```{r get_data}
 #| echo: false
 
-filename <-  "DiseaseOutbreaks.zip"
+filename <-  c("DONsRaw.csv","COVIDOutbreaks.csv","Outbreaks.csv","UniqueDONs.csv","icd1011.csv","isocodes.csv")
 filename2 <-  "WDI_CSV.zip"
 dir_name <- "../_raw/"
 
@@ -27,28 +27,21 @@ if( !dir.exists(dir_name) ){
   dir.create(path = dir_name)
 }
 
-if ( !file.exists(str_c(dir_name, filename))) {
-  print("No file named DiseaseOutbreaks.7z exists in directory _raw")
+if ( length(list.files(dir_name, pattern="csv")) != length(filename) ) {
+  print(str_c("Only ",str_flatten_comma(filename,), " requiered in _raw folder"))
   break
 } else if ( file.exists(str_c(dir_name, filename)) ){ 
-  rawdons <- unzip(str_c("../_raw/",filename), files="DONsRaw.csv") |> 
-    read.csv()
-  covidoutbreaks <- unzip(str_c("../_raw/",filename), files="COVIDOutbreaks.csv") |> 
-    read.csv()
-outbreaks <- unzip(str_c("../_raw/",filename), files="Outbreaks.csv") |> 
-    read.csv()
-uniquedons <- unzip(str_c("../_raw/",filename), files="UniqueDONs.csv") |> 
-    read.csv()
-#icd1011 <- unzip(str_c("../_raw/",filename), files="icd1011.csv") |> 
-    read.csv()
-isocodes <- unzip(str_c("../_raw/",filename), files="isocodes.csv") |> 
-    read.csv()
+  rawdons <-  read.csv("DONsRaw.csv")
+  covidoutbreaks <- read.csv("COVIDOutbreaks.csv")
+  outbreaks <- read.csv("Outbreaks.csv")
+  uniquedons <- read.csv("UniqueDONs.csv")
+  icd1011 <- read.csv("icd1011.csv",sep = ";")
+  isocodes <- read.csv("isocodes.csv",sep = ";")
 }
 if ( !file.exists(str_c(dir_name, filename2))) {
   print("No file named WDI_CSV exists in directory _raw")
-} else if ( file.exists(str_c(dir_name, filename2)) ){ 
-  wdi <- unzip(str_c("../_raw/",filename2), files="WDICountry.csv") |> 
-    read.csv()
+} else if ( file.exists(str_c(dir_name, filename2)) ){
+  wdi <- read.csv("WDICountry.csv")
 }
 
 
