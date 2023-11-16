@@ -18,6 +18,6 @@ This variable is a dataset containing the raw data from 2721 DONs (Disease Outbr
 Further, we used data from the world bank, to incorporate data on socio-economic status of the countries 
 [here](https://datacatalog.worldbank.org/search/dataset/0037712/World-Development-Indicators)
 
-2. Download WDI_CSV.zip into \_raw folder
+2. Download WDI_CSV.zip and unpack it. Save WDICountry.csv into \_raw folder
 
 3.  Run 01_load.qmd in R folder to extract the files and create variables for each file.

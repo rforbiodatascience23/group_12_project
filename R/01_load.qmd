@@ -20,7 +20,7 @@ library(tidyverse)
 #| echo: false
 
 filename <-  "DiseaseOutbreaks.zip"
-filename2 <-  "WDI_CSV.zip"
+filename2 <-  "WDICountry.csv"
 dir_name <- "../_raw/"
 
 if( !dir.exists(dir_name) ){
@@ -45,7 +45,7 @@ isocodes <- unzip(str_c("../_raw/",filename), files="isocodes.csv") |>
     read.csv()
 }
 if ( !file.exists(str_c(dir_name, filename2))) {
-  print("No file named WDI_CSV exists in directory _raw")
+  print("No file named WDICountry< exists in directory _raw")
 } else if ( file.exists(str_c(dir_name, filename2)) ){ 
   wdi <- unzip(str_c("../_raw/",filename2), files="WDICountry.csv") |> 
     read.csv()
