@@ -19,8 +19,8 @@ library(tidyverse)
 ```{r get_data}
 #| echo: false
 
-filename <-  c("DONsRaw.csv","COVIDOutbreaks.csv","Outbreaks.csv","UniqueDONs.csv","icd1011.csv","isocodes.csv")
-filename2 <-  "WDI_CSV.zip"
+filename <-  c("DONsRaw.csv","COVIDOutbreaks.csv","Outbreaks.csv","UniqueDONs.csv","icd1011.csv","isocodes.csv","WDICountry.csv")
+filename2 <-  "WDICountry.csv"
 dir_name <- "../_raw/"
 
 if( !dir.exists(dir_name) ){
@@ -30,7 +30,7 @@ if( !dir.exists(dir_name) ){
 if ( length(list.files(dir_name, pattern="csv")) != length(filename) ) {
   print(str_c("Only ",str_flatten_comma(filename,), " requiered in _raw folder"))
   break
-} else if ( file.exists(str_c(dir_name, filename)) ){ 
+} else if ( length(list.files(dir_name, pattern="csv")) == length(filename)) { 
   rawdons <-  read.csv("DONsRaw.csv")
   covidoutbreaks <- read.csv("COVIDOutbreaks.csv")
   outbreaks <- read.csv("Outbreaks.csv")
