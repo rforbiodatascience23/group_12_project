@@ -1,11 +1,10 @@
 ---
-title: "analysis_03"
-author: "Group_12"
-format: html
+title: "Analysis 03: Group 12"
+format:
+  html:
+    embed-resources: true
 editor: visual
 ---
-
-## Quarto
 
 Need to add in echo / eval....
 
@@ -17,4 +16,57 @@ read data
 
 ```{r}
 outwdi <- read.csv("~/projects/group_12_project/_raw/outbreaks_wdi.csv")
+```
+
+Reproduced Fig 4b
+
+```{r}
+
+Fig4b_reproduced <- outwdi |> 
+  count(Disease) |> 
+  arrange(desc(n)) |> 
+  slice_head(n = 20) |> 
+  inner_join(outwdi, by = "Disease")  |> 
+  mutate(Disease = Disease |> fct_infreq())  |> 
+  ggplot(mapping = aes(x = Disease)) +
+  geom_bar()+
+  labs(y = "Total frequency of outbreaks \n (1996 - 2021)", 
+       x = "Disease") +
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 30)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+Fig4b_reproduced
+
+ggsave(Fig4b_reproduced, filename = "Results/Fig4b_reproduced.png", dpi = 300)
+```
+
+New Fig 4b, with incorporated information on country income status:
+
+```{r}
+
+Fig4b_income <- outwdi |> 
+  count(Disease) |> 
+  arrange(desc(n)) |> 
+  slice_head(n = 20) |> 
+  inner_join(outwdi, by = "Disease")  |> 
+  mutate(Disease = Disease |> fct_infreq())  |> 
+  mutate(Income.Group = (factor(Income.Group, levels = c("High income",
+                                                         "Upper middle income", 
+                                                         "Lower middle income", 
+                                                         "Low income")))) |>
+  ggplot(mapping = aes(x = Disease, fill = Income.Group)) +
+  geom_bar()+
+  scale_fill_brewer(palette = "Spectral", na.value = "grey") +
+  labs(y = "Total frequency of outbreaks \n (1996 - 2021)", 
+       x = "Disease") +
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 30)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1, size = 8), 
+        legend.title = element_blank())
+
+Fig4b_income
+
+ggsave(Fig4b_income, filename = "Results/Fig4b_income.png", dpi = 300)
+
 ```
