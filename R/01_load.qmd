@@ -7,51 +7,34 @@ editor: visual
 
 ## Extract data
 
+**Load library**
 ```{r load_libraries}
 
 #| echo: false
-#| message: false
+
 library(tidyverse)
-library(archive)
+
 
 ```
+
+**Load data** 
 
 ```{r get_data}
 #| echo: false
 
-filename <-  "DiseaseOutbreaks.7z"
-filename2 <-  "WDI_CSV.zip"
-dir_name <- "../_raw/"
+unique_dons <- read.csv("/home/people/s223712/group_12_project/_raw/UniqueDONs.csv")
 
-if( !dir.exists(dir_name) ){
-  dir.create(path = dir_name)
-}
-
-if ( !file.exists(str_c(dir_name, filename))) {
-  print("No file named DiseaseOutbreaks.7z exists in directory _raw")
-} else if ( file.exists(str_c(dir_name, filename)) ){ 
-  a <- archive_extract(str_c(dir_name, filename), dir = "../_raw/")
-  rawdons <- read.csv("../_raw/DiseaseOutbreaks/DONsRaw.csv")
-}
-
-# covidoutbreaks <- read.csv("../_raw/DiseaseOutbreaks/COVIDOutbreaks.csv")
-# outbreaks <- read.csv("../_raw/DiseaseOutbreaks/Outbreaks.csv")
-# uniquedons <- read.csv("../_raw/DiseaseOutbreaks/UniqueDONS.csv")
-
-if ( !file.exists(str_c(dir_name, filename2))) {
-  print("No file named WDI_CSV exists in directory _raw")
-} else if ( file.exists(str_c(dir_name, filename2)) ){ 
-  a  <- archive_extract(str_c(dir_name, filename2), dir = "../_raw/")#why do we need to assign the function to "a" ? and do we now need to assign it to "b" istead?
-  wdi <- read.csv("../_raw/WDI_CSV/WDICountry.csv")
-}
-
+covid_outbreaks <- read.csv("/home/people/s223712/group_12_project/_raw/COVIDOutbreaks.csv")
 
 ```
 
-```{r merge and export data}
-####we need to export data to an 01_dat_load_tsv fil on gitignore
-#| echo: false
+**Clean data**
+```{r}
+unique_dons_clean <- unique_dons |>
+  rename(Index = X) 
 
-
-
+covid_outbreaks_clean <- covid_outbreaks |>
+  rename(Index = X) |>
+  mutate(icd11c1 = as.character(icd11c1))
 ```
+

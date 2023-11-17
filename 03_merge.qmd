@@ -1,0 +1,28 @@
+---
+title: "03_merge"
+format: html
+editor: visual
+---
+
+## Final dataset consisting the total disease outbreaks (1996-2022)
+
+**Merge of two datasets**
+
+```{r}
+#| echo: false
+#Load Library
+library(tidyverse)
+```
+
+```{r}
+#Merge datasets
+ 
+Total_Outbreaks <- 
+  full_join(unique_dons_clean, covid_outbreaks_clean) |>
+  distinct()
+
+write.csv(Total_Outbreaks, "/home/people/s223712/group_12_project/_raw/Total_Outbreaks.csv")
+
+```
+
+

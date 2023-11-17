@@ -1,0 +1,54 @@
+---
+title: "04_analysis"
+format: html
+editor: visual
+---
+
+## Disease distribution over the decades 
+
+
+```{r}
+
+#Load Libraries
+library(tidyverse)
+library(ggplot2)
+ 
+```
+
+
+```{r}
+
+Total_Outbreaks |>
+   mutate(Decade = factor(cut(
+      x = Year,
+      breaks = seq(from = 1996,
+                   to = 2026,
+                   by = 10),
+      labels = c("1996-2005", "2006-2015", "2016-2026")
+   ))) |>
+  group_by(Decade, icd11l1) |> 
+  count() |> 
+  ggplot(mapping = 
+            aes(x = Decade,
+                y = n,
+                fill = icd11l1)) +
+   geom_bar(stat = "identity",
+            position = "dodge",
+            color = "black",
+            alpha = 0.5) + 
+  labs(title = "Outbreaks by Disease type Over Decades",
+        x = "Decade",
+        y = "Count",
+        fill = "Disease type ICD-11") +
+   theme_minimal() +
+   theme(
+      axis.text.x = element_text(size = 12),  
+      legend.text = element_text(size = 8),   
+      plot.title = element_text(size = 14),   
+      axis.title.x = element_text(size = 12), 
+      axis.title.y = element_text(size = 12)
+              
+)
+```
+
+
