@@ -1,0 +1,79 @@
+```{r load libraries}
+#| warning: False
+library(tidyverse)
+```
+
+```{r countries}
+countries <-
+  who |> 
+  distinct(country) |> 
+  format_delim(delim="\\n",eol = "|", col_names = FALSE)
+```
+
+```{r}
+rawdons <-rawdons |> 
+    mutate(
+      Country = sapply(str_extract_all(Description, str_c("United Kingdom|Côte d'Ivoire|Hong Kong",countries)), function(x) paste(x, collapse=','))) |>
+    mutate(Country=str_match(Country,pattern = r"([\w+\s+\w+]+)"))
+```
+After adding the country
+add the isocodes by merging
+```{r}
+isocodesaug <- isocodes |> 
+  select(iso2,iso3,Country)
+
+rawdons <-rawdons |> 
+  mutate(Country = str_replace_all(Country,
+    c("Democratic Republic of the Congo"="Congo Democratic Republic of the", 
+      "Republic of Korea"="Korea Republic of",
+      "United Republic of Tanzania"="Tanzania United Republic of"))) |> 
+  left_join(isocodesaug, join_by(Country))
+```
+
+add icd based on disease column
+add disease column
+```{r}
+uniqdisease <- uniquedons |> 
+  select(DONs, Disease) |> 
+   separate_longer_delim(DONs, delim = ",",) |> 
+  mutate(DONs=str_remove(DONs," "))
+
+```
+join the diesease and dons 
+```{r}
+rawdons <-rawdons |>
+  left_join(uniqdisease, join_by(ID==DONs)) |> 
+  mutate(Disease = ifelse(is.na(Disease), ID, Disease))
+```
+Join the icd codes
+```{r}
+rawdons <-rawdons |>
+  left_join(icd1011, join_by(Disease))
+```
+
+Delete DONs reporting other types of events, such as meetings of international experts (see DON0133), recommendations on treatments (DON0153), or travel requirements (DON0107 and DON0198). 
+```{r}
+rawdons <- rawdons |> 
+  filter(ID!="DON0133"& ID!="DON0153"& ID!="DON0107"& ID!="DON0198") |> 
+  arrange(Country)
+```
+Remove duplicates by deleting all the DONs registering the information on the same disease for the same country more than once in a given calendar year 
+```{r}
+rawdons <- rawdons|> 
+  mutate(Date = str_match(Date, pattern =r"(\d+)"))
+```
+Chnage what is happenign in 2019
+```{r}
+
+rawdons <- rawdons |> 
+  mutate(Country = ifelse((Disease=="Anthrax, unspecified" & Date=="2001"), "United States", Country )) 
+ 
+```
+
+```{r}
+ rawdons |> 
+  # distinct(Date, Country,Disease) 1120
+  filter(is.na(Country))
+  # summarise_all(~sum(is.na(.)))
+```
+
