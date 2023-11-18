@@ -44,17 +44,17 @@ Disease_per_decade <- Total_Outbreaks |>
                         "Diseases of the nervous system",
                         "Diseases of the respiratory system",
                         "Extension Codes"),
-                    values = c("#19e6a9",
-                               "#f0907c",
-                               "#78a0c4",
+                    values = c("#1b3812",
+                               "#9e1800",
+                               "#0526ff",
                                "yellow",
                                "orange")) +
-  theme_minimal(base_size = 6,
+  theme_bw(base_size = 6,
                 base_family = "Avenir") +
   theme(
     plot.title = element_text(size = 10, 
                               hjust = 0.5, 
-                              vjust = -1),
+                              vjust = 1),
     axis.title.x = element_text(size = 6),
     axis.title.y = element_text(size = 6),
     axis.text.x = element_text(size = 5,
