@@ -50,8 +50,8 @@ Fig4b_income <- outwdi |>
   arrange(desc(n)) |> 
   slice_head(n = 20) |> 
   inner_join(outwdi, by = "Disease")  |> 
-  mutate(Disease = Disease |> fct_infreq())  |> 
-  mutate(Income.Group = (factor(Income.Group, levels = c("High income",
+  mutate(Disease = Disease |> fct_infreq(),  
+         Income.Group = (factor(Income.Group, levels = c("High income",
                                                          "Upper middle income", 
                                                          "Lower middle income", 
                                                          "Low income")))) |>
@@ -69,4 +69,35 @@ Fig4b_income
 
 ggsave(Fig4b_income, filename = "Results/Fig4b_income.png", dpi = 300)
 
+```
+
+New fig 4b. based on outbreaks from the last decade:
+
+```{r}
+
+
+fig_4b_decade00 <- outwdi |> 
+  filter(Year = 2000 & Year <=2009) |> 
+  count(Disease) |> 
+  arrange(desc(n)) |> 
+  slice_head(n = 20) |> 
+  inner_join(outwdi, by = "Disease")  |> 
+  mutate(Disease = Disease |> fct_infreq(),  
+         Income.Group = (factor(Income.Group, levels = c("High income",
+                                                         "Upper middle income", 
+                                                         "Lower middle income", 
+                                                         "Low income")))) |>
+  ggplot(mapping = aes(x = Disease, fill = Income.Group)) +
+  geom_bar()+
+  scale_fill_brewer(palette = "Spectral", na.value = "grey") +
+  labs(y = "Total frequency of outbreaks \n (2000-2009)", 
+       x = "Disease") +
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 30)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1, size = 8), 
+        legend.title = element_blank())
+
+fig_4b_decade00
+
+ggsave(fig_4b_decade00, filename = "Results/fig_4b_decade00.png", dpi = 300)
 ```

@@ -46,9 +46,8 @@ isocodes <- unzip(str_c("../_raw/",filename), files="isocodes.csv") |>
 }
 if ( !file.exists(str_c(dir_name, filename2))) {
   print("No file named WDICountry< exists in directory _raw")
-} else if ( file.exists(str_c(dir_name, filename2)) ){ 
-  wdi <- unzip(str_c("../_raw/",filename2), files="WDICountry.csv") |> 
-    read.csv()
+} else if (file.exists(str_c(dir_name, filename2)) ){ 
+  wdi <- read.csv("~/projects/group_12_project/_raw/WDICountry.csv")
 }
 
 
@@ -62,13 +61,18 @@ if ( !file.exists(str_c(dir_name, filename2))) {
 outbreaks <- read.csv("~/projects/group_12_project/_raw/Outbreaks.csv") #this line can be deleted. WE NEED TO CHECK FILE NAMES ARE ALIGNED
 
 wdi_clean <- wdi |> 
-  select(Country.Code, Income.Group) |> 
+  select(Country.Code, Income.Group, Short.Name, Table.Name, Long.Name) |> 
   rename(iso3 = Country.Code) |> 
+  mutate(iso3 = ifelse(iso3 == "XKX", "XXK", iso3)) |> #Kosovo is named to seperate iso3 names in the files, as they do not have a universially accepted iso3 code. 
   filter(Income.Group !="")
 
 outbreaks_wdi <-  
   left_join(outbreaks, wdi_clean, by = "iso3")
 
 write.csv(outbreaks_wdi, "~/projects/group_12_project/_raw/outbreaks_wdi.csv")
+
+
+
+
 
 ```
