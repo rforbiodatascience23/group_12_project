@@ -8,66 +8,67 @@ editor: visual
 
 ## Background
 
-Infectious diseases can spread rapidly accross the world and can be caused by germs such as bacteria, viruses, fungi and parasites. 
+Infectious diseases can spread rapidly across the world and can be caused by germs such as bacteria, viruses, fungi and parasites.
 
-Environmental factors influence the disease transmission and affect different populations having variety of living conditions. 
+Environmental factors influence the disease transmission and affect different populations having variety of living conditions, including conditions related to country income status.
 
-- water supply
-- sanitation facilities
-- food
-- climate
+-   water supply
+-   sanitation facilities
+-   food
+-   climate
 
+------------------------------------------------------------------------
 
----
+## Introduction
 
-## Introduction 
-- Dataset of incetious diseases outbreaks collected from WHO
-- COVID-19 affected 562 million people worldwide
-- SARS-Cov in 2003, severe acute respiratory syndrome
-- Influenza A (H1N1) in 2009-2010, pandemic 
+-   Dataset of infectious diseases outbreaks collected from WHO
+-   COVID-19 affected 562 million people worldwide
+-   SARS-Cov in 2003, severe acute respiratory syndrome
+-   Influenza A (H1N1) in 2009-2010, pandemic
 
-**The increasing number of different outbreaks raises awareness.**
+**The increasing number of different outbreaks raises awareness**
 
-- All information used is based on epidemiological, clinical and laboratory inverstigations by health authoriries
+-   All information used is based on epidemiological, clinical and laboratory investigations by health authorities
 
-
-## Materials and Methods 
+## Materials and Methods
 
 **Data sources**
 
-**DONs (raw):** 
+**DONs (raw):**
 
-- 2721 reports on confirmed acute public health events 1996 - 2022 
+-   2721 reports on confirmed acute public health events 1996 - 2022
 
 **Unique DONs:**
 
-- 1562 observations with unique outbreaks
-- 217 countries
-- 69 infectious diseases
-
-
+-   1562 observations with unique outbreaks
+-   217 countries
+-   69 infectious diseases
 
 ## Materials and Methods
 
 **Covid Outbreaks:**
 
-- 665 observations from 2020-2022
-- 224 countries
-
+-   665 observations from 2020-2022
+-   224 countries
 
 **Global Outbreaks:**
 
-- unique diseases per country 
+-   Merge of Unique DONs and Covid Outbreaks
+
+**Country income data from the World Data Bank:**
+
+-   Income status per country (High, Upper Middle, Lower Middle, Low Income)
+-   Income status available for 217 countries
 
 **Final dataset:**
 
-- 2227 observations from 1996-2022
-- 233 countries
+-   2227 (????) observations from 1996-2022
+-   233 countries
 
-## Results 
+## Results
 
+## Discussion
 
-## Discussion 
 ```{r}
 #| echo: false
 
