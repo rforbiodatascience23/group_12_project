@@ -17,24 +17,28 @@ library(tidyverse)
 ## Reading data:
 
 ```{r}
-outwdi <- read.csv("~/projects/group_12_project/_raw/outbreaks_wdi.csv")
+outbreaks_wdi <- read.csv("~/projects/group_12_project/_raw/outbreaks_wdi.csv")
 ```
 
 ## Reproducing Figure 4b, showing the top 20 number of disease-outbreaks
 
 ```{r}
 
-Fig4b_reproduced <- outwdi |> 
+#keeping the 20 most frequent diseases
+#the fct_infreq orders the Disease in levels according to frequency
+#the str_wraps wraps text that is over 30 characters
+
+Fig4b_reproduced <- outbreaks_wdi |> 
   count(Disease) |> 
   arrange(desc(n)) |> 
-  slice_head(n = 20) |>  #keeps the 20 most frequent diseases
-  inner_join(outwdi, by = "Disease")  |> 
-  mutate(Disease = fct_infreq(Disease))  |>  #the fct_infreq orders the Disease by frequency
+  slice_head(n = 20) |>  
+  inner_join(outbreaks_wdi, by = "Disease")  |> 
+  mutate(Disease = fct_infreq(Disease))  |>  
   ggplot(mapping = aes(x = Disease)) +
   geom_bar()+
   labs(y = "Total frequency of outbreaks \n (1996 - 2021)", 
        x = "Disease") +
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 30)) + #wraps text there is over 30 characters
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 30)) + 
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 
@@ -47,16 +51,12 @@ ggsave(Fig4b_reproduced, filename = "Results/Fig4b_reproduced.png", dpi = 300)
 
 ```{r}
 
-Fig4b_income <- outwdi |> 
+Fig4b_income <- outbreak_wdi |> 
   count(Disease) |> 
   arrange(desc(n)) |> 
   slice_head(n = 20) |> 
-  inner_join(outwdi, by = "Disease")  |> 
-  mutate(Disease =fct_infreq(Disease),  
-         Income.Group = (factor(Income.Group, levels = c("High income",
-                                                         "Upper middle income", 
-                                                         "Lower middle income", 
-                                                         "Low income")))) |>
+  inner_join(outbreak_wdi, by = "Disease")  |> 
+  mutate(Disease = fct_infreq(Disease)) |>
   ggplot(mapping = aes(x = Disease, fill = Income.Group)) +
   geom_bar()+
   scale_fill_brewer(palette = "Spectral", na.value = "grey") +
