@@ -14,7 +14,7 @@ eval = FALSE
 library(tidyverse)
 ```
 
-## Reading data: 
+## Reading data:
 
 ```{r}
 outwdi <- read.csv("~/projects/group_12_project/_raw/outbreaks_wdi.csv")
@@ -29,7 +29,7 @@ Fig4b_reproduced <- outwdi |>
   arrange(desc(n)) |> 
   slice_head(n = 20) |>  #keeps the 20 most frequent diseases
   inner_join(outwdi, by = "Disease")  |> 
-  mutate(Disease = Disease |> fct_infreq())  |>  #the fct_infreq orders the Disease by frequency
+  mutate(Disease = fct_infreq(Disease))  |>  #the fct_infreq orders the Disease by frequency
   ggplot(mapping = aes(x = Disease)) +
   geom_bar()+
   labs(y = "Total frequency of outbreaks \n (1996 - 2021)", 
@@ -52,7 +52,7 @@ Fig4b_income <- outwdi |>
   arrange(desc(n)) |> 
   slice_head(n = 20) |> 
   inner_join(outwdi, by = "Disease")  |> 
-  mutate(Disease = Disease |> fct_infreq(),  
+  mutate(Disease =fct_infreq(Disease),  
          Income.Group = (factor(Income.Group, levels = c("High income",
                                                          "Upper middle income", 
                                                          "Lower middle income", 
