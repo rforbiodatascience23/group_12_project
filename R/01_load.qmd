@@ -11,7 +11,7 @@ editor: visual
 
 #| echo: false
 #| message: false
-#| warnin: false
+#| warning: false
 library(tidyverse)
 
 ```
@@ -19,7 +19,7 @@ library(tidyverse)
 ```{r get_data}
 #| echo: false
 
-filename <-  "DiseaseOutbreaks.zip"
+filename <-  c("DONsRaw.csv","COVIDOutbreaks.csv","Outbreaks.csv","UniqueDONs.csv","icd1011.csv","isocodes.csv","WDICountry.csv")
 filename2 <-  "WDICountry.csv"
 dir_name <- "../_raw/"
 
@@ -27,52 +27,29 @@ if( !dir.exists(dir_name) ){
   dir.create(path = dir_name)
 }
 
-if ( !file.exists(str_c(dir_name, filename))) {
-  print("No file named DiseaseOutbreaks.7z exists in directory _raw")
-  break
-} else if ( file.exists(str_c(dir_name, filename)) ){ 
-  rawdons <- unzip(str_c("../_raw/",filename), files="DONsRaw.csv") |> 
-    read.csv()
-  covidoutbreaks <- unzip(str_c("../_raw/",filename), files="COVIDOutbreaks.csv") |> 
-    read.csv()
-outbreaks <- unzip(str_c("../_raw/",filename), files="Outbreaks.csv") |> 
-    read.csv()
-uniquedons <- unzip(str_c("../_raw/",filename), files="UniqueDONs.csv") |> 
-    read.csv()
-#icd1011 <- unzip(str_c("../_raw/",filename), files="icd1011.csv") |> 
-    read.csv()
-isocodes <- unzip(str_c("../_raw/",filename), files="isocodes.csv") |> 
-    read.csv()
-}
+
+###### these lines below I could not get to work... /Camilla
+#if ( length(list.files(dir_name, pattern="csv")) != length(filename) ) {
+#  print(str_c("Only ",str_flatten_comma(filename,), " requiered in _raw folder"))
+#  break
+#} else if ( length(list.files(dir_name, pattern="csv")) == length(filename)) { 
+  rawdons <-  read.csv(str_c(dir_name,"DONsRaw.csv"))
+  covidoutbreaks <- read.csv(str_c(dir_name,"COVIDOutbreaks.csv"))
+  outbreaks <- read.csv(str_c(dir_name,"Outbreaks.csv"))
+  uniquedons <- read.csv(str_c(dir_name,"UniqueDONs.csv"))
+  icd1011 <- read.csv(str_c(dir_name,"icd1011.csv"),sep = ";")
+  isocodes <- read.csv(str_c(dir_name,"isocodes.csv"),sep = ";")
+#}
+
+    
 if ( !file.exists(str_c(dir_name, filename2))) {
-  print("No file named WDICountry< exists in directory _raw")
-} else if (file.exists(str_c(dir_name, filename2)) ){ 
-  wdi <- read.csv("~/projects/group_12_project/_raw/WDICountry.csv")
+  print("No file named WDI_CSV exists in directory _raw")
+} else if ( file.exists(str_c(dir_name, filename2)) ){
+  wdi <- read.csv((str_c(dir_name,"WDICountry.csv")))
 }
 
 
 ```
 
-```{r merge and export data}
-####we need to export data to an 01_dat_load_tsv fil on gitignore
-#| echo: false
-
-######## MERGE WDICountry to Outbreaks #########
-outbreaks <- read.csv("~/projects/group_12_project/_raw/Outbreaks.csv") #this line can be deleted. WE NEED TO CHECK FILE NAMES ARE ALIGNED
-
-wdi_clean <- wdi |> 
-  select(Country.Code, Income.Group, Short.Name, Table.Name, Long.Name) |> 
-  rename(iso3 = Country.Code) |> 
-  mutate(iso3 = ifelse(iso3 == "XKX", "XXK", iso3)) |> #Kosovo is named to seperate iso3 names in the files, as they do not have a universially accepted iso3 code. 
-  filter(Income.Group !="")
-
-outbreaks_wdi <-  
-  left_join(outbreaks, wdi_clean, by = "iso3")
-
-write.csv(outbreaks_wdi, "~/projects/group_12_project/_raw/outbreaks_wdi.csv")
-
-
-
-
-
+```{}
 ```
