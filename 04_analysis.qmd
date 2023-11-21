@@ -28,27 +28,27 @@ Disease_per_decade <- Total_Outbreaks |>
         labels = c("1996-2006",
                    "2006-2016",
                    "2016-2026")))) |>
-  group_by(Decade, icd11l1) |>
+  group_by(Decade, icd11l2) |>
   count() |>
   drop_na() |> 
   ggplot(mapping =
            aes(x = Decade,
                y = n,
-               fill = icd11l1)) +
+               fill = icd11l2)) +
   geom_bar(stat = "identity",
            position = "dodge",
            alpha = 0.5) +
-  scale_fill_manual(labels = 
-                      c("Certain infectious or parasitic diseases",
-                        "Codes for special purposes",
-                        "Diseases of the nervous system",
-                        "Diseases of the respiratory system",
-                        "Extension Codes"),
-                    values = c("#1b3812",
-                               "#9e1800",
-                               "#0526ff",
-                               "yellow",
-                               "orange")) +
+  # #scale_fill_manual(labels =
+  #                     c("Certain infectious or parasitic diseases",
+  #                       "Codes for special purposes",
+  #                       "Diseases of the nervous system",
+  #                       "Diseases of the respiratory system",
+  #                       "Extension Codes"),
+  #                   values = c("#1b3812",
+  #                              "#9e1800",
+  #                              "#0526ff",
+  #                              "yellow",
+  #                              "orange")) +
   theme_bw(base_size = 6,
                 base_family = "Avenir") +
   theme(
@@ -59,7 +59,8 @@ Disease_per_decade <- Total_Outbreaks |>
     axis.title.y = element_text(size = 6),
     axis.text.x = element_text(size = 5,
                                vjust = 0.1),
-    legend.text = element_text(size = 7),
+    #legend.text = element_text(size = 7),
+    
     plot.caption = element_text(hjust = 1.7, vjust = 5, size = 5)) +
   labs(title = "Disease types Over Decades",
        x = "Year",
@@ -67,8 +68,9 @@ Disease_per_decade <- Total_Outbreaks |>
        caption = "*Codes for special purposes: uncertain disease
                 *Extension Codes: infectious skin disease",
        fill = "Disease type ICD-11") 
+Disease_per_decade
  
- ggsave(Disease_per_decade, filename = "Results/Disease_per_decade.png", dpi = 300)
+# ggsave(Disease_per_decade, filename = "Results/Disease_per_decade.png", dpi = 300)
  
 
 ```
