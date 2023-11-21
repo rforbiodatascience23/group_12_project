@@ -1,0 +1,19 @@
+---
+title: "02_clean.qmd"
+author: "Group12"
+format: 
+  html:
+    embed-resources: true
+editor: visual
+---
+
+## 
+```{r}
+### we need to check that the data name is correct
+outbreak_wdi |> 
+  mutate(Income.Group = (factor(Income.Group, levels = c("High income",
+                                                         "Upper middle income", 
+                                                         "Lower middle income", 
+                                                         "Low income"))))
+```
+

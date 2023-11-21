@@ -1,17 +1,31 @@
-## Cleaning data process
+---
+title: "02_clean.qmd"
+author: "Group12"
+format: 
+  html:
+    embed-resources: true
+editor: visual
+---
 
-This file contains all the steps we followed to clean the data and create a suitable dataset for our study analysis.
 
-**Cleaning of the unique DONs and Covid-19 outbreak datasets**
+
+## CLEAN WDI DATA: 
+We keep only the variables needed, and rename Country.Code to iso3 for merging purposes. We filter to include only countries with income data available. 
+```{r}
+wdi_clean <- wdi |> 
+  select(Country.Code, Income.Group) |> 
+  rename(iso3 = Country.Code) |> 
+  filter(Income.Group !="")
+
+```
+
+
+
+## MERGING DATA: 
 
 ```{r}
-unique_dons_clean <- unique_dons |>
-  rename(Index = X) |>
-  mutate(Definition = if_else(Definition == "", "Unspecified", Definition)) |> 
-  mutate(icd11l2 = if_else(icd11l2 == "", "Not reported", icd11l2)) |>
-  mutate(icd11l3 = if_else(icd11l3 == "", "Not reported", icd11l3))
-  
-covid_outbreaks_clean <- covid_outbreaks |>
-  rename(Index = X) |>
-  mutate(icd11c1 = as.character(icd11c1))
+#### WHEN WE ARE READY WE CAN MERGE THE WDI CLEAN TO the "outbreak data"
+outbreaks_wdi <-  
+  left_join(outbreaks, wdi_clean, by = "iso3")
+
 ```

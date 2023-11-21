@@ -1,7 +1,9 @@
 ---
 title: "01_load.qmd"
 author: "Group12"
-format: html
+format: 
+  html:
+    embed-resources: true
 editor: visual
 ---
 
@@ -31,10 +33,12 @@ if( !dir.exists(dir_name) ){
   dir.create(path = dir_name)
 }
 
-if ( length(list.files(dir_name, pattern="csv")) != length(filename) ) {
-  print(str_c("Only ",str_flatten_comma(filename,), " requiered in _raw folder"))
-  break
-} else if ( length(list.files(dir_name, pattern="csv")) == length(filename)) { 
+
+###### these lines below I could not get to work... 
+#if ( length(list.files(dir_name, pattern="csv")) != length(filename) ) {
+#  print(str_c("Only ",str_flatten_comma(filename,), " requiered in _raw folder"))
+#  break
+#} else if ( length(list.files(dir_name, pattern="csv")) == length(filename)) { 
   rawdons <-  read.csv(str_c(dir_name,"DONsRaw.csv"))
   covidoutbreaks <- read.csv(str_c(dir_name,"COVIDOutbreaks.csv"))
   outbreaks <- read.csv(str_c(dir_name,"Outbreaks.csv"))
@@ -42,10 +46,20 @@ if ( length(list.files(dir_name, pattern="csv")) != length(filename) ) {
   icd1011 <- read.csv(str_c(dir_name,"icd1011.csv"),sep = ";")
   isocodes <- read.csv(str_c(dir_name,"isocodes.csv"),sep = ";")
 }
+
 if ( !file.exists(str_c(dir_name, filename2))) {
   print("No file named WDI_CSV exists in directory _raw")
 } else if ( file.exists(str_c(dir_name, filename2)) ){
   wdi <- read.csv((str_c(dir_name,"WDICountry.csv")))
 }
+
+```
+
+```{r merge and export data}
+####we need to export data to an 01_dat_load_tsv fil on gitignore
+#| echo: false
+
+write.csv(outbreaks_wdi, "~/projects/group_12_project/_raw/outbreaks_wdi.csv")
+
 
 ```
