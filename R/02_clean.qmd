@@ -1,1 +1,17 @@
-## Clean file
+## Cleaning data process
+
+This file contains all the steps we followed to clean the data and create a suitable dataset for our study analysis.
+
+**Cleaning of the unique DONs and Covid-19 outbreak datasets**
+
+```{r}
+unique_dons_clean <- unique_dons |>
+  rename(Index = X) |>
+  mutate(Definition = if_else(Definition == "", "Unspecified", Definition)) |> 
+  mutate(icd11l2 = if_else(icd11l2 == "", "Not reported", icd11l2)) |>
+  mutate(icd11l3 = if_else(icd11l3 == "", "Not reported", icd11l3))
+  
+covid_outbreaks_clean <- covid_outbreaks |>
+  rename(Index = X) |>
+  mutate(icd11c1 = as.character(icd11c1))
+```
