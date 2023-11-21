@@ -1,7 +1,9 @@
-2---
+---
 title: "02_clean.qmd"
 author: "Group12"
-format: html
+format: 
+  html:
+    embed-resources: true
 editor: visual
 ---
 
