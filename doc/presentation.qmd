@@ -52,43 +52,79 @@ We found inspiration in this article
 
           
     
--------
+------------------------
 
 ## Materials and Methods
 
 **Data sources**
 
-**DONs (raw):**
+-     *DONs (raw):*
+            2721 reports on confirmed acute public health events 1996 - 2022
+-     *Unique DONs:*
+            1562 observations with unique outbreaks
+            217 countries
+            69 infectious diseases
+-     *Covid Outbreaks:*
+            665 observations from 2020-2022
+            224 countries
+-     *Geospatial data:*
+            ? observations?
+-     *Country income data from the World Data Bank:*
+            Income status per country (High, Upper Middle, Lower Middle, Low Income)
+            217 countries
 
--   2721 reports on confirmed acute public health events 1996 - 2022
+        
+----------------------------------
 
-**Unique DONs:**
-
--   1562 observations with unique outbreaks
--   217 countries
--   69 infectious diseases
-
-## Materials and Methods
-
-**Covid Outbreaks:**
-
--   665 observations from 2020-2022
--   224 countries
-
-**Global Outbreaks:**
-
--   Merge of Unique DONs and Covid Outbreaks
-
-**Country income data from the World Data Bank:**
-
--   Income status per country (High, Upper Middle, Lower Middle, Low Income)
--   Income status available for 217 countries
+## Results 1
 
 **Final dataset:**
 
--   2227 (????) observations from 1996-2022
--   233 countries
+-     Merged by Alpha-3 Country-codes
+          2227 (????) observations from 1996-2022
+          233 (???) countries
+          
+          
+- PERHAPS WE COULD HAVE THE DATA FLOW CHART HERE
 
-## Results
 
-## Discussion
+
+-----------------------------
+
+## Result 2
+**Outbreaks per country and map**
+
+
+----------------------------
+
+
+## Result 3
+**Outbreaks frequency and Income status**
+
+
+-----------------------------
+
+## Result 4
+**Outbreaks over time**
+
+
+------------------------------
+
+## Discussion 1
+
+-   The authors of the article adhere to **FAIR guidelines** for scientific data management
+-           Findability, Accessibility, Interoperability, Reusability
+-           The use of standardised naming (ISO-3166 and ICD-10) makes it possible to merge the data with data from other resources. 
+
+- *Strenght and limitation:*
+-           Access and tidy data (using tidyverse princibles)
+            Reproduce the plots provided in the article and add novel graphics
+            Added new data on income status, providing further knowledge on outbreaks
+-           Did not include new DONs (webscraping)
+                1. No obtained permission 
+                2. Require packages and time not feasible for this assignment
+----------------------------
+
+## Discussion 2
+
+- *Scientifik highlights (?)*

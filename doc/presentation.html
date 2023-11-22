@@ -366,44 +366,66 @@ Group 12
 <section id="materials-and-methods" class="slide level2">
 <h2>Materials and Methods</h2>
 <p><strong>Data sources</strong></p>
-<p><strong>DONs (raw):</strong></p>
 <ul>
-<li class="fragment">2721 reports on confirmed acute public health events 1996 - 2022</li>
-</ul>
-<p><strong>Unique DONs:</strong></p>
-<ul>
-<li class="fragment">1562 observations with unique outbreaks</li>
-<li class="fragment">217 countries</li>
-<li class="fragment">69 infectious diseases</li>
+<li class="fragment"><pre><code>*DONs (raw):*
+      2721 reports on confirmed acute public health events 1996 - 2022</code></pre></li>
+<li class="fragment"><pre><code>*Unique DONs:*
+      1562 observations with unique outbreaks
+      217 countries
+      69 infectious diseases</code></pre></li>
+<li class="fragment"><pre><code>*Covid Outbreaks:*
+      665 observations from 2020-2022
+      224 countries</code></pre></li>
+<li class="fragment"><pre><code>*Geospatial data:*
+      ? observations?</code></pre></li>
+<li class="fragment"><pre><code>*Country income data from the World Data Bank:*
+      Income status per country (High, Upper Middle, Lower Middle, Low Income)
+      217 countries</code></pre></li>
 </ul>
 </section>
-<section id="materials-and-methods-1" class="slide level2">
-<h2>Materials and Methods</h2>
-<p><strong>Covid Outbreaks:</strong></p>
-<ul>
-<li class="fragment">665 observations from 2020-2022</li>
-<li class="fragment">224 countries</li>
-</ul>
-<p><strong>Global Outbreaks:</strong></p>
-<ul>
-<li class="fragment">Merge of Unique DONs and Covid Outbreaks</li>
-</ul>
-<p><strong>Country income data from the World Data Bank:</strong></p>
-<ul>
-<li class="fragment">Income status per country (High, Upper Middle, Lower Middle, Low Income)</li>
-<li class="fragment">Income status available for 217 countries</li>
-</ul>
+<section id="results-1" class="slide level2">
+<h2>Results 1</h2>
 <p><strong>Final dataset:</strong></p>
 <ul>
-<li class="fragment">2227 (????) observations from 1996-2022</li>
-<li class="fragment">233 countries</li>
+<li class="fragment"><pre><code>Merged by Alpha-3 Country-codes
+    2227 (????) observations from 1996-2022
+    233 (???) countries</code></pre></li>
+<li class="fragment">PERHAPS WE COULD HAVE THE DATA FLOW CHART HERE</li>
 </ul>
 </section>
-<section id="results" class="slide level2">
-<h2>Results</h2>
+<section id="result-2" class="slide level2">
+<h2>Result 2</h2>
+<p><strong>Outbreaks per country and map</strong></p>
 </section>
-<section id="discussion" class="slide level2">
-<h2>Discussion</h2>
+<section id="result-3" class="slide level2">
+<h2>Result 3</h2>
+<p><strong>Outbreaks frequency and Income status</strong></p>
+</section>
+<section id="result-4" class="slide level2">
+<h2>Result 4</h2>
+<p><strong>Outbreaks over time</strong></p>
+</section>
+<section id="discussion-1" class="slide level2">
+<h2>Discussion 1</h2>
+<ul>
+<li class="fragment">The authors of the article adhere to <strong>FAIR guidelines</strong> for scientific data management</li>
+<li class="fragment"><pre><code>      Findability, Accessibility, Interoperability, Reusability</code></pre></li>
+<li class="fragment"><pre><code>      The use of standardised naming (ISO-3166 and ICD-10) makes it possible to merge the data with data from other resources. </code></pre></li>
+<li class="fragment"><em>Strenght and limitation:</em></li>
+<li class="fragment"><pre><code>      Access and tidy data (using tidyverse princibles)
+      Reproduce the plots provided in the article and add novel graphics
+      Added new data on income status, providing further knowledge on outbreaks</code></pre></li>
+<li class="fragment"><pre><code>      Did not include new DONs (webscraping)
+          1. No obtained permission 
+          2. Require packages and time not feasible for this assignment</code></pre>
+<hr></li>
+</ul>
+</section>
+<section id="discussion-2" class="slide level2">
+<h2>Discussion 2</h2>
+<ul>
+<li class="fragment"><em>Scientifik highlights (?)</em></li>
+</ul>
 <div class="footer footer-default">
 
 </div>
