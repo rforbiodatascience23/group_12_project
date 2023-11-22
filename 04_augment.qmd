@@ -1,0 +1,49 @@
+---
+title: "04_augment"
+format: html
+editor: visual
+---
+
+## Data handling
+
+**This file modifies the data-set containing the total outbreaks of infectious diseases from 1996-2022. A new column of disease classification is added.**
+
+```{r}
+#Load Libraries
+library(tidyverse)
+library(stringr)
+```
+
+```{r}
+Total_Outbreaks <- Total_Outbreaks |>
+  mutate(icd11l2 = str_trim(icd11l2)) |>
+   mutate(Disease_class = case_when(icd11l2 %in% 
+                                      c("Certain arthropod-borne viral fevers",
+                                        "Certain zoonotic bacterial diseases",
+                                        "Certain zoonotic viral diseases",
+                                        "Dengue") ~ "Zoonotic diseases",
+                                    icd11l2 %in%
+                                      c("Bacteria or viral infection",
+                                        "Certain other viral diseases",
+                                        "Viral hepatitis",
+                                        "Human immunodeficiency virus disease",
+                                        "Viral infections characterised by skin or mucous membrane lesions",
+                                        "Viral infections of the central nervous system",
+                                        "Lung infections",
+                                        "Human prion diseases") ~ "Viral infections",
+                                    icd11l2 %in% 
+                                      c("Other bacterial diseases",
+                                        "Mycobacterial diseases",
+                                        "Sepsis",
+                                        "Predominantly sexually transmitted infections",
+                                        "Mycoses") ~ "Bacteria and fungus infections",
+                                    icd11l2 %in% c("Parasitic diseases",
+                                                   "Nonintestinal protozoal diseases") ~ "Parasitic infections",
+                                    icd11l2 == "Gastroenteritis or colitis of infectious origin" ~ "Cholera-Intestinal diseases",
+                                    icd11l2 == "Influenza" ~ "Influenza infections",
+                                    icd11l2 == "Not reported" ~ "Uncertain diseases"))
+
+                               
+
+```
+

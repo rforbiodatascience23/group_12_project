@@ -24,5 +24,3 @@ Total_Outbreaks <-
 write.csv(Total_Outbreaks, "/home/people/s223712/group_12_project/_raw/Total_Outbreaks.csv")
 
 ```
-
-
