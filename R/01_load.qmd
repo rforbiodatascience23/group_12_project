@@ -15,7 +15,6 @@ In this file we load all the datasets we used and processed throughout the study
 
 ```{r load_libraries}
 #| echo: false
-
 library(tidyverse)
 
 ```
@@ -33,32 +32,26 @@ if( !dir.exists(dir_name) ){
   dir.create(path = dir_name)
 }
 
-<<<<<<< HEAD
 if (length(list.files(dir_name, pattern="csv")) != length(filename) ) {
   print(str_c("Only ",str_flatten_comma(filename,), " requiered in _raw folder"))
   break
 } else if (length(list.files(dir_name, pattern="csv")) == length(filename)) { 
-=======
 
 ###### these lines below I could not get to work... 
 #if ( length(list.files(dir_name, pattern="csv")) != length(filename) ) {
 #  print(str_c("Only ",str_flatten_comma(filename,), " requiered in _raw folder"))
 #  break
 #} else if ( length(list.files(dir_name, pattern="csv")) == length(filename)) { 
->>>>>>> 4ea8ed4d7fbabd0bd0a33101c206a5bdbeb42e2b
   rawdons <-  read.csv(str_c(dir_name,"DONsRaw.csv"))
   covidoutbreaks <- read.csv(str_c(dir_name,"COVIDOutbreaks.csv"))
   outbreaks <- read.csv(str_c(dir_name,"Outbreaks.csv"))
   uniquedons <- read.csv(str_c(dir_name,"UniqueDONs.csv"))
   icd1011 <- read.csv(str_c(dir_name,"icd1011.csv"),sep = ";")
   isocodes <- read.csv(str_c(dir_name,"isocodes.csv"),sep = ";")
-<<<<<<< HEAD
   worldboundaries <- read.csv(str_c(dir_name,"world-administrative-boundaries.csv"),sep = ";")
 }
-=======
 #}
 
->>>>>>> 4ea8ed4d7fbabd0bd0a33101c206a5bdbeb42e2b
 if ( !file.exists(str_c(dir_name, filename2))) {
   print("No file named WDI_CSV exists in directory _raw")
 } else if ( file.exists(str_c(dir_name, filename2)) ){
