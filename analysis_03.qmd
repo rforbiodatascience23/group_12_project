@@ -14,13 +14,7 @@ eval = FALSE
 library(tidyverse)
 ```
 
-## Reading data:
-
-```{r}
-outbreaks_wdi <- read.csv("~/projects/group_12_project/_raw/outbreaks_wdi.csv")
-```
-
-## Reproducing Figure 4b, showing the top 20 number of disease-outbreaks
+## Disease-outbreaks, reproducing fig4b with top 20 diseases
 
 ```{r}
 
@@ -51,11 +45,11 @@ ggsave(Fig4b_reproduced, filename = "Results/Fig4b_reproduced.png", dpi = 300)
 
 ```{r}
 
-Fig4b_income <- outbreak_wdi |> 
+Fig4b_income <- outbreaks_wdi |> 
   count(Disease) |> 
   arrange(desc(n)) |> 
   slice_head(n = 20) |> 
-  inner_join(outbreak_wdi, by = "Disease")  |> 
+  inner_join(outbreaks_wdi, by = "Disease")  |> 
   mutate(Disease = fct_infreq(Disease)) |>
   ggplot(mapping = aes(x = Disease, fill = Income.Group)) +
   geom_bar()+
