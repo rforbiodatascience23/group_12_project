@@ -1,20 +1,26 @@
 ---
 title: "01_load.qmd"
 author: "Group12"
-format: html
+format: 
+  html:
+    embed-resources: true
 editor: visual
 ---
 
 ## Extract data
 
-```{r load_libraries}
+In this file we load all the datasets we used and processed throughout the study analysis
 
+**Load library**
+
+```{r load_libraries}
 #| echo: false
-#| message: false
-#| warning: false
+
 library(tidyverse)
 
 ```
+
+**Load data**
 
 ```{r get_data}
 #| echo: false
@@ -27,39 +33,36 @@ if( !dir.exists(dir_name) ){
   dir.create(path = dir_name)
 }
 
+<<<<<<< HEAD
 if (length(list.files(dir_name, pattern="csv")) != length(filename) ) {
   print(str_c("Only ",str_flatten_comma(filename,), " requiered in _raw folder"))
   break
 } else if (length(list.files(dir_name, pattern="csv")) == length(filename)) { 
+=======
+
+###### these lines below I could not get to work... 
+#if ( length(list.files(dir_name, pattern="csv")) != length(filename) ) {
+#  print(str_c("Only ",str_flatten_comma(filename,), " requiered in _raw folder"))
+#  break
+#} else if ( length(list.files(dir_name, pattern="csv")) == length(filename)) { 
+>>>>>>> 4ea8ed4d7fbabd0bd0a33101c206a5bdbeb42e2b
   rawdons <-  read.csv(str_c(dir_name,"DONsRaw.csv"))
   covidoutbreaks <- read.csv(str_c(dir_name,"COVIDOutbreaks.csv"))
   outbreaks <- read.csv(str_c(dir_name,"Outbreaks.csv"))
   uniquedons <- read.csv(str_c(dir_name,"UniqueDONs.csv"))
   icd1011 <- read.csv(str_c(dir_name,"icd1011.csv"),sep = ";")
   isocodes <- read.csv(str_c(dir_name,"isocodes.csv"),sep = ";")
+<<<<<<< HEAD
   worldboundaries <- read.csv(str_c(dir_name,"world-administrative-boundaries.csv"),sep = ";")
 }
+=======
+#}
+
+>>>>>>> 4ea8ed4d7fbabd0bd0a33101c206a5bdbeb42e2b
 if ( !file.exists(str_c(dir_name, filename2))) {
   print("No file named WDI_CSV exists in directory _raw")
 } else if ( file.exists(str_c(dir_name, filename2)) ){
   wdi <- read.csv((str_c(dir_name,"WDICountry.csv")))
 }
-
-
-```
-
-```{r merge and export data}
-####we need to export data to an 01_dat_load_tsv fil on gitignore
-#| echo: false
-
-######## MERGE WDICountry to Outbreaks #########
-outbreaks <- read.csv("~/projects/group_12_project/_raw/Outbreaks.csv") #this line can be deleted. WE NEED TO CHECK FILE NAMES ARE ALIGNED
-wdi_clean <- wdi |> 
-  select(Country.Code, Income.Group) |> 
-  rename(iso3 = Country.Code) |> 
-  filter(Income.Group !="")
-outbreaks_wdi <-  
-  left_join(outbreaks, wdi_clean, by = "iso3")
-write.csv(outbreaks_wdi, "~/projects/group_12_project/_raw/outbreaks_wdi.csv")
 
 ```
