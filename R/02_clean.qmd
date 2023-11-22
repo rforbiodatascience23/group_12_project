@@ -7,6 +7,17 @@ format:
 editor: visual
 ---
 
+## Cleaning data
+
+This file contains the steps we followed to clean the data-sets we used in the study analysis
+
+## LOAD LIBRARIES
+
+```{r}
+library(tidyverse)
+library(stringr)
+```
+
 ## CLEAN WDI DATA:
 
 We keep only the variables needed, and rename Country.Code to iso3 for merging purposes. We filter to include only countries with income data available.
@@ -19,6 +30,30 @@ wdi_clean <- wdi |>
 
 ```
 
+## CLEAN UNIQUE DONs and COVID-19 DATA:
+
+Rename of column, null and unclear values handling
+
+```{r}
+unique_dons_clean <- unique_dons |>
+  rename(Index = X) |>
+  mutate(
+    Definition = if_else(Definition == "", "Unspecified", Definition),
+    icd11l2 = if_else(icd11l2 == "", "Not reported", icd11l2),
+    icd11l3 = if_else(icd11l3 == "", "Not reported", icd11l3),
+    icd11l2 = if_else(str_detect(icd11l2, "Aetiology"),
+      "Bacteria or viral infection",
+      icd11l2))
+  
+covid_outbreaks_clean <- covid_outbreaks |>
+  rename(Index = X) |>
+  mutate(
+    icd11c1 = as.character(icd11c1),
+    icd11l2 = if_else(str_detect(icd11l2, "International"),
+      "New uncertain disease",
+      icd11l2))
+```
+
 ## MERGING DATA:
 
 ```{r}
@@ -26,4 +61,12 @@ wdi_clean <- wdi |>
 outbreaks_wdi <-  
   left_join(outbreaks, wdi_clean, by = "iso3")
 
+```
+
+## MERGE OF CLEAN DATA SET CONTAINING ALL THE OUTBREAKS
+
+```{r}
+Total_Outbreaks <- 
+  full_join(unique_dons_clean, covid_outbreaks_clean) |>
+  distinct()
 ```
