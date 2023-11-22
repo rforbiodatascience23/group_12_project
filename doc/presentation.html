@@ -404,47 +404,6 @@ Group 12
 </section>
 <section id="discussion" class="slide level2">
 <h2>Discussion</h2>
-<div class="cell">
-
-</div>
-</section>
-<section id="introduction-1" class="slide level2">
-<h2>Introduction</h2>
-<p>We found inspiration in this article</p>
-
-<img data-src="~group_12_project/images/artikelheader.PNG" width="250" class="r-stretch quarto-figure-center"><p class="caption">https://doi.org/10.1038/s41597-022-01797-2</p><ul>
-<li class="fragment">Their aim was to create a new dataset of infectious disease outbreaks from
-<ul>
-<li class="fragment">Disease Outbreak News</li>
-<li class="fragment">Coronavirus Dashbord (WHO)</li>
-</ul></li>
-<li class="fragment">Our aim was to
-<ul>
-<li class="fragment">reproduce their findings</li>
-<li class="fragment">add socio-economical informations (from the World Bank)</li>
-</ul></li>
-</ul>
-</section>
-<section id="material-and-methods-1" class="slide level2">
-<h2>Material and Methods 1</h2>
-<p>- something</p>
-</section>
-<section id="material-and-methods-2" class="slide level2">
-<h2>Material and Methods 2</h2>
-</section>
-<section id="results-1" class="slide level2">
-<h2>Results 1</h2>
-<p>- something</p>
-</section>
-<section id="results-2" class="slide level2">
-<h2>Results 2</h2>
-<p>#</p>
-<p>- Something</p>
-</section>
-<section id="analysis-and-discussion" class="slide level2">
-<h2>Analysis and Discussion</h2>
-<p>- Something</p>
-<p>-</p>
 <div class="footer footer-default">
 
 </div>
@@ -660,44 +619,6 @@ Group 12
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
