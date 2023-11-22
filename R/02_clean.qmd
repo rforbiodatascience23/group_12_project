@@ -7,10 +7,10 @@ format:
 editor: visual
 ---
 
+## CLEAN WDI DATA:
 
+We keep only the variables needed, and rename Country.Code to iso3 for merging purposes. We filter to include only countries with income data available.
 
-## CLEAN WDI DATA: 
-We keep only the variables needed, and rename Country.Code to iso3 for merging purposes. We filter to include only countries with income data available. 
 ```{r}
 wdi_clean <- wdi |> 
   select(Country.Code, Income.Group) |> 
@@ -19,9 +19,7 @@ wdi_clean <- wdi |>
 
 ```
 
-
-
-## MERGING DATA: 
+## MERGING DATA:
 
 ```{r}
 #### WHEN WE ARE READY WE CAN MERGE THE WDI CLEAN TO the "outbreak data"

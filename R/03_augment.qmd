@@ -8,12 +8,12 @@ editor: visual
 ---
 
 ## 
+
 ```{r}
 ### we need to check that the data name is correct
-outbreak_wdi |> 
+outbreaks_wdi <- outbreaks_wdi |> 
   mutate(Income.Group = (factor(Income.Group, levels = c("High income",
                                                          "Upper middle income", 
                                                          "Lower middle income", 
                                                          "Low income"))))
 ```
-
