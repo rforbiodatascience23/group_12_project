@@ -19,7 +19,7 @@ library(tidyverse)
 ```{r get_data}
 #| echo: false
 
-filename <-  c("DONsRaw.csv","COVIDOutbreaks.csv","Outbreaks.csv","UniqueDONs.csv","icd1011.csv","isocodes.csv","WDICountry.csv")
+filename <-  c("DONsRaw.csv","COVIDOutbreaks.csv","Outbreaks.csv","UniqueDONs.csv","icd1011.csv","isocodes.csv","WDICountry.csv", "worldboundaries.csv")
 filename2 <-  "WDICountry.csv"
 dir_name <- "../_raw/"
 
