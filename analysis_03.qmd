@@ -1,0 +1,70 @@
+---
+title: "Analysis 03: Group 12"
+format:
+  html:
+    embed-resources: true
+editor: visual
+---
+
+## Loading Libraries
+
+```{r}
+echo = TRUE
+eval = FALSE
+library(tidyverse)
+```
+
+## Disease-outbreaks, reproducing fig4b with top 20 diseases
+
+```{r}
+
+#keeping the 20 most frequent diseases
+#the fct_infreq orders the Disease in levels according to frequency
+#the str_wraps wraps text that is over 30 characters
+
+Fig4b_reproduced <- outbreaks_wdi |> 
+  count(Disease) |> 
+  arrange(desc(n)) |> 
+  slice_head(n = 20) |>  
+  inner_join(outbreaks_wdi, by = "Disease")  |> 
+  mutate(Disease = fct_infreq(Disease))  |>  
+  ggplot(mapping = aes(x = Disease)) +
+  geom_bar()+
+  labs(y = "Total frequency of outbreaks \n (1996 - 2021)", 
+       x = "Disease") +
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 30)) + 
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+Fig4b_reproduced
+
+ggsave(Fig4b_reproduced, filename = "Results/Fig4b_reproduced.png", dpi = 300)
+```
+
+## Creating a new Figure 4b, with incorporated information on country income status
+
+```{r}
+
+Fig4b_income <- outbreaks_wdi |> 
+  count(Disease) |> 
+  arrange(desc(n)) |> 
+  slice_head(n = 20) |> 
+  inner_join(outbreaks_wdi, by = "Disease")  |> 
+  mutate(Disease = fct_infreq(Disease)) |>
+  ggplot(mapping = aes(x = Disease, fill = Income.Group)) +
+  geom_bar()+
+  scale_fill_brewer(palette = "Spectral") +
+  labs(y = "Total frequency of outbreaks \n (1996 - 2021)", 
+       x = "Disease") +
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 30)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1, size = 8), 
+        legend.title = element_blank())
+
+Fig4b_income
+
+ggsave(Fig4b_income, filename = "Results/Fig4b_income.png", dpi = 300)
+
+```
+
+## 
