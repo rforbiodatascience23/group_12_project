@@ -93,6 +93,7 @@ Combine all dons from the same outbreak into one column by removing duplicates. 
 rawdons_aug <-rawdons_aug |>
   mutate(key = fct(str_c(iso3, Year, icd104c))) # to identify all the DONs for each outbreak
 # 
+
 # rawdons_aug$AllDONs <- NA
 # for(don in levels(rawdons_aug$key)){
 #   dons <- paste(rawdons_aug[rawdons_aug$key == don, "ID"], sep = ", ")
