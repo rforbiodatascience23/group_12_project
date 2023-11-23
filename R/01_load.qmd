@@ -25,7 +25,6 @@ library(tidyverse)
 #| echo: false
 
 filename <-  c("DONsRaw.csv","COVIDOutbreaks.csv","Outbreaks.csv","UniqueDONs.csv","icd1011.csv","isocodes.csv","WDICountry.csv", "world-administrative-boundaries.csv")
-filename2 <-  "WDICountry.csv"
 dir_name <- "../_raw/"
 
 if( !dir.exists(dir_name) ){
@@ -33,7 +32,7 @@ if( !dir.exists(dir_name) ){
 }
 
 if (length(list.files(dir_name, pattern="csv")) != length(filename) ) {
-  print(str_c("Only ",str_flatten_comma(filename,), " requiered in _raw folder"))
+ print(str_c("Only ",str_flatten_comma(filename,), " requiered in _raw folder"))
   break
 } else if (length(list.files(dir_name, pattern="csv")) == length(filename)) { 
 
@@ -48,14 +47,11 @@ if (length(list.files(dir_name, pattern="csv")) != length(filename) ) {
   uniquedons <- read.csv(str_c(dir_name,"UniqueDONs.csv"))
   icd1011 <- read.csv(str_c(dir_name,"icd1011.csv"),sep = ";")
   isocodes <- read.csv(str_c(dir_name,"isocodes.csv"),sep = ";")
+  wdi <- read.csv(str_c(dir_name,"WDICountry.csv"))
   worldboundaries <- read.csv(str_c(dir_name,"world-administrative-boundaries.csv"),sep = ";")
 }
 #}
 
-if ( !file.exists(str_c(dir_name, filename2))) {
-  print("No file named WDI_CSV exists in directory _raw")
-} else if ( file.exists(str_c(dir_name, filename2)) ){
-  wdi <- read.csv((str_c(dir_name,"WDICountry.csv")))
-}
+#######IS THIS ALL THE DATA WE NEED??############# /Camilla
 
 ```

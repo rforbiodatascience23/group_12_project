@@ -15,7 +15,6 @@ This file contains the steps we followed to clean the data-sets we used in the s
 
 ```{r}
 library(tidyverse)
-library(stringr)
 ```
 
 ## CLEAN WDI DATA:
@@ -35,7 +34,7 @@ wdi_clean <- wdi |>
 Rename of column, null and unclear values handling
 
 ```{r}
-unique_dons_clean <- unique_dons |>
+unique_dons_clean <- uniquedons |>
   rename(Index = X) |>
   mutate(
     Definition = if_else(Definition == "", "Unspecified", Definition),
@@ -45,7 +44,7 @@ unique_dons_clean <- unique_dons |>
       "Bacteria or viral infection",
       icd11l2))
   
-covid_outbreaks_clean <- covid_outbreaks |>
+covid_outbreaks_clean <- covidoutbreaks |>
   rename(Index = X) |>
   mutate(
     icd11c1 = as.character(icd11c1),
@@ -119,19 +118,18 @@ outbreaks <- outbreaks |>
   )
 ```
 
-## MERGING DATA:
+## MERGING DATA: (THIS DATASET WILL END WITH ONE MERGED FILE: 02_DAT_CLEAN)
 
 ```{r}
 #### WHEN WE ARE READY WE CAN MERGE THE WDI CLEAN TO the "outbreak data"
 outbreaks_wdi <-  
   left_join(outbreaks, wdi_clean, by = "iso3")
-
 ```
 
 **Merging of geographical and outbreaks data:**
 
 ```{r}
-#Should geo_outbreaks and outbreaks_wdi be merged into one final dataset?
+#Should geo_outbreaks and outbreaks_wdi be merged into one final dataset? YES!(Camilla)
 geo_outbreaks <- worldboundaries |> 
   left_join(na.omit(outbreaks), by = "iso3")
 ```

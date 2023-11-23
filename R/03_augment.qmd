@@ -7,13 +7,24 @@ format:
 editor: visual
 ---
 
-## 
+## THIS DOCUMENT WILL START WITH A 02_DAT_CLEAN file
+
+Here we augment the clean merged data file.
+
+For income data, we replace the "NA"s with a catogory called "No income data available", then we make the variable a factor based on income, ranking "high income" highest, and "No income data available" lowest.
 
 ```{r}
-### we need to check that the data name is correct
+### we need to check that the data name is correct, and start with a 02_DAT_CLEAN file
 outbreaks_wdi <- outbreaks_wdi |> 
-  mutate(Income.Group = (factor(Income.Group, levels = c("High income",
+  mutate(Income.Group = ifelse(is.na(Income.Group), 
+                               "No income data available", 
+                               Income.Group),
+         Income.Group = (factor(Income.Group, levels = c("High income",
                                                          "Upper middle income", 
                                                          "Lower middle income", 
-                                                         "Low income"))))
+                                                         "Low income", 
+                                                         "No income data available"))))
+
 ```
+
+### THIS DOCUMENT WILL END WITH A 03_DAT_AUG file, that we all use for the graphs. 
