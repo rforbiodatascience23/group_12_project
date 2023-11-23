@@ -11,13 +11,11 @@ editor: visual
 #Load Libraries
 library(tidyverse)
 library(ggplot2)
+library(dplyr)
  
 ```
 
 ```{r}
-
-library(dplyr)
-library(ggplot2)
 
 total_outbreaks_aug |>
   drop_na() |> 
@@ -25,48 +23,28 @@ total_outbreaks_aug |>
            aes(x = Year,
                fill = Disease_class, 
                group = Disease_class)) +
-  geom_area(stat = "count") +
-  facet_wrap(~Disease_class, scales = "free_y") +
+  geom_bar(stat = "count") +
   scale_x_continuous(breaks = seq(min(total_outbreaks_aug$Year), 
                                   max(total_outbreaks_aug$Year), 
-                                  by = 5)) +
+                                  by = 1)) +
   scale_y_continuous(breaks = seq(min(0), 
                                   max(300), 
                                   by = 20)) +  
   theme_classic() +
-  theme(plot.title = element_text(size = 10, 
-                                   hjust = 0.5, 
-                                   vjust = 1),
+  scale_fill_viridis_d(alpha = 0.8) +
+  theme(plot.title = element_text(size = 12,
+                                  vjust = -2,
+                                  hjust = 0.5),
         axis.title.x = element_text(size = 7),
-        axis.title.y = element_text(size = 7),
-        axis.text.x = element_text(size = 8,
+        axis.title.y = element_text(size = 8),
+        axis.text.x = element_text(size = 6,
                                    angle = 45),
+        axis.text.y = element_text(size = 6),
         legend.title = element_text(size = 8),
         legend.text = element_text(size = 6)) +
   labs(x = "Years",
        y = "Count of diseases",
-       title = "Disease distribution over time",
-       color = "Disease classification")
-
-
-
-    
-  # #scale_fill_manual(labels =
-  #                     c("Certain infectious or parasitic diseases",
-  #                       "Codes for special purposes",
-  #                       "Diseases of the nervous system",
-  #                       "Diseases of the respiratory system",
-  #                       "Extension Codes"),
-  #                   values = c("#1b3812",
-  #                              "#9e1800",
-  #                              "#0526ff",
-  #                              "yellow",
-  #                              "orange")) +
-  
- library(dplyr)
-library(ggplot2)
-
-
-
+       title = "Disease type distribution over time",
+       fill = "Disease classification")
 
 ```
