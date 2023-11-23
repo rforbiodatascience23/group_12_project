@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 title: "02_clean.qmd"
 author: "Group12"
 format: 
@@ -147,3 +148,23 @@ Total_Outbreaks <-
   full_join(unique_dons_clean, covid_outbreaks_clean) |>
   distinct()
 ```
+=======
+title: "01_clean.qmd"
+author: "Group12"
+format: html
+editor: visual
+---
+
+{{< include _01_load.qmd >}}
+
+## Changing the column names
+
+```{r}
+rawdons_aug <- rawdons|>
+  mutate(Year = str_match(Date, pattern =r"(\d+)"), .keep="unused")
+rawdons_aug <- rawdons_aug |> 
+  mutate(DONs = ID,.keep="unused")
+
+
+```
+>>>>>>> jade
