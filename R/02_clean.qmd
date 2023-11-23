@@ -1,5 +1,4 @@
 ---
-<<<<<<< HEAD
 title: "02_clean.qmd"
 author: "Group12"
 format: 
@@ -15,20 +14,27 @@ This file contains the steps we followed to clean the data-sets we used in the s
 ## LOAD LIBRARIES
 
 ```{r}
+#| echo: true
+#| message: false
+#| warning: false
 library(tidyverse)
 ```
 
 ## CLEAN WDI DATA:
 
-We keep only the variables needed, and rename Country.Code to iso3 for merging purposes. We filter to include only countries with income data available.
+We keep only the variables needed, and rename Country.Code to iso3 for merging purposes. 
+Renaming Kosovo ISO3 code, as it does not have a universally accepted code, and therefor differs between the world bank and the WHO. 
+We filter to include only countries with income data available.
 
 ```{r}
 wdi_clean <- wdi |> 
   select(Country.Code, Income.Group) |> 
   rename(iso3 = Country.Code) |> 
+  mutate(iso3 = if_else(iso3 == "XKX", "XXK", iso3)) |> 
   filter(Income.Group !="")
-
 ```
+
+
 
 ## CLEAN UNIQUE DONs and COVID-19 DATA:
 
@@ -148,12 +154,6 @@ Total_Outbreaks <-
   full_join(unique_dons_clean, covid_outbreaks_clean) |>
   distinct()
 ```
-=======
-title: "01_clean.qmd"
-author: "Group12"
-format: html
-editor: visual
----
 
 {{< include _01_load.qmd >}}
 
@@ -167,4 +167,4 @@ rawdons_aug <- rawdons_aug |>
 
 
 ```
->>>>>>> jade
+
