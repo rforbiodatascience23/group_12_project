@@ -7,7 +7,7 @@ editor: visual
 
 {{< include _01_load.qmd >}}
 
-\## Cleaning Changing the column names
+## Changing the column names
 
 ```{r}
 rawdons_aug <- rawdons|>
