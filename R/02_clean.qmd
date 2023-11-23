@@ -54,6 +54,71 @@ covid_outbreaks_clean <- covid_outbreaks |>
       icd11l2))
 ```
 
+## CLEAN WORLD BOUNDARIES DATA:
+
+#### Removing rows with blank cells
+
+```{r}
+worldboundaries <- worldboundaries |> 
+  filter_all(all_vars(. != ""))
+```
+
+#### Renaming iso3, Continent and Coordinates column and removing not needed columns:
+
+```{r}
+worldboundaries <- worldboundaries |> 
+  rename(
+    iso3 = "ISO.3.country.code",
+    Continent = "Continent.of.the.territory",
+    Coordinates="Geo.Point") |> 
+  select(-French.Name, -English.Name,-ISO.3.territory.code, -Region.of.the.territory, -ISO.3166.1.Alpha.2.Codes, -Geo.Shape)
+```
+
+#### Correcting iso3 and discarding rows with wrong iso3-Continent combination
+
+```{r}
+worldboundaries <- worldboundaries |>
+  mutate(
+    iso3 = case_when(
+      iso3 == "United States of America" ~ "USA",
+      iso3 == "Brazil" ~ "BRA",
+      TRUE ~ iso3
+    ),
+    Continent = case_when(
+      Continent %in% c("Northern America", "South America") ~ "Americas",
+      TRUE ~ Continent
+    )
+  ) |>
+  filter(
+    !(Continent != "Americas" & iso3 == "USA") &
+    !(Continent != "Europe" & iso3 %in% c("GBR", "FRA"))
+  )
+```
+
+#### Removing rows with duplicates of the same iso3
+
+```{r}
+worldboundaries <- worldboundaries |>
+  distinct(iso3, .keep_all = TRUE)
+```
+
+## CLEAN OUTBREAKS DATA:
+
+#### Correcting/Shortening countries names :
+
+```{r}
+outbreaks <- outbreaks |> 
+  mutate(
+    Country = case_when(
+      Country == "Congo Democratic Republic of the" ~ "Democratic Republic of Congo",
+      Country == "United States of America" ~ "USA",
+      Country== "C̫te d'Ivoire" ~ "Côte d'Ivoire",
+      Country == "United Kingdom of Great Britain and Northern Ireland" ~ "United Kingdom",
+      TRUE ~ as.character(Country)
+    )
+  )
+```
+
 ## MERGING DATA:
 
 ```{r}
@@ -61,6 +126,20 @@ covid_outbreaks_clean <- covid_outbreaks |>
 outbreaks_wdi <-  
   left_join(outbreaks, wdi_clean, by = "iso3")
 
+```
+
+**Merging of geographical and outbreaks data:**
+
+```{r}
+#Should geo_outbreaks and outbreaks_wdi be merged into one final dataset?
+geo_outbreaks <- worldboundaries |> 
+  left_join(na.omit(outbreaks), by = "iso3")
+```
+
+#### Cleaning merged data:
+
+```{r}
+geo_outbreaks <- na.omit(geo_outbreaks)
 ```
 
 ## MERGE OF CLEAN DATA SET CONTAINING ALL THE OUTBREAKS
