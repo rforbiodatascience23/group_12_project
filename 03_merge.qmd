@@ -17,8 +17,8 @@ library(tidyverse)
 ```{r}
 #Merge datasets
  
-Total_Outbreaks <- 
-  full_join(UniqueDONs_clean, COVIDOutbreaks_clean) |>
+total_outbreaks <- 
+  full_join(uniqueDONs_clean, covidOutbreaks_clean) |>
   distinct()
 
 write.csv(Total_Outbreaks, "/home/people/s223712/group_12_project/_raw/Total_Outbreaks.csv")

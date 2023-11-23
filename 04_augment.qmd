@@ -15,7 +15,7 @@ library(stringr)
 ```
 
 ```{r}
-Total_Outbreaks <- Total_Outbreaks |>
+total_outbreaks_aug <- total_outbreaks |>
   mutate(icd11l2 = str_trim(icd11l2)) |>
    mutate(Disease_class = case_when(icd11l2 %in% 
                                       c("Certain arthropod-borne viral fevers",
@@ -41,7 +41,8 @@ Total_Outbreaks <- Total_Outbreaks |>
                                                    "Nonintestinal protozoal diseases") ~ "Parasitic infections",
                                     icd11l2 == "Gastroenteritis or colitis of infectious origin" ~ "Cholera-Intestinal diseases",
                                     icd11l2 == "Influenza" ~ "Influenza infections",
-                                    icd11l2 == "Not reported" ~ "Uncertain diseases"))
+                                    icd11l2 == "Not reported" ~ "Uncertain diseases",
+                                    icd11l2 == "New uncertain disease" ~ "Covid-19"))
 
                                
 
