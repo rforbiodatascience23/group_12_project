@@ -1,5 +1,5 @@
 ---
-title: "R for bioscience data"
+title: "R for Bio Data Science"
 subtitle: "Disease outbreaks 1996-2022"
 author: "Group 12"
 title-slide-attributes:
@@ -130,7 +130,14 @@ We found inspiration in this article
 
 ## Result 2
 
-**Outbreaks per country and map**
+
+![](kitten-300-200.jpeg){.absolute top="100" left="30" width="300" height="200"}
+
+
+
+
+
+
 
 ------------------------------------------------------------------------
 
