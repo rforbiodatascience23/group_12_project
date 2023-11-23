@@ -1,28 +1,54 @@
-```{r load libraries}
-#| warning: False
-library(tidyverse)
-```
+---
+title: "01_augment.qmd"
+author: "Group12"
+format: html
+editor: visual
+---
 
-```{r countries}
-countries <-
-  who |> 
-  distinct(country) |> 
-  format_delim(delim="\\n",eol = "|", col_names = FALSE)
+{{< include _01_load.qmd >}}
+
+{{< include _01_clean.qmd >}}
+
+```{r load_libraries}
+
+library(tidyverse)
+
 ```
 
 ```{r}
-rawdons <-rawdons |> 
-    mutate(
-      Country = sapply(str_extract_all(Description, str_c("United Kingdom|Côte d'Ivoire|Hong Kong",countries)), function(x) paste(x, collapse=','))) |>
-    mutate(Country=str_match(Country,pattern = r"([\w+\s+\w+]+)"))
+rawdons_aug <- rawdons|>
+  mutate(Year = str_match(Date, pattern =r"(\d+)"), .keep="unused")
+rawdons_aug <- rawdons_aug |> 
+  mutate(DONs = ID,.keep="unused")
 ```
-After adding the country
-add the isocodes by merging
+
+## Data scraping
+
+The tidyverse library "who" is used to scrape the column *Description* for matching countries. The first value that is extracted is then added to a new column called Country- representing each country that an outbreak originated in
+
+```{r}
+countries <-
+  isocodes |> 
+  distinct(Country) |> 
+  format_delim(delim="|",eol = "|", col_names = FALSE) |> 
+  str_sub(end =-2)
+
+rawdons_aug <-rawdons_aug |> 
+    mutate(
+      Country = sapply(str_extract_all(Description, str_c("United Kingdom|Côte d'Ivoire|Hong Kong",countries)), function(x) paste(unique(x), collapse=','))) |> 
+separate_longer_delim(Country,delim=",")
+
+```
+
+## The Isocodes
+
+The isocodes are a collection of short country codes for each country and they are merged by the country to created a new object
+
 ```{r}
 isocodesaug <- isocodes |> 
   select(iso2,iso3,Country)
 
-rawdons <-rawdons |> 
+rawdons_aug <-rawdons_aug |> 
   mutate(Country = str_replace_all(Country,
     c("Democratic Republic of the Congo"="Congo Democratic Republic of the", 
       "Republic of Korea"="Korea Republic of",
@@ -30,50 +56,53 @@ rawdons <-rawdons |>
   left_join(isocodesaug, join_by(Country))
 ```
 
-add icd based on disease column
-add disease column
+## The ICD codes
+
+The disease that is assocaiated with each DON is taken from the completd dataframe *uniquedons.csv*. Then the icd codes, which are a collection of disease descriptions, are merged to create a dataframe with all associated dons, disease and diseaase descriptions
+
 ```{r}
 uniqdisease <- uniquedons |> 
-  select(DONs, Disease) |> 
+  select(DONs, Disease, Country) |> 
    separate_longer_delim(DONs, delim = ",",) |> 
   mutate(DONs=str_remove(DONs," "))
 
-```
-join the diesease and dons 
-```{r}
-rawdons <-rawdons |>
-  left_join(uniqdisease, join_by(ID==DONs)) |> 
-  mutate(Disease = ifelse(is.na(Disease), ID, Disease))
-```
-Join the icd codes
-```{r}
-rawdons <-rawdons |>
+rawdons_aug <-rawdons_aug |>
+  left_join(uniqdisease, join_by(DONs, Country)) |> 
+    filter(!is.na(Disease)) |> 
+  mutate(Disease = ifelse(is.na(Disease), DONs, Disease)) |>
   left_join(icd1011, join_by(Disease))
 ```
 
-Delete DONs reporting other types of events, such as meetings of international experts (see DON0133), recommendations on treatments (DON0153), or travel requirements (DON0107 and DON0198). 
-```{r}
-rawdons <- rawdons |> 
-  filter(ID!="DON0133"& ID!="DON0153"& ID!="DON0107"& ID!="DON0198") |> 
-  arrange(Country)
-```
-Remove duplicates by deleting all the DONs registering the information on the same disease for the same country more than once in a given calendar year 
-```{r}
-rawdons <- rawdons|> 
-  mutate(Date = str_match(Date, pattern =r"(\d+)"))
-```
-Chnage what is happenign in 2019
-```{r}
+## Data Specifics
 
-rawdons <- rawdons |> 
-  mutate(Country = ifelse((Disease=="Anthrax, unspecified" & Date=="2001"), "United States", Country )) 
- 
-```
+The Dons that are not related to disease outbreaks are then deleted, such as meetings of international experts (see DON0133), recommendations on treatments (DON0153), or travel requirements (DON0107 and DON0198).
 
 ```{r}
- rawdons |> 
-  # distinct(Date, Country,Disease) 1120
-  filter(is.na(Country))
-  # summarise_all(~sum(is.na(.)))
+rawdons_aug <- rawdons_aug |> 
+  filter(DONs!="DON0133"& DONs!="DON0153"& DONs!="DON0107"& DONs!="DON0198") |> 
+  arrange(Country) |> 
+  mutate(Country = ifelse((Disease=="Anthrax, unspecified" & Year=="2001"), "United States", Country )) 
 ```
 
+## Duplicate Removal
+
+Combine all dons from the same outbreak into one column by removing duplicates. Deleting all the DONs registering the information on the same disease for the same country more than once in a given calendar year **NOT COMPLETE**
+
+```{r}
+# 
+rawdons_aug <-rawdons_aug |>
+  mutate(key = fct(str_c(iso3, Year, icd104c))) # to identify all the DONs for each outbreak
+# 
+# rawdons_aug$AllDONs <- NA
+# for(don in levels(rawdons_aug$key)){
+#   dons <- paste(rawdons_aug[rawdons_aug$key == don, "ID"], sep = ", ")
+#   dons <- paste(unlist(dons), collapse = ", ")
+#   rawdons_aug[rawdons_aug$key == don, "AllDONs"] <- dons
+# }
+#combine all dons from code with same icd codes
+
+# rawdons_aug |> 
+#   select(contains(key), Id)
+
+unique(rawdons_aug[, c("Country", "iso2", "iso3", "Year", "icd10n", "icd103n", "icd104n", "icd10c", "icd103c", "icd104c", "icd11c1", "icd11c2", "icd11c3", "icd11l1", "icd11l2", "icd11l3", "Disease", "Definition")]) # 1566 unique events apparently but only have 1221 so far
+```

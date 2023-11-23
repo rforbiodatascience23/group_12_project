@@ -1,0 +1,18 @@
+---
+title: "01_clean.qmd"
+author: "Group12"
+format: html
+editor: visual
+---
+
+{{< include _01_load.qmd >}}
+
+\## Cleaning Changing the column names
+
+```{r}
+rawdons_aug <- rawdons|>
+  mutate(Year = str_match(Date, pattern =r"(\d+)"), .keep="unused")
+rawdons_aug <- rawdons_aug |> 
+  mutate(DONs = ID,.keep="unused")
+
+```
