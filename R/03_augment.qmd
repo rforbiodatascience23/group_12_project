@@ -82,46 +82,14 @@ outbreaks_wdi <- outbreaks_wdi |>
 
 \### THIS DOCUMENT WILL END WITH A 03_DAT_AUG file, that we all use for the graphs.
 
-#### Reshaping data set to wide format and adding frequency column (Freq):
-
-```{r}
-geo_outbreaks_wide <- geo_outbreaks |>
-  count(Country, iso3, icd104c, Continent, Coordinates) |>
-  pivot_wider(
-    id_cols = c("Country", "iso3","Continent", "Coordinates"),
-    names_from = icd104c,
-    values_from = n,
-    values_fill = 0
-  )
-
-geo_outbreaks_wide <- geo_outbreaks_wide |>
-  mutate(Freq = rowSums(select(geo_outbreaks_wide, where(is.numeric))))
-
-```
-
 #### Splitting Coordinates into Latitude and Longitude columns
 
 ```{r}
-geo_outbreaks_wide <- geo_outbreaks_wide |> 
+geo_outbreaks <- geo_outbreaks |> 
   mutate(
     Coordinates = str_split(as.character(Coordinates), ", ", simplify = TRUE),
     Latitude = as.numeric(Coordinates[, 1]),
     Longitude = as.numeric(Coordinates[, 2])
   ) |> 
   select(-Coordinates)
-```
-
-**Reshaping data set to obtain the total yearly outbreaks:**
-
-```{r}
-outbreaks_yearly <- geo_outbreaks |> 
-  count(Year, icd104c) |> 
-  pivot_wider(
-    names_from = icd104c,
-    values_from = n,
-    values_fill = 0
-  ) 
-outbreaks_yearly <- outbreaks_yearly |>
-  mutate(Freq = rowSums(select(outbreaks_yearly, where(is.numeric), -Year)))
-
 ```
