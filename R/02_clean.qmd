@@ -81,6 +81,15 @@ worldboundaries <- worldboundaries |>
 
 ## CLEAN UNIQUE DONs and COVID-19 DATA:
 
+**Changing the column names:**
+
+```{r}
+#SHOULD THIS BE IN THE AUGMENT FILE?? (Arlinda)
+rawdons_clean <- rawdons|>   
+  rename(DONs = ID) |>    
+  mutate(Year = as.integer(str_split_i(Date, pattern ="-", 1)))    
+```
+
 **Rename of column, handling null and unspecific values:**
 
 ```{r}
@@ -96,17 +105,6 @@ covidOutbreaks_clean <- covidOutbreaks |>
   mutate(
     icd11c1 = as.character(icd11c1),
     icd11l2 = if_else(str_detect(icd11l2, "International"), "New uncertain disease", icd11l2))
-```
-
-**Changing the column names:**
-
-```{r}
-#SHOULD THIS BE IN THE AUGMENT FILE?? (Arlinda)
-rawdons_aug <- rawdons|>
-  mutate(Year = str_match(Date, pattern =r"(\d+)"), .keep="unused")
-rawdons_aug <- rawdons_aug |> 
-  mutate(DONs = ID,.keep="unused")
-
 ```
 
 ## MERGING DATA
