@@ -1,0 +1,269 @@
+---
+title: "hopeitllwork"
+format: html
+editor: visual
+---
+
+```{r}
+#available on the server
+library("foreign")
+library("tidyverse")
+library("dplyr")
+library("ggthemes")
+library("reshape2")
+```
+
+```{r}
+#loading data
+outbreaks <- read_csv("/net/pupil1/home/people/s222940/projects/group_12_project/_raw/Outbreaks.csv")
+view(Outbreaks)
+#filtering data by the year, up to 2022
+outbreaks <- outbreaks[Outbreaks$Year < 2022, ] 
+
+#making one column 'Ones' in outbreaks data where each observation is equal 1
+outbreaks <- outbreaks |>  
+  mutate(Ones = 1)
+
+#Creating outbreaks 104c (not sure why icd104c) from outbreaks. In this table data was segregated by: 
+#1) Country 
+#2)iso3 
+#3)year 
+#and lastly, all observations from icd104c was presented in separate colums, and when it was present in specific country in a specific year the observation value was equal to 1.
+#variables do not identify a single observation for each output cell, so I guess thats why we use fun.aggregate = sum
+outbreaks104c <- outbreaks |>  
+dcast(formula = Country + iso3 + Year ~ icd104c, 
+        value.var = "Ones", 
+        fun.aggregate = sum)
+
+#we make a new column in outbreaks104c that shows a sum of icd104c (numeric) in each row (being the frequency), 
+#somehow avoiding year?
+outbreaks104c <- outbreaks104c %>%
+  mutate(freq = rowSums(select(., where(is.numeric))))
+
+# '.' means no variables, so here we are making diseases dataset where its filtered by countries, adequate iso3 and frequency calculated before, 
+diseases <- outbreaks104c %>%
+  dcast(formula = Country + iso3 + Year  ~ ., 
+        value.var = "freq", 
+        fun.aggregate = sum)
+
+# for some reason the name is '.' istead of 'freq'. so Rename the "." column to "freq"
+colnames(diseases)[colnames(diseases) == "."] ="freq"
+
+
+```
+
+```{r}
+#loading data
+outbreaks <- read_csv("/net/pupil1/home/people/s222940/projects/group_12_project/_raw/Outbreaks.csv")
+
+#filtering data by the year, up to 2022
+outbreaks <- outbreaks[Outbreaks$Year < 2022, ] 
+
+#making one column 'Ones' in outbreaks data where each observation is equal 1
+outbreaks <- outbreaks |>  
+  mutate('1' = 1)
+
+trying <- outbreaks %>%
+  dcast(formula = icd10n + Year ~ Country, 
+        value.var = "1", 
+        fun.aggregate = sum)
+
+try <- trying %>%
+  mutate(freq = rowSums(select(.,where(is.numeric))))
+
+Miplo <- ggplot(try, 
+                aes(x = Year, 
+                    y = freq,
+                    color = icd10n, 
+                    group = icd10n)) + 
+          #geom_point() +  
+          geom_line() +
+      ylab("Frequency of outbreaks") + 
+      xlab("Year") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 30)) +
+  theme(legend.position="bottom")
+Miplo
+
+data <- try %>%
+  mutate(Year = as.numeric(Year),
+         dekades = cut(x = Year, 
+                       breaks = c(1996, 2000, 2010, 2020, 2022),
+                       labels = NULL,
+                       include.lowest = FALSE,
+                       right = FALSE,
+                       ordered_result = FALSE))
+
+Miplo1 <- ggplot(data, 
+                aes(x = dekades, 
+                    y = freq,
+                    color = icd10n, 
+                    group = icd10n)) + 
+          #geom_point() +  
+          geom_line() +
+      ylab("Frequency of outbreaks") + 
+      xlab("Dekades") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 0)) +
+  theme(legend.position="bottom")
+Miplo1
+
+```
+```{r}
+#loading data
+outbreaks <- read_csv("/net/pupil1/home/people/s222940/projects/group_12_project/_raw/Outbreaks.csv")
+
+#filtering data by the year, up to 2022
+outbreaks <- outbreaks[Outbreaks$Year < 2022, ] 
+
+#making one column 'Ones' in outbreaks data where each observation is equal 1
+outbreaks <- outbreaks |>  
+  mutate('1' = 1)
+
+tryingcountry <- outbreaks %>%
+  dcast(formula = Country + Year + iso3 ~ icd104c, 
+        value.var = "1", 
+        fun.aggregate = sum)
+
+trycountry <- tryingcountry %>%
+  mutate(freq = rowSums(select(.,where(is.numeric))))
+
+trycountry <-trycountry |> 
+mutate(Year = as.numeric(trycountry$Year))
+
+worldboundaries <- read_csv('/net/pupil1/home/people/s222940/projects/group_12_project/_raw/world-administrative-boundaries.csv')
+
+shpsfcsv <- worldboundaries |> 
+select(c('continent','iso3'))
+
+
+trycountry1 <- trycountry|> 
+merge(na.omit(shpsfcsv), by = "iso3", all.x = FALSE)
+
+#view(trycountry1)
+trycountry1 <- trycountry1 |> 
+  arrange(Year)
+
+str(trycountry1)
+
+Miplo <- ggplot(trycountry1, 
+                aes(x = Year, 
+                    y = freq,
+                    color = Country, 
+                    group = Country)) + 
+          #geom_point() +  
+          geom_line() +
+      ylab("Frequency of outbreaks") + 
+      xlab("Year") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 30)) +
+  #theme(legend.position="bottom")
+  theme(legend.position="none")
+Miplo
+
+# #maybe segregating them by continent or other criteria?
+# Miplo2 <- ggplot(trycountry1, 
+#                 aes(x = Year, 
+#                     y = freq,
+#                     color = continent, 
+#                     group = continent
+#                     )) + 
+#           geom_point() +  
+#           geom_line() +
+#       ylab("Frequency of outbreaks") + 
+#       xlab("Year") +
+#   theme_classic() +
+#   theme(axis.text.x = element_text(angle = 30)) +
+#   theme(legend.position="bottom")
+  
+#Miplo2
+
+```
+```{r}
+#outbreaks <- read_csv("/net/pupil1/home/people/s222940/projects/group_12_project/_raw/Outbreaks.csv")
+outbreaks <- outbreaks[Outbreaks$Year < 2022, ] 
+outbreaks <- outbreaks |>  
+  mutate('1' = 1)
+
+worldboundaries <- read_csv('/net/pupil1/home/people/s222940/projects/group_12_project/_raw/world-administrative-boundaries.csv')
+shpsfcsv <- worldboundaries |> 
+select(c('continent','iso3'))
+
+
+
+outbreaks <- outbreaks|> 
+merge(na.omit(shpsfcsv), by = "iso3", all.x = FALSE)
+
+#view(outbreaks)
+
+data<- outbreaks %>%
+  dcast(formula =  Year  ~ continent, 
+        value.var = "1", 
+        fun.aggregate = sum)
+#view(data)
+
+data1 <- data %>%
+  mutate(All = rowSums(select(.,where(is.numeric))))
+#view(data1)
+
+data2 <- data1 %>%
+  pivot_longer(cols = -Year,  # Columns to pivot
+               names_to = "continent",  # Name of the new 'continent' column
+               values_to = "Frequency")  # Name of the new 'Frequency' column
+
+#view(data2)
+
+Miplo3 <- ggplot(data2, 
+                aes(x = Year, 
+                    y = Frequency,
+                    color = continent, 
+                    group = continent
+                    )) + 
+          #geom_point() +  
+          geom_line() +
+      ylab("Frequency of outbreaks") + 
+      xlab("Year") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 30)) +
+  theme(legend.position="bottom")
+
+Miplo3
+
+data3 <- data2 %>%
+  mutate(Year = as.numeric(Year),
+         dekades = cut(x = Year, 
+                       breaks = c(1996, 2000, 2010, 2020, 2022),
+                       labels = NULL,
+                       include.lowest = FALSE,
+                       right = FALSE,
+                       ordered_result = FALSE))
+Miplo4 <- ggplot(data3, 
+                aes(x = dekades, 
+                    y = Frequency,
+                    color = continent, 
+                    group = continent
+                    )) + 
+          #geom_point() +  
+          geom_line() +
+      ylab("Frequency of outbreaks") + 
+      xlab("Dekades") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 0)) +
+  theme(legend.position="bottom")
+Miplo4
+
+
+```
+
+
+```{r}
+view(outbreaks)
+view(outbreaks104c)
+view(diseases)
+```
+
+```{r}
+view(trying)
+view(try)
+view(trycountry1)
+```
