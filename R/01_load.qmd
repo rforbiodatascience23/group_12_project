@@ -35,17 +35,17 @@ if( !dir.exists(dir_name) ){
 
 
 ###### these lines below I could not get to work... 
-#if ( length(list.files(dir_name, pattern="csv")) != length(filename) ) {
-#  print(str_c("Only ",str_flatten_comma(filename,), " requiered in _raw folder"))
-#  break
-#} else if ( length(list.files(dir_name, pattern="csv")) == length(filename)) { 
+if ( length(list.files(dir_name, pattern="csv")) != length(filename) ) {
+ print(str_c("Only ",str_flatten_comma(filename,), " requiered in _raw folder"))
+
+} else if ( length(list.files(dir_name, pattern="csv")) == length(filename)) { 
   rawdons <-  read.csv(str_c(dir_name,"DONsRaw.csv"))
   covidoutbreaks <- read.csv(str_c(dir_name,"COVIDOutbreaks.csv"))
   outbreaks <- read.csv(str_c(dir_name,"Outbreaks.csv"))
   uniquedons <- read.csv(str_c(dir_name,"UniqueDONs.csv"))
   icd1011 <- read.csv(str_c(dir_name,"icd1011.csv"),sep = ";")
   isocodes <- read.csv(str_c(dir_name,"isocodes.csv"),sep = ";")
-#}
+}
 
 if ( !file.exists(str_c(dir_name, filename2))) {
   print("No file named WDI_CSV exists in directory _raw")

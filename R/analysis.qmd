@@ -120,7 +120,7 @@ worldboundaries <- worldboundaries |>
 
 ```
 
-#### Removing rows with  duplicates of the same iso3
+#### Removing rows with duplicates of the same iso3
 
 ```{r}
 worldboundaries <- worldboundaries |>
