@@ -1,14 +1,19 @@
 ---
 title: "01_load.qmd"
 author: "Group12"
-format: html
+format: 
+  html:
+    embed-resources: true
 editor: visual
 ---
 
 ## Extract data
 
-```{r load_libraries}
+In this file we load all the datasets we used and processed throughout the study analysis
 
+**Load library**
+
+```{r load_libraries}
 #| echo: false
 #| message: false
 #| warning: false
@@ -16,40 +21,28 @@ library(tidyverse)
 
 ```
 
+**Load data**
+
 ```{r get_data}
 #| echo: false
 
 filename <-  c("DONsRaw.csv","COVIDOutbreaks.csv","Outbreaks.csv","UniqueDONs.csv","icd1011.csv","isocodes.csv","WDICountry.csv")
-filename2 <-  "WDICountry.csv"
 dir_name <- "../_raw/"
 
 if( !dir.exists(dir_name) ){
   dir.create(path = dir_name)
 }
 
-
-###### these lines below I could not get to work... /Camilla
-#if ( length(list.files(dir_name, pattern="csv")) != length(filename) ) {
-#  print(str_c("Only ",str_flatten_comma(filename,), " requiered in _raw folder"))
-#  break
-#} else if ( length(list.files(dir_name, pattern="csv")) == length(filename)) { 
+if ( length(list.files(dir_name, pattern="csv")) != length(filename) ) {
+  print(str_c("Only ",str_flatten_comma(filename,), " requiered in _raw folder"))
+  break
+} else if ( length(list.files(dir_name, pattern="csv")) == length(filename)) { 
   rawdons <-  read.csv(str_c(dir_name,"DONsRaw.csv"))
   covidoutbreaks <- read.csv(str_c(dir_name,"COVIDOutbreaks.csv"))
   outbreaks <- read.csv(str_c(dir_name,"Outbreaks.csv"))
   uniquedons <- read.csv(str_c(dir_name,"UniqueDONs.csv"))
+  wdi <- read.csv(str_c(dir_name,"WDICountry.csv"))
   icd1011 <- read.csv(str_c(dir_name,"icd1011.csv"),sep = ";")
   isocodes <- read.csv(str_c(dir_name,"isocodes.csv"),sep = ";")
-#}
-
-    
-if ( !file.exists(str_c(dir_name, filename2))) {
-  print("No file named WDI_CSV exists in directory _raw")
-} else if ( file.exists(str_c(dir_name, filename2)) ){
-  wdi <- read.csv((str_c(dir_name,"WDICountry.csv")))
 }
-
-
-```
-
-```{}
 ```

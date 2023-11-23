@@ -1,0 +1,187 @@
+---
+title: "R for bioscience data"
+subtitle: "Disease outbreaks 1996-2022"
+author: "Group 12"
+title-slide-attributes:
+    data-background-image: ~/projects/group_12_project/results/33207.jpg
+    data-background-size: contain
+    data-background-opacity: "0.5"
+format: 
+  revealjs:
+    theme: beige
+    incremental: true
+    slide-number: true
+    show-slide-number: all  
+editor: visual
+---
+
+## Introduction
+
+Infectious diseases can spread rapidly across the world and can be caused by germs such as bacteria, viruses, fungi and parasites.
+
+-   **Infectious outbreaks causes severe health treats globally**
+
+-   
+
+    ```         
+      Ie. epidemics/pandemics such as 
+          COVID-19 2019-2022 (affected 562 million people worldwide)
+          SARS-CoV in 2003, severe acute respiratory syndrome
+          Influenza A (H1N1) in 2009-2010
+    ```
+
+-   **Environmental factors influence the disease transmission, including factors related to country income status**
+
+-   
+
+    ```         
+      Ie. water supply, sanitation facilities, food, climate etc.
+    ```
+
+------------------------------------------------------------------------
+
+## Material and Methods
+
+We found inspiration in this article
+
+![https://doi.org/10.1038/s41597-022-01797-2](~/projects/group_12_project/results/artikelheader.PNG){width="250"}
+
+-   **Their aim** was to create a new dataset of infectious disease outbreaks and geospatial information from
+
+-   
+
+    ```         
+      Disease Outbreak News (WHO)
+      Coronavirus Dashbord (WHO)
+      Opendatasoft.com
+    ```
+
+-   **Our aim** was to
+
+-   
+
+    ```         
+      Reproduce their findings
+      Add socio-economical informations (from the World Bank)
+    ```
+
+------------------------------------------------------------------------
+
+## Materials and Methods
+
+**Data sources**
+
+-   
+
+    ```         
+    *DONs (raw):*
+          2721 reports on confirmed acute public health events 1996 - 2022
+    ```
+
+-   
+
+    ```         
+    *Unique DONs:*
+          1562 observations with unique outbreaks
+          217 countries
+          69 infectious diseases
+    ```
+
+-   
+
+    ```         
+    *Covid Outbreaks:*
+          665 observations from 2020-2022
+          224 countries
+    ```
+
+-   
+
+    ```         
+    *Geospatial data:*
+          ? observations?
+    ```
+
+-   
+
+    ```         
+    *Country income data from the World Data Bank:*
+          Income status per country (High, Upper Middle, Lower Middle, Low Income)
+          217 countries
+    ```
+
+------------------------------------------------------------------------
+
+## Results 1
+
+**Final dataset:**
+
+-   
+
+    ```         
+    Merged by Alpha-3 Country-codes
+        2227 (????) observations from 1996-2022
+        233 (???) countries
+    ```
+
+-   PERHAPS WE COULD HAVE THE DATA FLOW CHART HERE
+
+------------------------------------------------------------------------
+
+## Result 2
+
+**Outbreaks per country and map**
+
+------------------------------------------------------------------------
+
+## Result 3
+
+**Outbreaks frequency and Income status**
+
+------------------------------------------------------------------------
+
+## Result 4
+
+**Outbreaks over time**
+
+------------------------------------------------------------------------
+
+## Discussion 1
+
+-   The authors of the article adhere to **FAIR guidelines** for scientific data management
+
+-   
+
+    ```         
+          Findability, Accessibility, Interoperability, Reusability
+    ```
+
+-   
+
+    ```         
+          The use of standardised naming (ISO-3166 and ICD-10) makes it possible to merge the data with data from other resources. 
+    ```
+
+-   *Strenght and limitation:*
+
+-   
+
+    ```         
+          Access and tidy data (using tidyverse princibles)
+          Reproduce the plots provided in the article and add novel graphics
+          Added new data on income status, providing further knowledge on outbreaks
+    ```
+
+-   
+
+    ```         
+          Did not include new DONs (webscraping)
+              1. No obtained permission 
+              2. Require packages and time not feasible for this assignment
+    ```
+
+    ------------------------------------------------------------------------
+
+## Discussion 2
+
+-   *Scientifik highlights (?)*
