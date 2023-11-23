@@ -1,5 +1,4 @@
 ---
-<<<<<<< HEAD
 title: "02_clean.qmd"
 author: "Group12"
 format: 
@@ -8,9 +7,11 @@ format:
 editor: visual
 ---
 
-## Cleaning data
+{{< include _01_load.qmd >}}
 
-This file contains the steps we followed to clean the data-sets we used in the study analysis
+## CLEANING DATA
+
+This file contains the steps we followed to clean the data-sets we used in the study analysis.
 
 ## LOAD LIBRARIES
 
@@ -20,7 +21,7 @@ library(tidyverse)
 
 ## CLEAN WDI DATA:
 
-We keep only the variables needed, and rename Country.Code to iso3 for merging purposes. We filter to include only countries with income data available.
+**We keep only the variables needed, and rename Country. Code to iso3 for merging purposes. We filter to include only countries with income data available:**
 
 ```{r}
 wdi_clean <- wdi |> 
@@ -30,40 +31,16 @@ wdi_clean <- wdi |>
 
 ```
 
-## CLEAN UNIQUE DONs and COVID-19 DATA:
-
-Rename of column, null and unclear values handling
-
-```{r}
-unique_dons_clean <- uniquedons |>
-  rename(Index = X) |>
-  mutate(
-    Definition = if_else(Definition == "", "Unspecified", Definition),
-    icd11l2 = if_else(icd11l2 == "", "Not reported", icd11l2),
-    icd11l3 = if_else(icd11l3 == "", "Not reported", icd11l3),
-    icd11l2 = if_else(str_detect(icd11l2, "Aetiology"),
-      "Bacteria or viral infection",
-      icd11l2))
-  
-covid_outbreaks_clean <- covidoutbreaks |>
-  rename(Index = X) |>
-  mutate(
-    icd11c1 = as.character(icd11c1),
-    icd11l2 = if_else(str_detect(icd11l2, "International"),
-      "New uncertain disease",
-      icd11l2))
-```
-
 ## CLEAN WORLD BOUNDARIES DATA:
 
-#### Removing rows with blank cells
+**Removing rows with blank cells:**
 
 ```{r}
 worldboundaries <- worldboundaries |> 
   filter_all(all_vars(. != ""))
 ```
 
-#### Renaming iso3, Continent and Coordinates column and removing not needed columns:
+**Renaming iso3, Continent and Coordinates column and removing not needed columns:**
 
 ```{r}
 worldboundaries <- worldboundaries |> 
@@ -74,7 +51,7 @@ worldboundaries <- worldboundaries |>
   select(-French.Name, -English.Name,-ISO.3.territory.code, -Region.of.the.territory, -ISO.3166.1.Alpha.2.Codes, -Geo.Shape)
 ```
 
-#### Correcting iso3 and discarding rows with wrong iso3-Continent combination
+**Correcting iso3 and discarding rows with wrong iso3-Continent combination:**
 
 ```{r}
 worldboundaries <- worldboundaries |>
@@ -95,19 +72,76 @@ worldboundaries <- worldboundaries |>
   )
 ```
 
-#### Removing rows with duplicates of the same iso3
+**Removing rows with duplicates of the same iso3:**
 
 ```{r}
 worldboundaries <- worldboundaries |>
   distinct(iso3, .keep_all = TRUE)
 ```
 
-## CLEAN OUTBREAKS DATA:
+## CLEAN UNIQUE DONs and COVID-19 DATA:
 
-#### Correcting/Shortening countries names :
+**Rename of column, handling null and unspecific values:**
 
 ```{r}
-outbreaks <- outbreaks |> 
+uniqueDONs_clean <- uniqueDONs |>
+  rename(Index = X) |>
+  mutate(Definition = if_else(Definition == "", "Unspecified", Definition),
+         icd11l2 = if_else(icd11l2 == "", "Not reported", icd11l2),
+                           icd11l3 = if_else(icd11l3 == "", "Not reported", icd11l3),
+                           icd11l2 = if_else(str_detect(icd11l2, "Aetiology"), "Bacteria or viral infection", icd11l2))
+  
+covidOutbreaks_clean <- covidOutbreaks |>
+  rename(Index = X) |>
+  mutate(
+    icd11c1 = as.character(icd11c1),
+    icd11l2 = if_else(str_detect(icd11l2, "International"), "New uncertain disease", icd11l2))
+```
+
+**Changing the column names:**
+
+```{r}
+#SHOULD THIS BE IN THE AUGMENT FILE?? (Arlinda)
+rawdons_aug <- rawdons|>
+  mutate(Year = str_match(Date, pattern =r"(\d+)"), .keep="unused")
+rawdons_aug <- rawdons_aug |> 
+  mutate(DONs = ID,.keep="unused")
+
+```
+
+## MERGING DATA
+
+(This data-set will end with one merged file: **02_CLEAN**)
+
+**Merging of unique and COVID-19 outbreaks data:**
+
+```{r}
+total_outbreaks <- 
+  full_join(uniqueDONs_clean, covidOutbreaks_clean) |>
+  distinct()
+```
+
+**Merging of WDI and total outbreaks data:**
+
+```{r}
+outbreaks_wdi <-  
+  left_join(total_outbreaks, wdi_clean, by = "iso3")
+```
+
+**Merging of geographical and total outbreaks data:**
+
+```{r}
+#Should geo_outbreaks and outbreaks_wdi be merged into one final dataset? YES!(Camilla)
+geo_outbreaks <- worldboundaries |> 
+  left_join(drop_na(total_outbreaks), by = "iso3") ## here I replaced the na.omit with drop_na to be in tidyverse (Arlinda)
+```
+
+## Cleaning merged data
+
+**Correcting/Shortening countries names:**
+
+```{r}
+total_outbreaks <- total_outbreaks |> 
   mutate(
     Country = case_when(
       Country == "Congo Democratic Republic of the" ~ "Democratic Republic of Congo",
@@ -119,52 +153,8 @@ outbreaks <- outbreaks |>
   )
 ```
 
-## MERGING DATA: (THIS DATASET WILL END WITH ONE MERGED FILE: 02_DAT_CLEAN)
+**Removing missing values**
 
 ```{r}
-#### WHEN WE ARE READY WE CAN MERGE THE WDI CLEAN TO the "outbreak data"
-outbreaks_wdi <-  
-  left_join(outbreaks, wdi_clean, by = "iso3")
+geo_outbreaks <- drop_na(geo_outbreaks) #same here (Arlinda)
 ```
-
-**Merging of geographical and outbreaks data:**
-
-```{r}
-#Should geo_outbreaks and outbreaks_wdi be merged into one final dataset? YES!(Camilla)
-geo_outbreaks <- worldboundaries |> 
-  left_join(na.omit(outbreaks), by = "iso3")
-```
-
-#### Cleaning merged data:
-
-```{r}
-geo_outbreaks <- na.omit(geo_outbreaks)
-```
-
-## MERGE OF CLEAN DATA SET CONTAINING ALL THE OUTBREAKS
-
-```{r}
-Total_Outbreaks <- 
-  full_join(unique_dons_clean, covid_outbreaks_clean) |>
-  distinct()
-```
-=======
-title: "01_clean.qmd"
-author: "Group12"
-format: html
-editor: visual
----
-
-{{< include _01_load.qmd >}}
-
-## Changing the column names
-
-```{r}
-rawdons_aug <- rawdons|>
-  mutate(Year = str_match(Date, pattern =r"(\d+)"), .keep="unused")
-rawdons_aug <- rawdons_aug |> 
-  mutate(DONs = ID,.keep="unused")
-
-
-```
->>>>>>> jade
