@@ -46,4 +46,3 @@ Total_Outbreaks <- Total_Outbreaks |>
                                
 
 ```
-

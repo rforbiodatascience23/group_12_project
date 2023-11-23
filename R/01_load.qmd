@@ -23,23 +23,23 @@ library(tidyverse)
 ```{r get_data}
 #| echo: false
 
-unique_dons <- read.csv("/home/people/s223712/group_12_project/_raw/UniqueDONs.csv")
+UniqueDONs <- read.csv("/home/people/s223712/group_12_project/_raw/UniqueDONs.csv")
 
-covid_outbreaks <- read.csv("/home/people/s223712/group_12_project/_raw/COVIDOutbreaks.csv")
+COVIDOutbreaks <- read.csv("/home/people/s223712/group_12_project/_raw/COVIDOutbreaks.csv")
 
 ```
 
 **Clean data**
 
 ```{r}
-unique_dons_clean <- unique_dons |>
+UniqueDONs_clean <- UniqueDONs |>
   rename(Index = X) |>
   mutate(Definition = if_else(Definition == "", "Unspecified", Definition),
          icd11l2 = if_else(icd11l2 == "", "Not reported", icd11l2),
                            icd11l3 = if_else(icd11l3 == "", "Not reported", icd11l3),
                            icd11l2 = if_else(str_detect(icd11l2, "Aetiology"), "Bacteria or viral infection", icd11l2))
   
-covid_outbreaks_clean <- covid_outbreaks |>
+COVIDOutbreaks_clean <- COVIDOutbreaks |>
   rename(Index = X) |>
   mutate(
     icd11c1 = as.character(icd11c1),
