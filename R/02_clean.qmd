@@ -131,8 +131,8 @@ outbreaks_wdi <-
 
 ```{r}
 #Should geo_outbreaks and outbreaks_wdi be merged into one final dataset? YES!(Camilla)
-geo_outbreaks <- worldboundaries |> 
-  left_join(drop_na(total_outbreaks), by = "iso3") ## here I replaced the na.omit with drop_na to be in tidyverse (Arlinda)
+final_outbreaks <- worldboundaries |> 
+  left_join(drop_na(outbreaks_wdi), by = "iso3") ## here I replaced the na.omit with drop_na to be in tidyverse (Arlinda)
 ```
 
 ## Cleaning merged data
@@ -140,7 +140,7 @@ geo_outbreaks <- worldboundaries |>
 **Correcting/Shortening countries names:**
 
 ```{r}
-total_outbreaks <- total_outbreaks |> 
+final_outbreaks <- final_outbreaks |> 
   mutate(
     Country = case_when(
       Country == "Congo Democratic Republic of the" ~ "Democratic Republic of Congo",
@@ -155,5 +155,5 @@ total_outbreaks <- total_outbreaks |>
 **Removing missing values**
 
 ```{r}
-geo_outbreaks <- drop_na(geo_outbreaks) #same here (Arlinda)
+final_outbreaks <- drop_na(final_outbreaks) #same here (Arlinda)
 ```
