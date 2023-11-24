@@ -56,7 +56,7 @@ We found inspiration in this article
       Opendatasoft.com
     ```
 
--   **Our aim** was to
+-   [**Our aim**]{.fragment .highlight-red} was to
 
 -   
 
@@ -131,8 +131,6 @@ We found inspiration in this article
 ## Result 2
 
 
-![](Disease_type_distribution.jpg){.absolute top="100" left="30" width="300" height="200"}
-
 
 
 
@@ -151,9 +149,15 @@ We found inspiration in this article
 
 ------------------------------------------------------------------------
 
-## Result 4
+## Result 4  {.smaller}
 
 **Outbreaks over time**
+
+- Diseases with the most outbreaks: 
+[COVID-19, Influenza virus, Cholera]{.fragment .highlight-red}
+- Frequency of zoonotic diseases has increased the last decade
+
+![](Disease_type_distribution.jpg){.absolute bottom="0" right="400" width="680" }
 
 ------------------------------------------------------------------------
 
@@ -195,4 +199,11 @@ We found inspiration in this article
 
 ## Discussion 2
 
--   *Scientifik highlights (?)*
+**Important for the development of targeting strategies**
+
+
+- Geographical factors and socio-economic factors can influence the spread of the disease and the susceptibility of the population
+
+- The data of the study do not reflect the intensity of the disease (cases, deaths)
+
+
