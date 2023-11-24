@@ -131,7 +131,7 @@ We found inspiration in this article
 ## Result 2
 
 
-![](kitten-300-200.jpeg){.absolute top="100" left="30" width="300" height="200"}
+![](Disease_type_distribution.jpg){.absolute top="100" left="30" width="300" height="200"}
 
 
 
