@@ -1,6 +1,6 @@
 ---
 title: "02_clean.qmd"
-author: "Group12"
+author: "group_12"
 format: 
   html:
     embed-resources: true
@@ -21,7 +21,7 @@ library(tidyverse)
 
 ## CLEAN WDI DATA:
 
-**We keep only the variables needed, and rename Country. Code to iso3 for merging purposes. Renaming Kosovo iso3, as there is no universally accepted code, and they differ in the world bank (XKX) and WHO (XXK). We filter to include only countries with income data available. :**
+**We keep only the variables needed, and rename Country.Code to iso3 for merging purposes. Renaming Kosovo iso3, as there is no universally accepted code, and they differ in the world bank (XKX) and WHO (XXK). We filter to include only countries with income data available. :**
 
 ```{r}
 wdi_clean <- wdi |> 

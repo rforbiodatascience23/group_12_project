@@ -1,6 +1,6 @@
 ---
 title: "03_augment.qmd"
-author: "Group12"
+author: "group_12"
 format: 
   html:
     embed-resources: true

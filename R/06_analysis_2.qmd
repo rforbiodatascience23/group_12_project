@@ -1,5 +1,6 @@
 ---
-title: "Analysis 06: Group 12"
+title: "05_analysis_2.qmd"
+author: "group_12"
 format:
   html:
     embed-resources: true
@@ -9,8 +10,7 @@ editor: visual
 ## Loading Libraries
 
 ```{r}
-echo = TRUE
-eval = FALSE
+#| echo = TRUE
 library(tidyverse)
 ```
 
