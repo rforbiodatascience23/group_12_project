@@ -5,7 +5,7 @@ format: html
 editor: visual
 ---
 
-#### Reshaping data set to wide format and adding frequency column (Freq):
+### Reshaping data set to wide format and adding frequency column (Freq):
 
 ```{r}
 geo_outbreaks_wide <- final_outbreaks |>
@@ -18,12 +18,10 @@ geo_outbreaks_wide <- final_outbreaks |>
     values_from = n,
     values_fill = 0
   )
-
 geo_outbreaks_wide <- geo_outbreaks_wide |>
   mutate(Freq = rowSums(select(geo_outbreaks_wide, 
                                where(is.numeric), 
                                -Latitude, -Longitude)))
-
 ```
 
 #### Barplot of the 20 Countries with the highest number of outbreaks (1996 - 2022):
@@ -89,16 +87,14 @@ ggsave(fig3_reproduced,
        filename = "Results/fig3_reproduced.png", dpi = 300)
 ```
 
-#### Reshaping data set to obtain the total yearly outbreaks:
+### Reshaping data set to obtain the total yearly outbreaks:
 
 ```{r}
 outbreaks_yearly <- final_outbreaks |> 
   count(Year, icd104c) |> 
-  pivot_wider(
-    names_from = icd104c,
-    values_from = n,
-    values_fill = 0
-  ) 
+  pivot_wider(names_from = icd104c,
+              values_from = n,
+              values_fill = 0) 
 outbreaks_yearly <- outbreaks_yearly |>
   mutate(Freq = rowSums(select(outbreaks_yearly,
                                where(is.numeric), -Year)))
@@ -108,14 +104,16 @@ outbreaks_yearly <- outbreaks_yearly |>
 
 ```{r}
 # Plot the barplot
-fig4c <-ggplot(outbreaks_yearly, aes(x = Year, y = Freq)) +
+fig4c <- ggplot(outbreaks_yearly, 
+                aes(x = Year, y = Freq)) +
   geom_bar(stat = "identity", fill = "skyblue") +
   labs(title = "Yearly Outbreaks (1996-2022)",
        x = "Year",
        y = "Total Outbreaks") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, 
-                                   hjust = 1, size = 8),
+                                   hjust = 1, 
+                                   size = 8),
         plot.title = element_text(hjust = 0.5))
 
 fig4c_reproduced
