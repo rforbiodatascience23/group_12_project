@@ -131,6 +131,7 @@ outbreaks_wdi <-
 
 ```{r}
 #Should geo_outbreaks and outbreaks_wdi be merged into one final dataset? YES!(Camilla)
+#I merged them all in final_outbreaks data. (Eleni)
 final_outbreaks <- worldboundaries |> 
   left_join(drop_na(outbreaks_wdi), by = "iso3") ## here I replaced the na.omit with drop_na to be in tidyverse (Arlinda)
 ```
