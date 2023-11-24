@@ -27,7 +27,7 @@ library(tidyverse)
 wdi_clean <- wdi |> 
   select(Country.Code, Income.Group) |> 
   rename(iso3 = Country.Code) |> 
-  mutate(iso3 = if_else(iso3 = "XKX", "XXK", iso3)) |> 
+  mutate(iso3 = if_else(iso3 == "XKX", "XXK", iso3)) |> 
   filter(Income.Group !="")
 
 ```

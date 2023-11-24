@@ -49,8 +49,8 @@ if ( length(list.files(dir_name, pattern="csv")) != length(filename) ) {
   outbreaks <- read.csv(str_c(dir_name,"Outbreaks.csv"))
   uniqueDONs <- read.csv(str_c(dir_name,"UniqueDONs.csv"))
   wdi <- read.csv(str_c(dir_name,"WDICountry.csv"))
-  worldboundaries <- read.csv(str_c(dir_name,"world-administrative-boundaries.csv"))
-  icd1011 <- read.csv(str_c(dir_name,"icd1011.csv"),sep = ";")
-  isocodes <- read.csv(str_c(dir_name,"isocodes.csv"),sep = ";")
+  worldboundaries <- read.csv(str_c(dir_name, "world-administrative-boundaries.csv"), sep = ";")
+  icd1011 <- read.csv(str_c(dir_name,"icd1011.csv"), sep = ";")
+  isocodes <- read.csv(str_c(dir_name,"isocodes.csv"), sep = ";")
 }
 ```
