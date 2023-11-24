@@ -3,9 +3,9 @@ title: "R for Bio Data Science"
 subtitle: "Disease outbreaks 1996-2022"
 author: "Group 12"
 title-slide-attributes:
-    data-background-image: ~/projects/group_12_project/results/33207.jpg
+    data-background-image: ~/projects/group_12_project/_raw/33207.jpg
     data-background-size: contain
-    data-background-opacity: "0.5"
+    data-background-opacity: "1"
 format: 
   revealjs:
     theme: beige
@@ -44,7 +44,7 @@ Infectious diseases can spread rapidly across the world and can be caused by ger
 
 We found inspiration in this article
 
-![https://doi.org/10.1038/s41597-022-01797-2](~/projects/group_12_project/results/artikelheader.PNG){width="250"}
+![https://doi.org/10.1038/s41597-022-01797-2](~/projects/group_12_project/_raw/artikelheader.PNG){width="250"}
 
 -   **Their aim** was to create a new dataset of infectious disease outbreaks and geospatial information from
 
@@ -144,6 +144,10 @@ We found inspiration in this article
 ## Result 3
 
 **Outbreaks frequency and Income status**
+
+
+![Fig. 4b Top 20 disease-outbreaks(Reproduced)](~/projects/group_12_project/Results/Fig4b_reproduced.png)
+![Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)](~/projects/group_12_project/Results/Fig4b_income.png){width="250"}
 
 ------------------------------------------------------------------------
 

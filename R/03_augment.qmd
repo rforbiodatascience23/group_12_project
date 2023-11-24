@@ -1,7 +1,10 @@
 ---
---- title: "03_augment.qmd" 
-author: "Group12" 
-format: html editor: visual 
+title: "03_augment.qmd"
+author: "Group12"
+format: 
+  html:
+    embed-resources: true
+editor: visual
 ---
 
 {{< include _02_clean.qmd >}}
