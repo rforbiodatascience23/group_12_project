@@ -138,10 +138,9 @@ We found inspiration in this article
 
 **Outbreaks frequency and Income status**
 
-<div style="display: flex; justify-content: space-between;">
-  <img src="../Results/Fig4b_reproduced.png" alt="Fig. 4b Top 20 disease-outbreaks(Reproduced)" width="45%">
-  <img src="../Results/Fig4b_income.png" alt="Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)" width="45%">
-</div>
+::: {style="display: flex; justify-content: space-between;"}
+<img src="../Results/Fig4b_reproduced.png" alt="Fig. 4b Top 20 disease-outbreaks(Reproduced)" width="45%"/> <img src="../Results/Fig4b_income.png" alt="Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)" width="45%"/>
+:::
 
 ------------------------------------------------------------------------
 
@@ -149,14 +148,21 @@ We found inspiration in this article
 
 **Spatial distribution of outbreaks frequency**
 
-<div style="display: flex; justify-content: space-between;">
-  <img src="../Results/fig4a_reproduced.png" alt="Top 20 Countries with highest Outbreak Frequency" width="45%">
-  <img src="../Results/fig3_reproduced.png" alt="Outbreak Frequency Map Graph" width="45%">
-</div>
+::: {style="display: flex; justify-content: space-between;"}
+<img src="../Results/fig4a_reproduced.png" alt="Top 20 Countries with highest Outbreak Frequency" width="45%"/> <img src="../Results/fig3_reproduced.png" alt="Outbreak Frequency Map Graph" width="45%"/>
+:::
 
 ------------------------------------------------------------------------
 
 ## Result 5
+<div style="text-align: center;">
+**Yearly Disease Outbreaks** ![](../Results/fig4c_reproduced.png){width="800" height="500"}
+</div>
+We could include Mikolaj's figure next to this one.
+
+------------------------------------------------------------------------
+
+## Result 6
 
 **Outbreaks over time**
 
