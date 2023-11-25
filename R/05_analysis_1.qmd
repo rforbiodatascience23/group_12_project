@@ -72,7 +72,7 @@ ggsave(fig4a_reproduced,
 # Download world map data
 world <- map_data("world")
 
-fig3 <- ggplot() +
+fig3_reproduced <- ggplot() +
   geom_polygon(data = world, 
                aes(x = long, y = lat, group = group), 
                fill = "white", 
@@ -113,7 +113,7 @@ outbreaks_yearly <- outbreaks_yearly |>
 
 ```{r}
 # Plot the barplot
-fig4c <- ggplot(outbreaks_yearly, 
+fig4c_reproduced <- ggplot(outbreaks_yearly, 
                 aes(x = Year, y = Freq)) +
   geom_bar(stat = "identity", fill = "skyblue") +
   labs(title = "Yearly Outbreaks (1996-2022)",

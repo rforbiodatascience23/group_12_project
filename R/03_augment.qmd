@@ -23,7 +23,8 @@ countries <-isocodes |>
   format_delim(delim="|",eol = "|", col_names = FALSE) |>    
   str_sub(end =-2)  
 
-uniqdisease <- uniquedons |>    
+uniqdisease <- uniqueDONs_clean |>  # Is this uniqueDONs_clean? I could not find the 
+                              # object uniquedons (Eleni) 
   select(Country,DONs,Disease) |>     
   separate_longer_delim(DONs, delim = ",",) |>    
   mutate(DONs=str_remove(DONs," "))  
@@ -45,7 +46,6 @@ rawdons_aug <- rawdons_aug |>
 The isocodes are a collection of short country codes for each country and they are merged by the country to created a new object
 
 ```{r}
-
 isocodesaug <- isocodes |>    
   select(iso2,iso3,Country)  
 
@@ -53,15 +53,13 @@ rawdons_aug <-rawdons_aug |>
   mutate(Country = str_replace_all(
     Country, c("Democratic Republic of the Congo"="Congo Democratic Republic of the",        "Republic of Korea"="Korea Republic of","United Republic of Tanzania"="Tanzania United Republic of"))) |>    
   left_join(isocodesaug, join_by(Country)) 
-
 ```
 
 ## The ICD codes
 
-The disease that is assocaiated with each DON is taken from the completd dataframe *uniquedons.csv*. Then the icd codes, which are a collection of disease descriptions, are merged to create a dataframe with all associated dons, disease and diseaase descriptions
+The disease that is associated with each DON is taken from the completed dataframe *uniquedons.csv*. Then the icd codes, which are a collection of disease descriptions, are merged to create a dataframe with all associated dons, disease and diseaase descriptions
 
 ```{r}
-
 rawdons_aug <-rawdons_aug |>   
   left_join(uniqdisease, join_by(DONs, Country)) |>
   filter(!is.na(Disease)) |> 
@@ -102,19 +100,16 @@ For income data, we replace the "NA"s with a category called "No income data ava
 
 ### we need to check that the data name is correct, and start with a 02_DAT_CLEAN file
 
-outbreaks_wdi <- outbreaks_wdi |> 
-
+final_outbreaks <- final_outbreaks |>
   mutate(
-    Income.Group = (factor(Income.Group, levels = c("High income",
-  mutate(
-    Income.Group = ifelse(is.na(Income.Group),"No income data available",Income.Group),
-    Income.Group = (factor(Income.Group, levels = c(
+    Income.Group = ifelse(is.na(Income.Group), "No income data available", Income.Group),
+    Income.Group = factor(Income.Group, levels = c(
       "High income", 
       "Upper middle income",
       "Lower middle income",
       "Low income"
-      )))) "Low income", "No income data available"))))
-
+    ))
+  )
 ```
 
 \### THIS DOCUMENT WILL END WITH A 03_DAT_AUG file, that we all use for the graphs.
@@ -122,7 +117,7 @@ outbreaks_wdi <- outbreaks_wdi |>
 #### Splitting Coordinates into Latitude and Longitude columns
 
 ```{r}
-geo_outbreaks <- geo_outbreaks |> 
+final_outbreaks <- final_outbreaks |> 
   mutate(
     Coordinates = str_split(as.character(Coordinates), ", ", simplify = TRUE),
     Latitude = as.numeric(Coordinates[, 1]),

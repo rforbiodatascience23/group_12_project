@@ -3,9 +3,9 @@ title: "R for Bio Data Science"
 subtitle: "Disease outbreaks 1996-2022"
 author: "Group 12"
 title-slide-attributes:
-    data-background-image: ../_raw/33207.jpg
+    data-background-image: ~/projects/group_12_project/_raw/33207.jpg
     data-background-size: contain
-    data-background-opacity: "0.5"
+    data-background-opacity: "1"
 format: 
   revealjs:
     theme: beige
@@ -44,25 +44,25 @@ Infectious diseases can spread rapidly across the world and can be caused by ger
 
 We found inspiration in this article
 
-![<small> https://doi.org/10.1038/s41597-022-01797-2 </small>](../_raw/artikelheader.PNG){width=700px align="left" float="right"}
-
+![https://doi.org/10.1038/s41597-022-01797-2](~/projects/group_12_project/_raw/artikelheader.PNG){width="250"}
 
 -   **Their aim** was to create a new dataset of infectious disease outbreaks and geospatial information from
 
 -   
+
     ```         
       Disease Outbreak News (WHO)
       Coronavirus Dashbord (WHO)
       Opendatasoft.com
     ```
 
--   [**Our aim**]{.fragment .highlight-red} was to
+-   **Our aim** was to
 
 -   
 
     ```         
       Reproduce their findings
-      Add socio-economical informations (World Bank)
+      Add socio-economical informations (from the World Bank)
     ```
 
 ------------------------------------------------------------------------
@@ -130,25 +130,23 @@ We found inspiration in this article
 
 ## Result 2
 
+**Spatial distribution of outbreaks frequency**
+
+![](Disease_type_distribution.jpg){.absolute top="100" left="30" width="300" height="200"}
+
 ------------------------------------------------------------------------
 
 ## Result 3
 
 **Outbreaks frequency and Income status**
 
-![Fig. 4b Top 20 disease-outbreaks(Reproduced)](../Results/Fig4b_reproduced.png) {.absolute bottom="500" right="200" width="100"}
-![Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)](../Results/Fig4b_income.png){.absolute bottom="500" right="600" width="300"}
+![Fig. 4b Top 20 disease-outbreaks(Reproduced)](~/projects/group_12_project/Results/Fig4b_reproduced.png) ![Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)](~/projects/group_12_project/Results/Fig4b_income.png){width="250"}
 
 ------------------------------------------------------------------------
 
-## Result 4 {.smaller}
+## Result 4
 
 **Outbreaks over time**
-
--   Diseases with the most outbreaks: [COVID-19, Influenza virus, Cholera]{.fragment .highlight-red}
--   Frequency of zoonotic diseases has increased the last decade
-
-![](Disease_type_distribution.jpg){.absolute bottom="0" right="400" width="680"}
 
 ------------------------------------------------------------------------
 
@@ -190,8 +188,4 @@ We found inspiration in this article
 
 ## Discussion 2
 
-**Important for the development of targeting strategies**
-
--   Geographical factors and socio-economic factors can influence the spread of the disease and the susceptibility of the population
-
--   The data of the study do not reflect the intensity of the disease (cases, deaths)
+-   *Scientifik highlights (?)*

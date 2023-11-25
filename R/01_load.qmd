@@ -45,12 +45,12 @@ if ( length(list.files(dir_name, pattern="csv")) != length(filename) ) {
 
 } else if ( length(list.files(dir_name, pattern="csv")) == length(filename)) { 
   rawdons <-  read.csv(str_c(dir_name,"DONsRaw.csv"))
-  covidOutbreaks <- read.csv(str_c(dir_name,"COVIDOutbreaks.csv"))
-  outbreaks <- read.csv(str_c(dir_name,"Outbreaks.csv"))
-  uniqueDONs <- read.csv(str_c(dir_name,"UniqueDONs.csv"))
+  covidOutbreaks <- read.csv(str_c(dir_name,"COVIDOutbreaks.csv"),, sep = ";")
+  outbreaks <- read.csv(str_c(dir_name,"Outbreaks.csv"), sep = ";")
+  uniqueDONs <- read.csv(str_c(dir_name,"UniqueDONs.csv"),sep = ";")
   wdi <- read.csv(str_c(dir_name,"WDICountry.csv"))
   worldboundaries <- read.csv(str_c(dir_name, "world-administrative-boundaries.csv"), sep = ";")
-  icd1011 <- read.csv(str_c(dir_name,"icd1011.csv"), sep = ";")
+  icd1011 <- read.csv(str_c(dir_name,"icd1011.csv"), sep ="\t")
   isocodes <- read.csv(str_c(dir_name,"isocodes.csv"), sep = ";")
 }
 ```
