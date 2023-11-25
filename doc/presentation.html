@@ -323,7 +323,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="~/projects/group_12_project/_raw/33207.jpg" data-background-opacity="1" data-background-size="contain" class="quarto-title-block center">
+<section id="title-slide" data-background-image="../_raw/33207.jpg" data-background-opacity="0.5" data-background-size="contain" class="quarto-title-block center">
   <h1 class="title">R for Bio Data Science</h1>
   <p class="subtitle">Disease outbreaks 1996-2022</p>
 
@@ -342,25 +342,27 @@ Group 12
 <ul>
 <li class="fragment"><p><strong>Infectious outbreaks causes severe health treats globally</strong></p></li>
 <li class="fragment"><pre><code>  Ie. epidemics/pandemics such as 
-      COVID-19 2019-2022 (affected 562 million people worldwide)
-      SARS-CoV in 2003, severe acute respiratory syndrome
-      Influenza A (H1N1) in 2009-2010</code></pre></li>
+     -  COVID-19 2019-2022 (affected 562 million people worldwide)
+     - SARS-CoV in 2003, severe acute respiratory syndrome
+     - Influenza A (H1N1) in 2009-2010</code></pre></li>
 <li class="fragment"><p><strong>Environmental factors influence the disease transmission, including factors related to country income status</strong></p></li>
 <li class="fragment"><pre><code>  Ie. water supply, sanitation facilities, food, climate etc.</code></pre></li>
 </ul>
 </section>
-<section id="material-and-methods" class="slide level2">
-<h2>Material and Methods</h2>
+<section class="slide level2">
+
 <p>We found inspiration in this article</p>
 
-<img data-src="~/projects/group_12_project/_raw/artikelheader.PNG" width="250" class="r-stretch quarto-figure-center"><p class="caption">https://doi.org/10.1038/s41597-022-01797-2</p><ul>
+<img data-src="../_raw/artikelheader.PNG" data-align="left" data-float="right" width="700" class="r-stretch quarto-figure-center"><p class="caption"><small> https://doi.org/10.1038/s41597-022-01797-2 </small></p><ul>
 <li class="fragment"><p><strong>Their aim</strong> was to create a new dataset of infectious disease outbreaks and geospatial information from</p></li>
-<li class="fragment"><pre><code>  Disease Outbreak News (WHO)
-  Coronavirus Dashbord (WHO)
-  Opendatasoft.com</code></pre></li>
-<li class="fragment"><p><strong>Our aim</strong> was to</p></li>
-<li class="fragment"><pre><code>  Reproduce their findings
-  Add socio-economical informations (from the World Bank)</code></pre></li>
+<li class="fragment"><pre><code>      - Disease Outbreak News (WHO)
+      - Coronavirus Dashboard (WHO)
+      - Opendatasoft.com</code></pre></li>
+<li class="fragment"><p><span class="fragment highlight-red"><strong>Our aim</strong></span> was to</p></li>
+<li class="fragment"><pre><code>    - Reproduce their findings
+    - Add socio-economical information (from the World Bank)
+</code></pre>
+<hr></li>
 </ul>
 </section>
 <section id="materials-and-methods" class="slide level2">
@@ -393,9 +395,14 @@ Group 12
 <li class="fragment">PERHAPS WE COULD HAVE THE DATA FLOW CHART HERE</li>
 </ul>
 </section>
-<section id="result-2" class="slide level2">
+<section id="result-2" class="slide level2 smaller">
 <h2>Result 2</h2>
-<p><img data-src="Disease_type_distribution.jpg" class="absolute" style="top: 100px; left: 30px; width: 300px; height: 200px; "></p>
+<p><strong>Outbreaks over time</strong></p>
+<ul>
+<li class="fragment"><p>Diseases with the most outbreaks: <span class="fragment highlight-red">COVID-19, Influenza virus, Cholera</span></p></li>
+<li class="fragment"><p>Frequency of zoonotic diseases has increased the last decade</p></li>
+<li class="fragment"><p><img data-src="Disease_type_distribution.jpg" class="absolute" style="bottom: 0px; right: 400px; width: 680px; "></p></li>
+</ul>
 </section>
 <section id="result-3" class="slide level2">
 <h2>Result 3</h2>
@@ -418,10 +425,6 @@ Group 12
 </div>
 <p>We could include Mikolaj’s figure next to this one.</p>
 </section>
-<section id="result-6" class="slide level2">
-<h2>Result 6</h2>
-<p><strong>Outbreaks over time</strong></p>
-</section>
 <section id="discussion-1" class="slide level2">
 <h2>Discussion 1</h2>
 <ul>
@@ -439,8 +442,10 @@ Group 12
 </section>
 <section id="discussion-2" class="slide level2">
 <h2>Discussion 2</h2>
+<p><strong>Important for the development of targeting strategies</strong></p>
 <ul>
-<li class="fragment"><em>Scientifik highlights (?)</em></li>
+<li class="fragment"><p>Geographical factors and socio-economic factors can influence the spread of the disease and the susceptibility of the population</p></li>
+<li class="fragment"><p>The data of the study do not reflect the intensity of the disease (cases, deaths)</p></li>
 </ul>
 <div class="footer footer-default">
 
