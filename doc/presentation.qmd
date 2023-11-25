@@ -25,7 +25,7 @@ Infectious diseases can spread rapidly across the world and can be caused by ger
 
     ```         
       Ie. epidemics/pandemics such as 
-         -  COVID-19 2019-2022 (affected 562 million people worldwide)
+         - COVID-19 2019-2022 (affected 562 million people worldwide)
          - SARS-CoV in 2003, severe acute respiratory syndrome
          - Influenza A (H1N1) in 2009-2010
     ```
@@ -134,7 +134,9 @@ We found inspiration in this article
 
 -   Frequency of zoonotic diseases has increased the last decade
 
--   ![](Disease_type_distribution.jpg){.absolute bottom="0" right="400" width="680"}
+:::{style="display: flex; justify-content: space-between;"}
+  ![](../Results/Disease_distribution.png){width="550" height="450"}
+:::
 
 ------------------------------------------------------------------------
 
@@ -209,5 +211,19 @@ We could include Mikolaj's figure next to this one.
 **Important for the development of targeting strategies**
 
 -   Geographical factors and socio-economic factors can influence the spread of the disease and the susceptibility of the population
+ 
 
--   The data of the study do not reflect the intensity of the disease (cases, deaths)
+    ```         
+         -  Vaccine consideration before traveling to high-risk geographical regions
+          
+    ```
+
+-   The data of the study does not reflect the intensity of the disease (cases, deaths)
+
+    ```         
+          - epidemiological data
+    ```
+    
+-   Use for improvement of bio-surveillance: [detection and prevention of biological threats]{.fragment .highlight-green}
+
+------------------------------------------------------------------------
