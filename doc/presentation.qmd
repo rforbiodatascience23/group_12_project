@@ -138,7 +138,10 @@ We found inspiration in this article
 
 **Outbreaks frequency and Income status**
 
-![Fig. 4b Top 20 disease-outbreaks(Reproduced)](~/projects/group_12_project/Results/Fig4b_reproduced.png) ![Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)](~/projects/group_12_project/Results/Fig4b_income.png){width="250"}
+<div style="display: flex; justify-content: space-between;">
+  <img src="../Results/Fig4b_reproduced.png" alt="Fig. 4b Top 20 disease-outbreaks(Reproduced)" width="45%">
+  <img src="../Results/Fig4b_income.png" alt="Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)" width="45%">
+</div>
 
 ------------------------------------------------------------------------
 
@@ -146,7 +149,12 @@ We found inspiration in this article
 
 **Spatial distribution of outbreaks frequency**
 
-\~projects/group_12_project\_/Results/Fig4b_reproduced.png
+<div style="display: flex; justify-content: space-between;">
+  <img src="../Results/fig4a_reproduced.png" alt="Top 20 Countries with highest Outbreak Frequency" width="45%">
+  <img src="../Results/fig3_reproduced.png" alt="Outbreak Frequency Map Graph" width="45%">
+</div>
+
+------------------------------------------------------------------------
 
 ## Result 5
 
@@ -188,7 +196,7 @@ We found inspiration in this article
               2. Require packages and time not feasible for this assignment
     ```
 
-    ------------------------------------------------------------------------
+------------------------------------------------------------------------
 
 ## Discussion 2
 
