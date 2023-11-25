@@ -130,8 +130,6 @@ We found inspiration in this article
 
 ## Result 2
 
-**Spatial distribution of outbreaks frequency**
-
 ![](Disease_type_distribution.jpg){.absolute top="100" left="30" width="300" height="200"}
 
 ------------------------------------------------------------------------
@@ -145,6 +143,12 @@ We found inspiration in this article
 ------------------------------------------------------------------------
 
 ## Result 4
+
+**Spatial distribution of outbreaks frequency**
+
+\~projects/group_12_project\_/Results/Fig4b_reproduced.png
+
+## Result 5
 
 **Outbreaks over time**
 

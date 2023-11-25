@@ -62,8 +62,7 @@ fig4a_reproduced <- geo_outbreaks_wide  |>
         plot.title = element_text(hjust = 0.5))
 
 fig4a_reproduced
-ggsave(fig4a_reproduced, 
-       filename = "Results/fig4a_reproduced.png", dpi = 300)
+ggsave(fig3_reproduced, filename = "/net/pupil1/home/people/s222777/projects/group_12_project_/Results/fig3_reproduced.png", dpi = 300)
 ```
 
 #### Map plot with the spatial frequency of outbreaks
@@ -92,8 +91,7 @@ fig3_reproduced <- ggplot() +
   theme(plot.title = element_text(hjust = 0.5))  
 
 fig3_reproduced
-ggsave(fig3_reproduced, 
-       filename = "Results/fig3_reproduced.png", dpi = 300)
+ggsave(fig4a_reproduced, filename = "/net/pupil1/home/people/s222777/projects/group_12_project_/Results/fig4a_reproduced.png", dpi = 300)
 ```
 
 ### Reshaping data set to obtain the total yearly outbreaks:
@@ -127,6 +125,7 @@ fig4c_reproduced <- ggplot(outbreaks_yearly,
         plot.title = element_text(hjust = 0.5))
 
 fig4c_reproduced
-ggsave(fig4c_reproduced, 
-       filename = "Results/fig4c_reproduced.png", dpi = 300)
+
+ggsave(fig4c_reproduced, filename = "/net/pupil1/home/people/s222777/projects/group_12_project_/Results/fig4c_reproduced.png", dpi = 300)
+
 ```
