@@ -11,32 +11,37 @@ format:
     theme: beige
     incremental: true
     slide-number: true
-    show-slide-number: all  
+    show-slide-number: all
+    footer: "Group 12"
 editor: visual
 ---
 
-## Introduction
+## Introduction  {.smaller}
 
-Infectious diseases can spread rapidly across the world and can be caused by germs such as bacteria, viruses, fungi and parasites.
+Disease outbreaks are caused when infectious diseases spread rapidly across the world and they can be caused by germs such as bacteria, viruses, fungi and parasites.
 
--   **Infectious outbreaks causes severe health treats globally**
+::: columns
+::: {.column}
+**Infectious outbreaks causes severe health treats globally**
+:::
 
--   
+::: {.column}
 
-    ```         
-      Ie. epidemics/pandemics such as 
-          COVID-19 2019-2022 (affected 562 million people worldwide)
-          SARS-CoV in 2003, severe acute respiratory syndrome
-          Influenza A (H1N1) in 2009-2010
-    ```
+::: incremental
+epidemics/pandemics such as:
+-   COVID-19 2019-2022 (affected 562 million people worldwide)
+
+-   SARS-CoV in 2003, severe acute respiratory syndrome
+
+-   Influenza A (H1N1) in 2009-2010
+:::
+:::
+:::
+:::
 
 -   **Environmental factors influence the disease transmission, including factors related to country income status**
 
--   
-
-    ```         
-      Ie. water supply, sanitation facilities, food, climate etc.
-    ```
+    Ie. water supply, sanitation facilities, food, climate etc.
 
 ------------------------------------------------------------------------
 
@@ -44,17 +49,11 @@ Infectious diseases can spread rapidly across the world and can be caused by ger
 
 We found inspiration in this article
 
-![<small> https://doi.org/10.1038/s41597-022-01797-2 </small>](../_raw/artikelheader.PNG){width=700px align="left" float="right"}
-
+![<small> https://doi.org/10.1038/s41597-022-01797-2 </small>](../_raw/artikelheader.PNG){width="700px" align="left" float="right"}
 
 -   **Their aim** was to create a new dataset of infectious disease outbreaks and geospatial information from
 
--   
-    ```         
-      Disease Outbreak News (WHO)
-      Coronavirus Dashbord (WHO)
-      Opendatasoft.com
-    ```
+-   `Disease Outbreak News (WHO)       Coronavirus Dashbord (WHO)       Opendatasoft.com`
 
 -   [**Our aim**]{.fragment .highlight-red} was to
 
@@ -136,8 +135,7 @@ We found inspiration in this article
 
 **Outbreaks frequency and Income status**
 
-![Fig. 4b Top 20 disease-outbreaks(Reproduced)](../Results/Fig4b_reproduced.png) {.absolute bottom="500" right="200" width="100"}
-![Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)](../Results/Fig4b_income.png){.absolute bottom="500" right="600" width="300"}
+![Fig. 4b Top 20 disease-outbreaks(Reproduced)](../Results/Fig4b_reproduced.png) {.absolute bottom="500" right="200" width="100"} ![Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)](../Results/Fig4b_income.png){.absolute bottom="500" right="600" width="300"}
 
 ------------------------------------------------------------------------
 
