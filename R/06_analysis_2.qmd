@@ -12,6 +12,8 @@ editor: visual
 ```{r}
 #| echo = TRUE
 library(tidyverse)
+library(ggplot2)
+library(dplyr)
 ```
 
 ## Disease-outbreaks, reproducing fig4b with top 20 diseases
@@ -67,4 +69,39 @@ ggsave(Fig4b_income, filename = "Results/Fig4b_income.png", dpi = 300)
 
 ```
 
-## 
+## Disease type distribution over the years 1996-2022
+```{r}
+Disease_distribution <- final_outbreaks |>
+  drop_na() |> 
+  ggplot(mapping =
+           aes(x = Year,
+               fill = Disease_class, 
+               group = Disease_class)) +
+  geom_bar(stat = "count") +
+  scale_x_continuous(breaks = seq(min(final_outbreaks$Year), 
+                                  max(final_outbreaks$Year), 
+                                  by = 1)) +
+  scale_y_continuous(breaks = seq(min(0), 
+                                  max(300), 
+                                  by = 20)) +  
+  theme_classic() +
+  scale_fill_viridis_d(alpha = 0.8) +
+  theme(plot.title = element_text(size = 12,
+                                  vjust = -2,
+                                  hjust = 0.5),
+        axis.title.x = element_text(size = 7),
+        axis.title.y = element_text(size = 8),
+        axis.text.x = element_text(size = 6,
+                                   angle = 45),
+        axis.text.y = element_text(size = 6),
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6)) +
+  labs(x = "Year",
+       y = "Count of disease",
+       title = "Disease type distribution over time",
+       fill = "Disease classification")
+
+ggsave(Disease_distribution, filename = "Results/Disease_distribution.png", dpi = 300)
+
+```
+

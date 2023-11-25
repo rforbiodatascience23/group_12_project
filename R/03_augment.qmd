@@ -11,6 +11,7 @@ editor: visual
 
 ```{r load_libraries}
 library(tidyverse)
+library(stringr)
 ```
 
 ## Data scraping
@@ -91,7 +92,41 @@ rawdons_aug <-rawdons_aug |>
   distinct(Country, iso2, iso3, Year, icd10n, icd103n, icd104n, icd10c, icd103c, icd104c, icd11c1, icd11c2, icd11c3, icd11l1, icd11l2, icd11l3, Disease, Definition, AllDONs) # 1566 unique events apparently but only have 1233 so far as 271 countries are not named in Description column
 ```
 
-Here we augment the clean merged data file.
+##Augment the clean merged data file.
+
+
+New column added for the the classification of different diseases types. COVID-19, Influenza and Cholera were not included in any category as they are major outbreaks and we wanted to show their influence separately. 
+```{r}
+final_outbreaks <- final_outbreaks |>
+  mutate(icd11l2 = str_trim(icd11l2)) |>
+   mutate(Disease_class = case_when(icd11l2 %in% 
+                                      c("Certain arthropod-borne viral fevers",
+                                        "Certain zoonotic bacterial diseases",
+                                        "Certain zoonotic viral diseases",
+                                        "Dengue") ~ "Zoonotic diseases",
+                                    icd11l2 %in%
+                                      c("Bacteria or viral infection",
+                                        "Certain other viral diseases",
+                                        "Viral hepatitis",
+                                        "Human immunodeficiency virus disease",
+                                        "Viral infections characterised by skin or mucous membrane lesions",
+                                        "Viral infections of the central nervous system",
+                                        "Lung infections",
+                                        "Human prion diseases") ~ "Viral infections",
+                                    icd11l2 %in% 
+                                      c("Other bacterial diseases",
+                                        "Mycobacterial diseases",
+                                        "Sepsis",
+                                        "Predominantly sexually transmitted infections",
+                                        "Mycoses") ~ "Bacteria and fungus infections",
+                                    icd11l2 %in% c("Parasitic diseases",
+                                                   "Nonintestinal protozoal diseases") ~ "Parasitic infections",
+                                    icd11l2 == "Gastroenteritis or colitis of infectious origin" ~ "Cholera-Intestinal diseases",
+                                    icd11l2 == "Influenza" ~ "Influenza infections",
+                                    icd11l2 == "Not reported" ~ "Uncertain diseases",
+                                    icd11l2 == "New uncertain disease" ~ "Covid-19"))
+
+```
 
 For income data, we replace the "NA"s with a category called "No income data available", then we make the variable a factor based on income, ranking "high income" highest, and "No income data available" lowest.
 
