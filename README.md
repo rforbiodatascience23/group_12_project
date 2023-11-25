@@ -1,6 +1,8 @@
 # group_12_project_
 
 Final group project for Group 12 in R for Bio Data Science course.
+## Project Contributors
+s223712 - Arlinda96
 
 ## Description
 
@@ -53,4 +55,4 @@ From the world data bank [here](https://datacatalog.worldbank.org/search/dataset
 
              WDICountry.csv
 
-5.  Run 01_load.qmd in R folder to extract the files and create dataphrames for each file.
+5.  Run 01_load.qmd in R folder to extract the files and create dataframes for each file.

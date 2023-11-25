@@ -339,9 +339,13 @@ Group 12
 </section>
 <section id="introduction" class="slide level2 smaller">
 <h2>Introduction</h2>
+<div class="fragment">
 <p>Disease outbreaks are caused when infectious diseases spread rapidly across the world and they can be caused by germs such as bacteria, viruses, fungi and parasites.</p>
-<p>::: columns ::: {.column} <strong>Infectious outbreaks causes severe health treats globally</strong> :::</p>
-<p>::: {.column} epidemics/pandemics such as:</p>
+</div>
+<div class="fragment">
+<div class="columns">
+<div class="column">
+<p><strong>Infectious outbreaks causes severe health treats globally such as:</strong></p>
 <div>
 <ul>
 <li class="fragment"><p>COVID-19 2019-2022 (affected 562 million people worldwide)</p></li>
@@ -349,21 +353,25 @@ Group 12
 <li class="fragment"><p>Influenza A (H1N1) in 2009-2010</p></li>
 </ul>
 </div>
-<ul>
-<li class="fragment"><p><strong>Environmental factors influence the disease transmission, including factors related to country income status</strong></p>
-<p>Ie. water supply, sanitation facilities, food, climate etc.</p></li>
-</ul>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Environmental factors also influence the disease transmission, these include factors related to country income status as well as water supply, sanitation facilities, food, climate etc.</strong></p>
+</div>
 </section>
-<section id="material-and-methods" class="slide level2">
-<h2>Material and Methods</h2>
+<section class="slide level2">
+
 <p>We found inspiration in this article</p>
 
-<img data-src="../_raw/artikelheader.PNG" data-align="left" data-float="right" width="700" class="r-stretch quarto-figure-center"><p class="caption"><small> https://doi.org/10.1038/s41597-022-01797-2 </small></p><ul>
-<li class="fragment"><p><strong>Their aim</strong> was to create a new dataset of infectious disease outbreaks and geospatial information from</p></li>
-<li class="fragment"><p><code>Disease Outbreak News (WHO)       Coronavirus Dashbord (WHO)       Opendatasoft.com</code></p></li>
-<li class="fragment"><p><span class="fragment highlight-red"><strong>Our aim</strong></span> was to</p></li>
-<li class="fragment"><pre><code>  Reproduce their findings
-  Add socio-economical informations (World Bank)</code></pre></li>
+<img data-src="../_raw/artikelheader.PNG" data-align="left" data-float="right" width="700" class="r-stretch quarto-figure-center"><p class="caption"><small> A global dataset of pandemic- and epidemic-prone disease outbreaks </small></p><ul>
+<li class="fragment"><p><strong>Their aim</strong> was to create a new dataset of infectious disease outbreaks and geospatial information from</p>
+<pre><code>      - Disease Outbreak News (WHO)
+      - Coronavirus Dashboard (WHO)
+      - Opendatasoft.com</code></pre></li>
+<li class="fragment"><p><span class="fragment highlight-red"><strong>Our aim</strong></span> was to</p>
+<pre><code>    - Reproduce their findings
+    - Add socio-economical information (from the World Bank)</code></pre></li>
 </ul>
 </section>
 <section id="materials-and-methods" class="slide level2">
@@ -396,22 +404,56 @@ Group 12
 <li class="fragment">PERHAPS WE COULD HAVE THE DATA FLOW CHART HERE</li>
 </ul>
 </section>
-<section id="result-2" class="slide level2">
+<section id="result-2" class="slide level2 smaller">
 <h2>Result 2</h2>
+<p><strong>Outbreaks over time</strong></p>
+<ul>
+<li class="fragment"><p>Diseases with the most outbreaks: <span class="fragment highlight-red">COVID-19, Influenza virus, Cholera</span></p></li>
+<li class="fragment"><p>Frequency of zoonotic diseases has increased the last decade</p></li>
+</ul>
+<div style="display: flex; justify-content: space-between;">
+<p><img data-src="../Results/Disease_distribution.png" width="550" height="450"></p>
+</div>
 </section>
 <section id="result-3" class="slide level2">
 <h2>Result 3</h2>
-<p><strong>Outbreaks frequency and Income status</strong></p>
-<p><img data-src="../Results/Fig4b_reproduced.png" alt="Fig. 4b Top 20 disease-outbreaks(Reproduced)"> {.absolute bottom=“500” right=“200” width=“100”} <img data-src="../Results/Fig4b_income.png" class="absolute" style="bottom: 500px; right: 600px; width: 300px; " alt="Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)"></p>
-</section>
-<section id="result-4" class="slide level2 smaller">
-<h2>Result 4</h2>
-<p><strong>Outbreaks over time</strong></p>
 <ul>
-<li class="fragment">Diseases with the most outbreaks: <span class="fragment highlight-red">COVID-19, Influenza virus, Cholera</span></li>
-<li class="fragment">Frequency of zoonotic diseases has increased the last decade</li>
+<li class="fragment"><strong>Outbreaks frequency and Income status</strong></li>
 </ul>
-<p><img data-src="Disease_type_distribution.jpg" class="absolute" style="bottom: 0px; right: 400px; width: 680px; "></p>
+<div style="display: flex; justify-content: space-between;">
+<p><img src="../Results/Fig4b_reproduced.png" alt="Fig. 4b Top 20 disease-outbreaks(Reproduced)" width="45%"> <img src="../Results/Fig4b_income.png" alt="Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)" width="45%"></p>
+</div>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>3c9a4cf15c1cbba3501ffda3592c40a165ee7c7c</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</section>
+<section id="result-4" class="slide level2">
+<h2>Result 4</h2>
+<ul>
+<li class="fragment"><strong>Spatial distribution of outbreaks frequency</strong></li>
+</ul>
+<div style="display: flex; justify-content: space-between;">
+<p><img src="../Results/fig4a_reproduced.png" alt="Top 20 Countries with highest Outbreak Frequency" width="45%"> <img src="../Results/fig3_reproduced.png" alt="Outbreak Frequency Map Graph" width="45%"></p>
+</div>
+</section>
+<section id="result-5" class="slide level2">
+<h2>Result 5</h2>
+<div style="text-align: center;">
+<p><strong>Yearly Disease Outbreaks</strong> <img data-src="../Results/fig4c_reproduced.png" width="800" height="500"></p>
+</div>
+<p>We could include Mikolaj’s figure next to this one.</p>
 </section>
 <section id="discussion-1" class="slide level2">
 <h2>Discussion 1</h2>
@@ -419,24 +461,30 @@ Group 12
 <li class="fragment"><p>The authors of the article adhere to <strong>FAIR guidelines</strong> for scientific data management</p></li>
 <li class="fragment"><pre><code>      Findability, Accessibility, Interoperability, Reusability</code></pre></li>
 <li class="fragment"><pre><code>      The use of standardised naming (ISO-3166 and ICD-10) makes it possible to merge the data with data from other resources. </code></pre></li>
-<li class="fragment"><p><em>Strenght and limitation:</em></p></li>
+<li class="fragment"><p><em>Strengths and limitations:</em></p></li>
 <li class="fragment"><pre><code>      Access and tidy data (using tidyverse princibles)
       Reproduce the plots provided in the article and add novel graphics
       Added new data on income status, providing further knowledge on outbreaks</code></pre></li>
 <li class="fragment"><pre><code>      Did not include new DONs (webscraping)
           1. No obtained permission 
-          2. Require packages and time not feasible for this assignment</code></pre>
-<hr></li>
+          2. Require packages and time not feasible for this assignment</code></pre></li>
 </ul>
 </section>
 <section id="discussion-2" class="slide level2">
 <h2>Discussion 2</h2>
 <p><strong>Important for the development of targeting strategies</strong></p>
 <ul>
-<li class="fragment"><p>Geographical factors and socio-economic factors can influence the spread of the disease and the susceptibility of the population</p></li>
-<li class="fragment"><p>The data of the study do not reflect the intensity of the disease (cases, deaths)</p></li>
+<li class="fragment"><p>Geographical factors and socio-economic factors can influence the spread of the disease and the susceptibility of the population</p>
+<pre><code>     -  Vaccine consideration before traveling to high-risk geographical regions</code></pre></li>
+<li class="fragment"><p>The data of the study does not reflect the intensity of the disease (cases, deaths)</p>
+<pre><code>      - epidemiological data</code></pre></li>
+<li class="fragment"><p>Use for improvement of bio-surveillance: <span class="fragment highlight-green">detection and prevention of biological threats</span></p></li>
 </ul>
-<div class="footer footer-default">
+</section>
+<section class="slide level2">
+
+
+<img src="dtu.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p>Group 12</p>
 </div>
 </section>

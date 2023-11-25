@@ -14,6 +14,7 @@ editor: visual
 ```{r}
 #| label: setup
 library(tidyverse)
+library(ggplot2)
 ```
 
 ```{r}
@@ -62,8 +63,7 @@ fig4a_reproduced <- geo_outbreaks_wide  |>
         plot.title = element_text(hjust = 0.5))
 
 fig4a_reproduced
-ggsave(fig4a_reproduced, 
-       filename = "Results/fig4a_reproduced.png", dpi = 300)
+ggsave(fig3_reproduced, filename = "/net/pupil1/home/people/s222777/projects/group_12_project_/Results/fig3_reproduced.png", dpi = 300)
 ```
 
 #### Map plot with the spatial frequency of outbreaks
@@ -72,7 +72,7 @@ ggsave(fig4a_reproduced,
 # Download world map data
 world <- map_data("world")
 
-fig3 <- ggplot() +
+fig3_reproduced <- ggplot() +
   geom_polygon(data = world, 
                aes(x = long, y = lat, group = group), 
                fill = "white", 
@@ -92,8 +92,7 @@ fig3 <- ggplot() +
   theme(plot.title = element_text(hjust = 0.5))  
 
 fig3_reproduced
-ggsave(fig3_reproduced, 
-       filename = "Results/fig3_reproduced.png", dpi = 300)
+ggsave(fig4a_reproduced, filename = "/net/pupil1/home/people/s222777/projects/group_12_project_/Results/fig4a_reproduced.png", dpi = 300)
 ```
 
 ### Reshaping data set to obtain the total yearly outbreaks:
@@ -113,7 +112,7 @@ outbreaks_yearly <- outbreaks_yearly |>
 
 ```{r}
 # Plot the barplot
-fig4c <- ggplot(outbreaks_yearly, 
+fig4c_reproduced <- ggplot(outbreaks_yearly, 
                 aes(x = Year, y = Freq)) +
   geom_bar(stat = "identity", fill = "skyblue") +
   labs(title = "Yearly Outbreaks (1996-2022)",
@@ -127,6 +126,7 @@ fig4c <- ggplot(outbreaks_yearly,
         plot.title = element_text(hjust = 0.5))
 
 fig4c_reproduced
-ggsave(fig4c_reproduced, 
-       filename = "Results/fig4c_reproduced.png", dpi = 300)
+
+ggsave(fig4c_reproduced, filename = "/net/pupil1/home/people/s222777/projects/group_12_project_/Results/fig4c_reproduced.png", dpi = 300)
+
 ```

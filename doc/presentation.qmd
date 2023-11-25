@@ -8,27 +8,29 @@ title-slide-attributes:
     data-background-opacity: "0.5"
 format: 
   revealjs:
-    theme: beige
+    theme: solarized
     incremental: true
     slide-number: true
     show-slide-number: all
     footer: "Group 12"
+    logo: dtu.png
 editor: visual
 ---
 
-## Introduction  {.smaller}
+## Introduction {.smaller}
+
+. . .
 
 Disease outbreaks are caused when infectious diseases spread rapidly across the world and they can be caused by germs such as bacteria, viruses, fungi and parasites.
 
+. . . 
+
 ::: columns
-::: {.column}
-**Infectious outbreaks causes severe health treats globally**
-:::
 
 ::: {.column}
+**Infectious outbreaks causes severe health treats globally such as:**
 
 ::: incremental
-epidemics/pandemics such as:
 -   COVID-19 2019-2022 (affected 562 million people worldwide)
 
 -   SARS-CoV in 2003, severe acute respiratory syndrome
@@ -37,34 +39,33 @@ epidemics/pandemics such as:
 :::
 :::
 :::
-:::
 
--   **Environmental factors influence the disease transmission, including factors related to country income status**
+. . .
 
-    Ie. water supply, sanitation facilities, food, climate etc.
+**Environmental factors also influence the disease transmission, these include factors related to country income status as well as
+water supply, sanitation facilities, food, climate etc.**
+
 
 ------------------------------------------------------------------------
-
-## Material and Methods
 
 We found inspiration in this article
 
-![<small> https://doi.org/10.1038/s41597-022-01797-2 </small>](../_raw/artikelheader.PNG){width="700px" align="left" float="right"}
+![<small> A global dataset of pandemic- and epidemic-prone disease outbreaks </small>](../_raw/artikelheader.PNG){width="700px" align="left" float="right"}
 
 -   **Their aim** was to create a new dataset of infectious disease outbreaks and geospatial information from
 
--   `Disease Outbreak News (WHO)       Coronavirus Dashbord (WHO)       Opendatasoft.com`
+    ```         
+          - Disease Outbreak News (WHO)
+          - Coronavirus Dashboard (WHO)
+          - Opendatasoft.com
+    ```
 
 -   [**Our aim**]{.fragment .highlight-red} was to
 
--   
-
     ```         
-      Reproduce their findings
-      Add socio-economical informations (World Bank)
+        - Reproduce their findings
+        - Add socio-economical information (from the World Bank)
     ```
-
-------------------------------------------------------------------------
 
 ## Materials and Methods
 
@@ -127,26 +128,49 @@ We found inspiration in this article
 
 ------------------------------------------------------------------------
 
-## Result 2
+## Result 2 {.smaller}
+
+**Outbreaks over time**
+
+-   Diseases with the most outbreaks: [COVID-19, Influenza virus, Cholera]{.fragment .highlight-red}
+
+-   Frequency of zoonotic diseases has increased the last decade
+
+::: {style="display: flex; justify-content: space-between;"}
+![](../Results/Disease_distribution.png){width="550" height="450"}
+:::
 
 ------------------------------------------------------------------------
 
 ## Result 3
 
-**Outbreaks frequency and Income status**
+-   **Outbreaks frequency and Income status**
 
-![Fig. 4b Top 20 disease-outbreaks(Reproduced)](../Results/Fig4b_reproduced.png) {.absolute bottom="500" right="200" width="100"} ![Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)](../Results/Fig4b_income.png){.absolute bottom="500" right="600" width="300"}
+::: {style="display: flex; justify-content: space-between;"}
+<img src="../Results/Fig4b_reproduced.png" alt="Fig. 4b Top 20 disease-outbreaks(Reproduced)" width="45%"/> <img src="../Results/Fig4b_income.png" alt="Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)" width="45%"/>
+:::
+
+> > > > > > > 3c9a4cf15c1cbba3501ffda3592c40a165ee7c7c
 
 ------------------------------------------------------------------------
 
-## Result 4 {.smaller}
+## Result 4
 
-**Outbreaks over time**
+-   **Spatial distribution of outbreaks frequency**
 
--   Diseases with the most outbreaks: [COVID-19, Influenza virus, Cholera]{.fragment .highlight-red}
--   Frequency of zoonotic diseases has increased the last decade
+::: {style="display: flex; justify-content: space-between;"}
+<img src="../Results/fig4a_reproduced.png" alt="Top 20 Countries with highest Outbreak Frequency" width="45%"/> <img src="../Results/fig3_reproduced.png" alt="Outbreak Frequency Map Graph" width="45%"/>
+:::
 
-![](Disease_type_distribution.jpg){.absolute bottom="0" right="400" width="680"}
+------------------------------------------------------------------------
+
+## Result 5
+
+::: {style="text-align: center;"}
+**Yearly Disease Outbreaks** ![](../Results/fig4c_reproduced.png){width="800" height="500"}
+:::
+
+We could include Mikolaj's figure next to this one.
 
 ------------------------------------------------------------------------
 
@@ -166,7 +190,7 @@ We found inspiration in this article
           The use of standardised naming (ISO-3166 and ICD-10) makes it possible to merge the data with data from other resources. 
     ```
 
--   *Strenght and limitation:*
+-   *Strengths and limitations:*
 
 -   
 
@@ -184,7 +208,7 @@ We found inspiration in this article
               2. Require packages and time not feasible for this assignment
     ```
 
-    ------------------------------------------------------------------------
+------------------------------------------------------------------------
 
 ## Discussion 2
 
@@ -192,4 +216,16 @@ We found inspiration in this article
 
 -   Geographical factors and socio-economic factors can influence the spread of the disease and the susceptibility of the population
 
--   The data of the study do not reflect the intensity of the disease (cases, deaths)
+    ```         
+         -  Vaccine consideration before traveling to high-risk geographical regions
+    ```
+
+-   The data of the study does not reflect the intensity of the disease (cases, deaths)
+
+    ```         
+          - epidemiological data
+    ```
+
+-   Use for improvement of bio-surveillance: [detection and prevention of biological threats]{.fragment .highlight-green}
+
+------------------------------------------------------------------------
