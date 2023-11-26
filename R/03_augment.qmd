@@ -19,6 +19,8 @@ library(tidyverse)
 
 The tidyverse library "who" is used to scrape the column *Description* for matching countries. The first value that is extracted is then added to a new column called Country- representing each country that an outbreak originated in
 
+***************THIS LINE NEEDS TO BE CHANGED / Camilla ***************************''
+
 ```{r}
 countries <-isocodes |>    
   distinct(Country) |>    
@@ -26,12 +28,12 @@ countries <-isocodes |>
   str_sub(end =-2)  
 
 uniqdisease <- uniqueDONs_clean |>    
-  select(Country,DONs,Disease) |>     
+  select(Country, DONs, Disease) |>     
   separate_longer_delim(DONs, delim = ",",) |>    
   mutate(DONs=str_remove(DONs," "))  
 
 
-rawdons_aug <-rawdons_clean |>      
+rawdons_aug <- rawdons_clean |>      
   mutate(       
     Country = sapply(str_extract_all(Description, str_c("United Kingdom|Côte d'Ivoire|Hong Kong|Republic of Korea|Tanzania|Iran|United States|Lao People's Democratic Republic|Venezuela|saudi_arabia|Bolivia|",countries)), function(x) paste(unique(x), collapse=','))) |>  
   separate_longer_delim(Country,delim=",")
@@ -99,7 +101,8 @@ rawdons_aug <-rawdons_aug |>
 
 ##Augment the clean merged data file.
 
-New column added for the the classification of different diseases types. COVID-19, Influenza and Cholera were not included in any category as they are major outbreaks and we wanted to show their influence separately. 
+New column added for the the classification of different diseases types. COVID-19, Influenza and Cholera were not included in any category as they are major outbreaks and we wanted to show their influence separately.
+
 ```{r}
 final_outbreaks <- final_outbreaks |>
   mutate(icd11l2 = str_trim(icd11l2)) |>
@@ -134,32 +137,13 @@ final_outbreaks <- final_outbreaks |>
 For income data, we replace the "NA"s with a category called "No income data available", then we make the variable a factor based on income, ranking "high income" highest, and "No income data available" lowest.
 
 ```{r}
-### we need to check that the data name is correct
-
-### we need to check that the data name is correct, and start with a 02_DAT_CLEAN file
-# 
-# final_outbreaks <- final_outbreaks |>
-#   mutate(
-#     Income.Group = (factor(Income.Group, levels = c("High income",
-#   mutate(
-#        Income.Group = ifelse(is.na(Income.Group), "No income data available", Income.Group),
-#     Income.Group = factor(Income.Group, levels = c(
-#       "High income", 
-#       "Upper middle income",
-#       "Lower middle income",
-#       "Low income"
-#         ))
-#   ))))
-
   final_outbreaks <- final_outbreaks |>
-  mutate( Income.Group = ifelse(is.na(Income.Group), "No income data available", Income.Group),
-    Income.Group = factor(Income.Group, levels = c(
-      "High income", 
-      "Upper middle income",
-      "Lower middle income",
-      "Low income"
-    ))
-  )
+  mutate (Income.Group = if_else(is.na(Income.Group), "No income data available", Income.Group),
+          Income.Group = factor(Income.Group, levels = c("High income", 
+                                                         "Upper middle income",
+                                                         "Lower middle income",
+                                                         "Low income",
+                                                         "No income data available")))
 ```
 
 \### THIS DOCUMENT WILL END WITH A 03_DAT_AUG file, that we all use for the graphs.
