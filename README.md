@@ -4,6 +4,7 @@ Final group project for Group 12 in R for Bio Data Science course.
 ## Project Contributors
 s223712 - Arlinda96
 s222785 - jadth
+s234118 - DardeDTU
 
 ## Description
 
@@ -51,9 +52,9 @@ The geospacial data is found [here](https://public.opendatasoft.com/explore/data
 
 From the world data bank [here](https://datacatalog.worldbank.org/search/dataset/0037712/World-Development-Indicators): 
 
-3. Download WDI_CSV.zip and open it on your local devise. 
-4. Upload the following CSV into \_raw folder:
+4. Download WDI_CSV.zip and open it on your local devise. 
+5. Upload the following CSV into \_raw folder:
 
              WDICountry.csv
 
-5.  Run 01_load.qmd in R folder to extract the files and create dataframes for each file.
+6.  Run 01_load.qmd in R folder to extract the files and create dataframes for each file.

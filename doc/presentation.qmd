@@ -13,8 +13,7 @@ format:
     slide-number: true
     show-slide-number: all
     footer: "Group 12"
-    logo: dtu.png
-    embed_resources: true
+    logo: ../doc/dtu.png
 editor: visual
 ---
 
@@ -48,7 +47,7 @@ Disease outbreaks are caused when infectious diseases spread rapidly across the 
 
 ![](article.png){fig-align="center" width="100%"}
 
--   **Their aim** was to create a new dataset of infectious disease outbreaks from the Disease Outbreak News and Coronavirus Dashboard (WHO)
+\<\<\<\<\<\<\< HEAD - **Their aim** was to create a new dataset of infectious disease outbreaks from the Disease Outbreak News and Coronavirus Dashboard (WHO)
 
 . . .
 
@@ -84,8 +83,6 @@ Merged by Alpha-3 Country-codes
 -   Frequency of zoonotic diseases has increased the last decade
 
 ::: {style="display: flex; justify-content: space-between;"}
-# ![](../Results/Disease_distribution.png){width="550" height="450"}
-
 ![](../Results/Disease_distribution.png){width="580" height="440"}
 :::
 
@@ -93,7 +90,7 @@ Merged by Alpha-3 Country-codes
 
 ## Result 3
 
--   **Outbreaks frequency and Income status**
+**Outbreaks frequency and Income status**
 
 ::: {style="display: flex; justify-content: space-between;"}
 <img src="../Results/Fig4b_reproduced.png" alt="Fig. 4b Top 20 disease-outbreaks(Reproduced)" width="45%"/> <img src="../Results/Fig4b_income.png" alt="Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)" width="45%"/>
@@ -103,7 +100,7 @@ Merged by Alpha-3 Country-codes
 
 ## Result 4
 
--   **Spatial distribution of outbreaks frequency**
+**Spatial distribution of outbreaks frequency**
 
 ::: {style="display: flex; justify-content: space-between;"}
 <img src="../Results/fig4a_reproduced.png" alt="Top 20 Countries with highest Outbreak Frequency" width="45%"/> <img src="../Results/fig3_reproduced.png" alt="Outbreak Frequency Map Graph" width="45%"/>
@@ -150,9 +147,8 @@ We could include Mikolaj's figure next to this one.
 -   
 
     ```         
-          Did not include new DONs (webscraping)
-              1. No obtained permission 
-              2. Require packages and time not feasible for this assignment
+          Did not include new DONs (webscraping) (No obtained permission, packages, time)
+          Current income status - not per year
     ```
 
 ------------------------------------------------------------------------

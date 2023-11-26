@@ -102,6 +102,5 @@ Disease_distribution <- final_outbreaks |>
        title = "Disease type distribution over time",
        fill = "Disease classification")
 
-ggsave(Disease_distribution, filename = "Results/Disease_distribution.png", dpi = 300)
 
 ```
