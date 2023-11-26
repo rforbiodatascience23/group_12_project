@@ -13,7 +13,7 @@ format:
     slide-number: true
     show-slide-number: all
     footer: "Group 12"
-    logo: dtu.png
+    logo: ../doc/dtu.png
 editor: visual
 ---
 
@@ -50,14 +50,13 @@ water supply, sanitation facilities, food, climate etc.**
 
 We found inspiration in this article
 
-![<small> A global dataset of pandemic- and epidemic-prone disease outbreaks </small>](../_raw/artikelheader.PNG){width="700px" align="left" float="right"}
+![<small> A global dataset of pandemic- and epidemic-prone disease outbreaks </small>](../Results/artikelheader.PNG){width="700px" align="left" float="right"}
 
 -   **Their aim** was to create a new dataset of infectious disease outbreaks and geospatial information from
-
     ```         
-          - Disease Outbreak News (WHO)
-          - Coronavirus Dashboard (WHO)
-          - Opendatasoft.com
+        - Disease Outbreak News (WHO)
+        - Coronavirus Dashboard (WHO)
+        - Opendatasoft.com
     ```
 
 -   [**Our aim**]{.fragment .highlight-red} was to
@@ -137,30 +136,25 @@ We found inspiration in this article
 -   Frequency of zoonotic diseases has increased the last decade
 
 ::: {style="display: flex; justify-content: space-between;"}
-<<<<<<< HEAD
-![](../Results/Disease_distribution.png){width="550" height="450"}
-=======
 ![](../Results/Disease_distribution.png){width="580" height="440"}
->>>>>>> f09bb5098c00eda14bed8d79e3b63e142bf9bbaa
 :::
 
 ------------------------------------------------------------------------
 
 ## Result 3
 
--   **Outbreaks frequency and Income status**
+ **Outbreaks frequency and Income status**
 
 ::: {style="display: flex; justify-content: space-between;"}
 <img src="../Results/Fig4b_reproduced.png" alt="Fig. 4b Top 20 disease-outbreaks(Reproduced)" width="45%"/> <img src="../Results/Fig4b_income.png" alt="Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)" width="45%"/>
 :::
 
-> > > > > > > 3c9a4cf15c1cbba3501ffda3592c40a165ee7c7c
 
 ------------------------------------------------------------------------
 
 ## Result 4
 
--   **Spatial distribution of outbreaks frequency**
+**Spatial distribution of outbreaks frequency**
 
 ::: {style="display: flex; justify-content: space-between;"}
 <img src="../Results/fig4a_reproduced.png" alt="Top 20 Countries with highest Outbreak Frequency" width="45%"/> <img src="../Results/fig3_reproduced.png" alt="Outbreak Frequency Map Graph" width="45%"/>
@@ -207,9 +201,8 @@ We could include Mikolaj's figure next to this one.
 -   
 
     ```         
-          Did not include new DONs (webscraping)
-              1. No obtained permission 
-              2. Require packages and time not feasible for this assignment
+          Did not include new DONs (webscraping) (No obtained permission, packages, time)
+          Current income status - not per year
     ```
 
 ------------------------------------------------------------------------
