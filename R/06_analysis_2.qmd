@@ -104,3 +104,93 @@ Disease_distribution <- final_outbreaks |>
 
 
 ```
+
+## Frequency of outbreaks for countries grouped by income in years 1996-2022
+
+```{r}
+# calculating the number of outbreaks in countries grouped by income
+A1 <- final_outbreaks %>%
+  select(Income.Group,
+         Year) |> 
+  mutate(one = 1) %>%
+  pivot_wider(names_from =Income.Group,
+              values_from = one, 
+              values_fn = sum)
+A2 <- A1 |> 
+  pivot_longer(cols = -Year, 
+               names_to ="Income.Group",
+               values_to = "Frequency")  
+A2 <-A2 |> 
+  mutate(Frequency = replace_na(Frequency, 0))
+
+#arranging data in an appropriate order
+A2 <- A2 |> 
+dplyr::filter(Income.Group %in% c("High income", "Upper middle income", "Lower middle income", "Low income"))
+A2$Income.Group <- factor(A2$Income.Group, levels=c("High income", "Upper middle income", "Lower middle income", "Low income"))
+
+#making plot
+Inc_line <- ggplot(data = A2, 
+                aes(x = Year, 
+                    y = Frequency,
+                    color = Income.Group,
+                    group = Income.Group
+                    )) + 
+        #  geom_point() +  
+          geom_line(size = 1) +
+      ylab("Frequency of outbreaks") + 
+      xlab("Year") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 0)) +
+  theme(legend.position = "bottom")+
+   #scale_color_viridis_d() +
+  scale_x_continuous(breaks = seq(1996,
+                                  2022, 
+                                  by = 2))+
+   labs(color = "Income group")
+#saving graph
+ggsave(Inc_line, filename = "/net/pupil1/home/people/s222940/projects/group_12_project/Results/Inc_line.png", dpi = 300)
+
+Inc_line
+```
+
+## Frequency of outbreaks for each continent in years 1996-2022
+
+```{r}
+# calculating the number of outbreaks in countries grouped by continent
+B1 <- final_outbreaks %>%
+  select(Continent,
+         Year) |> 
+  mutate(one = 1) %>%
+  pivot_wider(names_from = Continent,
+              values_from = one, 
+              values_fn = sum)
+B2 <- B1 |> 
+  pivot_longer(cols = -Year, 
+               names_to = "Continent",
+               values_to = "Frequency") 
+#replacing NA's with 0 value as there was no information of an outbreak for a specific continent in a specific year
+B2 <-B2 |> 
+  mutate(Frequency = replace_na(Frequency, 0))
+
+#plot Frequency of outbreaks for each continent in years 1996-2022
+Cont_line <- ggplot(data = B2, 
+                aes(x = Year, 
+                    y = Frequency,
+                    color = Continent,
+                    group = Continent)) +  
+          geom_line(size = 1) +
+      ylab("Frequency of outbreaks") + 
+      xlab("Year") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 0)) +
+  theme(legend.position="bottom")+
+  scale_color_viridis_d() +
+  scale_x_continuous(breaks = seq(1996,
+                                  2022, 
+                                  by = 2))
+#saving graph
+ggsave(Cont_line, filename = "/net/pupil1/home/people/s222940/projects/group_12_project/Results/Cont_line.png", dpi = 300)
+
+Cont_line
+```
+
