@@ -3,7 +3,7 @@ title: "R for Bio Data Science"
 subtitle: "Disease outbreaks 1996-2022"
 author: "Group 12"
 title-slide-attributes:
-    data-background-image: ../_raw/33207.jpg
+    data-background-image: ../Results/pic2.png
     data-background-size: contain
     data-background-opacity: "0.5"
 format: 
@@ -110,7 +110,7 @@ We found inspiration in this article
 
 ------------------------------------------------------------------------
 
-## Results 1
+## Result 1
 
 **Final dataset:**
 
@@ -134,8 +134,8 @@ We found inspiration in this article
 
 -   Frequency of zoonotic diseases has increased the last decade
 
-:::{style="display: flex; justify-content: space-between;"}
-  ![](../Results/Disease_distribution.png){width="550" height="450"}
+::: {style="display: flex; justify-content: space-between;"}
+![](../Results/Disease_distribution.png){width="580" height="440"}
 :::
 
 ------------------------------------------------------------------------
@@ -211,11 +211,9 @@ We could include Mikolaj's figure next to this one.
 **Important for the development of targeting strategies**
 
 -   Geographical factors and socio-economic factors can influence the spread of the disease and the susceptibility of the population
- 
 
     ```         
          -  Vaccine consideration before traveling to high-risk geographical regions
-          
     ```
 
 -   The data of the study does not reflect the intensity of the disease (cases, deaths)
@@ -223,7 +221,13 @@ We could include Mikolaj's figure next to this one.
     ```         
           - epidemiological data
     ```
-    
+
 -   Use for improvement of bio-surveillance: [detection and prevention of biological threats]{.fragment .highlight-green}
 
 ------------------------------------------------------------------------
+
+## Thank you! 
+
+::: {style="display: flex; justify-content: space-between;"}
+![](../Results/pic1.png){width="500" height="400"}
+:::
