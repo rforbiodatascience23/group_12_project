@@ -340,12 +340,12 @@ Group 12
 <section id="introduction" class="slide level2 smaller">
 <h2>Introduction</h2>
 <div class="fragment">
-<p>Disease outbreaks are caused when infectious diseases spread rapidly across the world and they can be caused by germs such as bacteria, viruses, fungi and parasites.</p>
+<p>Disease outbreaks are caused when infectious diseases spread rapidly across the world and they can be caused by bacteria, viruses, fungi and parasites.</p>
 </div>
 <div class="fragment">
 <div class="columns">
 <div class="column">
-<p><strong>Infectious outbreaks causes severe health treats globally such as:</strong></p>
+<p><strong>Infectious outbreaks cause severe health treats globally such as:</strong></p>
 <div>
 <ul>
 <li class="fragment"><p>COVID-19 2019-2022 (affected 562 million people worldwide)</p></li>
@@ -357,52 +357,33 @@ Group 12
 </div>
 </div>
 <div class="fragment">
-<p><strong>Environmental factors also influence the disease transmission, these include factors related to country income status as well as water supply, sanitation facilities, food, climate etc.</strong></p>
+<p><strong>Environmental factors can influence the disease transmission, these include socioencomic factors as well as region and geographic factors.</strong></p>
 </div>
 </section>
 <section class="slide level2">
 
-<p>We found inspiration in this article</p>
 
-<img data-src="../_raw/artikelheader.PNG" data-align="left" data-float="right" width="700" class="r-stretch quarto-figure-center"><p class="caption"><small> A global dataset of pandemic- and epidemic-prone disease outbreaks </small></p><ul>
-<li class="fragment"><p><strong>Their aim</strong> was to create a new dataset of infectious disease outbreaks and geospatial information from</p>
-<pre><code>      - Disease Outbreak News (WHO)
-      - Coronavirus Dashboard (WHO)
-      - Opendatasoft.com</code></pre></li>
-<li class="fragment"><p><span class="fragment highlight-red"><strong>Our aim</strong></span> was to</p>
-<pre><code>    - Reproduce their findings
-    - Add socio-economical information (from the World Bank)</code></pre></li>
+<img data-src="article.png" style="width:100.0%" class="r-stretch quarto-figure-center"><ul>
+<li class="fragment"><strong>Their aim</strong> was to create a new dataset of infectious disease outbreaks from the Disease Outbreak News and Coronavirus Dashboard (WHO)</li>
 </ul>
+<div class="fragment">
+<p><strong>Our aim</strong> was to :</p>
+<ul>
+<li class="fragment">Reproduce their findings</li>
+<li class="fragment">Add other factors such as socioeconmic data</li>
+</ul>
+</div>
 </section>
 <section id="materials-and-methods" class="slide level2">
 <h2>Materials and Methods</h2>
-<p><strong>Data sources</strong></p>
-<ul>
-<li class="fragment"><pre><code>*DONs (raw):*
-      2721 reports on confirmed acute public health events 1996 - 2022</code></pre></li>
-<li class="fragment"><pre><code>*Unique DONs:*
-      1562 observations with unique outbreaks
-      217 countries
-      69 infectious diseases</code></pre></li>
-<li class="fragment"><pre><code>*Covid Outbreaks:*
-      665 observations from 2020-2022
-      224 countries</code></pre></li>
-<li class="fragment"><pre><code>*Geospatial data:*
-      ? observations?</code></pre></li>
-<li class="fragment"><pre><code>*Country income data from the World Data Bank:*
-      Income status per country (High, Upper Middle, Lower Middle, Low Income)
-      217 countries</code></pre></li>
-</ul>
-</section>
+
+<img data-src="Flowchart.png" class="r-stretch quarto-figure-center"></section>
 <section id="result-1" class="slide level2">
 <h2>Result 1</h2>
 <p><strong>Final dataset:</strong></p>
-<ul>
-<li class="fragment"><pre><code>Merged by Alpha-3 Country-codes
+<pre><code>Merged by Alpha-3 Country-codes
     2227 (????) observations from 1996-2022
-    233 (???) countries</code></pre></li>
-<li class="fragment">PERHAPS WE COULD HAVE THE DATA FLOW CHART HERE</li>
-</ul>
+    233 (???) countries</code></pre>
 </section>
 <section id="result-2" class="slide level2 smaller">
 <h2>Result 2</h2>
@@ -411,10 +392,12 @@ Group 12
 <li class="fragment"><p>Diseases with the most outbreaks: <span class="fragment highlight-red">COVID-19, Influenza virus, Cholera</span></p></li>
 <li class="fragment"><p>Frequency of zoonotic diseases has increased the last decade</p></li>
 </ul>
-<div style="display: flex; justify-content: space-between;">
-<p><img data-src="../Results/Disease_distribution.png" width="580" height="440"></p>
-</div>
 </section>
+<section id="section" class="title-slide slide level1 center" style="display: flex; justify-content: space-between;">
+<h1><img data-src="../Results/Disease_distribution.png" width="550" height="450"></h1>
+<p><img data-src="../Results/Disease_distribution.png" width="580" height="440"></p>
+</section>
+
 <section id="result-3" class="slide level2">
 <h2>Result 3</h2>
 <ul>
@@ -423,21 +406,6 @@ Group 12
 <div style="display: flex; justify-content: space-between;">
 <p><img src="../Results/Fig4b_reproduced.png" alt="Fig. 4b Top 20 disease-outbreaks(Reproduced)" width="45%"> <img src="../Results/Fig4b_income.png" alt="Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)" width="45%"></p>
 </div>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>3c9a4cf15c1cbba3501ffda3592c40a165ee7c7c</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
 </section>
 <section id="result-4" class="slide level2">
 <h2>Result 4</h2>
@@ -481,19 +449,13 @@ Group 12
 <li class="fragment"><p>Use for improvement of bio-surveillance: <span class="fragment highlight-green">detection and prevention of biological threats</span></p></li>
 </ul>
 </section>
-<<<<<<< HEAD
-<section class="slide level2">
-
-=======
 <section id="thank-you" class="slide level2">
 <h2>Thank you!</h2>
 <div style="display: flex; justify-content: space-between;">
 <p><img data-src="../Results/pic1.png" width="500" height="400"></p>
 </div>
+<p><img src="dtu.png" class="slide-logo"></p>
 <div class="footer footer-default">
->>>>>>> f09bb5098c00eda14bed8d79e3b63e142bf9bbaa
-
-<img src="dtu.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p>Group 12</p>
 </div>
 </section>

@@ -14,6 +14,7 @@ format:
     show-slide-number: all
     footer: "Group 12"
     logo: dtu.png
+    embed_resources: true
 editor: visual
 ---
 
@@ -21,14 +22,13 @@ editor: visual
 
 . . .
 
-Disease outbreaks are caused when infectious diseases spread rapidly across the world and they can be caused by germs such as bacteria, viruses, fungi and parasites.
+Disease outbreaks are caused when infectious diseases spread rapidly across the world and they can be caused by bacteria, viruses, fungi and parasites.
 
-. . . 
+. . .
 
 ::: columns
-
-::: {.column}
-**Infectious outbreaks causes severe health treats globally such as:**
+::: column
+**Infectious outbreaks cause severe health treats globally such as:**
 
 ::: incremental
 -   COVID-19 2019-2022 (affected 562 million people worldwide)
@@ -42,73 +42,24 @@ Disease outbreaks are caused when infectious diseases spread rapidly across the 
 
 . . .
 
-**Environmental factors also influence the disease transmission, these include factors related to country income status as well as
-water supply, sanitation facilities, food, climate etc.**
-
+**Environmental factors can influence the disease transmission, these include socioencomic factors as well as region and geographic factors.**
 
 ------------------------------------------------------------------------
 
-We found inspiration in this article
+![](article.png){fig-align="center" width="100%"}
 
-![<small> A global dataset of pandemic- and epidemic-prone disease outbreaks </small>](../_raw/artikelheader.PNG){width="700px" align="left" float="right"}
+-   **Their aim** was to create a new dataset of infectious disease outbreaks from the Disease Outbreak News and Coronavirus Dashboard (WHO)
 
--   **Their aim** was to create a new dataset of infectious disease outbreaks and geospatial information from
+. . .
 
-    ```         
-          - Disease Outbreak News (WHO)
-          - Coronavirus Dashboard (WHO)
-          - Opendatasoft.com
-    ```
+**Our aim** was to :
 
--   [**Our aim**]{.fragment .highlight-red} was to
-
-    ```         
-        - Reproduce their findings
-        - Add socio-economical information (from the World Bank)
-    ```
+-   Reproduce their findings
+-   Add other factors such as socioeconmic data
 
 ## Materials and Methods
 
-**Data sources**
-
--   
-
-    ```         
-    *DONs (raw):*
-          2721 reports on confirmed acute public health events 1996 - 2022
-    ```
-
--   
-
-    ```         
-    *Unique DONs:*
-          1562 observations with unique outbreaks
-          217 countries
-          69 infectious diseases
-    ```
-
--   
-
-    ```         
-    *Covid Outbreaks:*
-          665 observations from 2020-2022
-          224 countries
-    ```
-
--   
-
-    ```         
-    *Geospatial data:*
-          ? observations?
-    ```
-
--   
-
-    ```         
-    *Country income data from the World Data Bank:*
-          Income status per country (High, Upper Middle, Lower Middle, Low Income)
-          217 countries
-    ```
+![](Flowchart.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
@@ -116,15 +67,11 @@ We found inspiration in this article
 
 **Final dataset:**
 
--   
-
-    ```         
-    Merged by Alpha-3 Country-codes
-        2227 (????) observations from 1996-2022
-        233 (???) countries
-    ```
-
--   PERHAPS WE COULD HAVE THE DATA FLOW CHART HERE
+```         
+Merged by Alpha-3 Country-codes
+    2227 (????) observations from 1996-2022
+    233 (???) countries
+```
 
 ------------------------------------------------------------------------
 
@@ -137,11 +84,9 @@ We found inspiration in this article
 -   Frequency of zoonotic diseases has increased the last decade
 
 ::: {style="display: flex; justify-content: space-between;"}
-<<<<<<< HEAD
-![](../Results/Disease_distribution.png){width="550" height="450"}
-=======
+# ![](../Results/Disease_distribution.png){width="550" height="450"}
+
 ![](../Results/Disease_distribution.png){width="580" height="440"}
->>>>>>> f09bb5098c00eda14bed8d79e3b63e142bf9bbaa
 :::
 
 ------------------------------------------------------------------------
@@ -153,8 +98,6 @@ We found inspiration in this article
 ::: {style="display: flex; justify-content: space-between;"}
 <img src="../Results/Fig4b_reproduced.png" alt="Fig. 4b Top 20 disease-outbreaks(Reproduced)" width="45%"/> <img src="../Results/Fig4b_income.png" alt="Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)" width="45%"/>
 :::
-
-> > > > > > > 3c9a4cf15c1cbba3501ffda3592c40a165ee7c7c
 
 ------------------------------------------------------------------------
 
@@ -234,7 +177,7 @@ We could include Mikolaj's figure next to this one.
 
 ------------------------------------------------------------------------
 
-## Thank you! 
+## Thank you!
 
 ::: {style="display: flex; justify-content: space-between;"}
 ![](../Results/pic1.png){width="500" height="400"}

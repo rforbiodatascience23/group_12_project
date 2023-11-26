@@ -70,6 +70,7 @@ ggsave(Fig4b_income, filename = "Results/Fig4b_income.png", dpi = 300)
 ```
 
 ## Disease type distribution over the years 1996-2022
+
 ```{r}
 Disease_distribution <- final_outbreaks |>
   drop_na() |> 
@@ -104,4 +105,3 @@ Disease_distribution <- final_outbreaks |>
 ggsave(Disease_distribution, filename = "Results/Disease_distribution.png", dpi = 300)
 
 ```
-
