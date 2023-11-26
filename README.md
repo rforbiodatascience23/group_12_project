@@ -3,6 +3,7 @@
 Final group project for Group 12 in R for Bio Data Science course.
 ## Project Contributors
 s223712 - Arlinda96
+s222785 - jadth
 
 ## Description
 
@@ -33,7 +34,7 @@ All of it in tidyverse R codes.
 The outbreak-data used in this project can be found [here](https://figshare.com/articles/dataset/A_global_dataset_of_pandemic-_and_epidemic-prone_disease_outbreaks/17207183)
 
 1. Download DiseaseOutbreaks.7z and open the file on your local devise (as uploading zipfiles is not possible on the R server solutioin) 
-2. Upload the following CSVs into \_raw folder:
+2. Upload the following CSVs into \_raw folder (create folder or 01_load.qmd will create it and advise adding files):
 
             DONsRaw.csv
             COVIDOutbreaks.csv

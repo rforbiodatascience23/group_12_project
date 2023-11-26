@@ -3,7 +3,7 @@ title: "R for Bio Data Science"
 subtitle: "Disease outbreaks 1996-2022"
 author: "Group 12"
 title-slide-attributes:
-    data-background-image: ../_raw/33207.jpg
+    data-background-image: ../Results/pic2.png
     data-background-size: contain
     data-background-opacity: "0.5"
 format: 
@@ -112,7 +112,7 @@ We found inspiration in this article
 
 ------------------------------------------------------------------------
 
-## Results 1
+## Result 1
 
 **Final dataset:**
 
@@ -137,7 +137,11 @@ We found inspiration in this article
 -   Frequency of zoonotic diseases has increased the last decade
 
 ::: {style="display: flex; justify-content: space-between;"}
+<<<<<<< HEAD
 ![](../Results/Disease_distribution.png){width="550" height="450"}
+=======
+![](../Results/Disease_distribution.png){width="580" height="440"}
+>>>>>>> f09bb5098c00eda14bed8d79e3b63e142bf9bbaa
 :::
 
 ------------------------------------------------------------------------
@@ -229,3 +233,9 @@ We could include Mikolaj's figure next to this one.
 -   Use for improvement of bio-surveillance: [detection and prevention of biological threats]{.fragment .highlight-green}
 
 ------------------------------------------------------------------------
+
+## Thank you! 
+
+::: {style="display: flex; justify-content: space-between;"}
+![](../Results/pic1.png){width="500" height="400"}
+:::
