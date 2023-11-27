@@ -66,7 +66,7 @@ Disease outbreaks are caused when infectious diseases spread rapidly across the 
 
 
 ## Materials and Methods
-![](../Results/Flowchart.png){fig-align="center"}
+![](images/Flowchart.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
