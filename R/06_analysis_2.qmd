@@ -28,7 +28,7 @@ final_outbreaks <- read_tsv("../Data/final_outbreaks.tsv")
 
 ```{r}
 #| echo: true
-#| eval: true
+#| eval: false
 #keeping the 20 most frequent diseases
 #the fct_infreq orders the Disease in levels according to frequency
 #the str_wraps wraps text that is over 30 characters

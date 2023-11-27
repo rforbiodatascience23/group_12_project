@@ -31,6 +31,11 @@ worldboundaries <- read_tsv( "../Data/worldboundaries.tsv")
 icd1011 <- read_tsv( "../Data/icd1011.tsv")
 isocodes <- read_tsv( "../Data/isocodes.tsv")
 clean_outbreaks <- read_tsv( "../Data/clean_outbreaks.tsv")
+wdi_clean <- read_tsv("../Data/wdi_clean.tsv")
+uniqueDONs_clean <- read_tsv("../Data/uniqueDONs.tsv")
+covidOutbreaks_clean <- read_tsv("../Data/covidOutbreaks_clean.tsv")
+rawdons_clean <- read_tsv("../Data/rawdons_clean.tsv")
+
 ```
 
 

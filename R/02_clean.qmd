@@ -52,6 +52,8 @@ wdi_clean <- wdi |>
                         iso3)) |> 
   filter(Income.Group !="")
 
+write_tsv(wdi_clean, "../Data/wdi_clean.tsv")
+
 ```
 
 ## CLEAN WORLD BOUNDARIES DATA:
@@ -120,6 +122,7 @@ rawdons_clean <- rawdons|>
   mutate(Year = as.integer(str_split_i(Date, 
                                        pattern = "-", 
                                        1)))    
+write_tsv(rawdons_clean, "../Data/rawdons_clean.tsv")
 ```
 
 ## CLEAN UNIQUE DONs and COVID-19 DATA:
@@ -151,6 +154,9 @@ covidOutbreaks_clean <- covidOutbreaks |>
                                  "International"),
                       "New uncertain disease", 
                       icd11l2))
+
+write_tsv(uniqueDONs_clean, "../Data/uniqueDons_clean.tsv")
+write_tsv(covidOutbreaks_clean, "../Data/covidOutbreaks_clean.tsv")
 ```
 
 ## MERGING DATA
