@@ -7,4 +7,49 @@ format:
 editor: visual
 ---
 
-## 
+### Loading Data (01_load.qmd):
+
+### Cleaning Data (02_clead.qmd):
+
+Before cleaning the data, tidyverse library is imported. Following this, each of the following data set are cleaned seperately:
+
+#### Clean WDI Data
+
+Specific columns from the WDI dataset are selected(Country.Code, Income.Group) and renamed ("Country.Code" to "iso3"). The iso3 Country codes are cleaned and standardized. Data is filtered depending on the availability of income data.
+
+#### Clean World Boundaries Data
+
+Rows with blank cells are filtered out, and similarly to WDI data preprocessing, columns are renamed "ISO.3.country.code" to "iso3", "Continent.of.the.territory" to "Continent","Geo.Point" to "Coordinates"), whilst the unnecessary ones are removed (French.Name, English.Name, ISO.3.territory.code, Region.of.the.territory, ISO.3166.1.Alpha.2.Codes, Geo.Shape). Inaccurate iso3 codes found in the raw data are corrected and rows with incorrect iso3-Continent combinations are discarded. Finally, multiple rows with the same iso3 code values are removed, ensuring that each row corresponds to a unique iso3 country code.
+
+#### Clean RAW DONS Data:
+
+"DONS" column is renamed "ID", and a column named " Year" is created by extracting the first part of the "Date" column. The Values of this column are integers.
+
+#### Clean Unique DONs and COVID-19 Data
+
+Rename function is here used to rename the "X" column to "Index" in both uniqueDONs_clean and covidOutbreaks_clean data sets. Additionally, null and unspecified values in the same data sets.
+
+#### Merging Data:
+
+The data is being merged in 3 consecutive join steps:
+
+1.  Merging Unique and COVID-19 Outbreaks Data:
+
+    Full joins the uniqueDONs_clean and covidOutbreaks_clean datasets.
+
+```{=html}
+<!-- -->
+```
+2.  Merging WDI and Total Outbreaks Data
+
+    Left joins the total_outbreaks dataset with the wdi_clean dataset based on the iso3 code.
+
+3.  Merging Geographical and Total Outbreaks Data
+
+    Left joins the worldboundaries dataset with the merged total_outbreaks and wdi_clean dataset based on the iso3 code, creating the final_outbreaks dataset.
+
+### Cleaning Merged Data
+
+Country names are shortened in the final_outbreak data set, to facilitate the visualization in the analysis. Missing values are removed from the final_outbreaks dataset.
+
+### Augmenting Data: (03_augment.qmd):
