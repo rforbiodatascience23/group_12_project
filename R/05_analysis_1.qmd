@@ -8,6 +8,7 @@ editor: visual
 ---
 
 ```{r load_analysis2}
+#| echo: false
 library("tidyverse")
 library("ggplot2")
 ```

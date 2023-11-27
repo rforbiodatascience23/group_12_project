@@ -9,12 +9,10 @@ editor: visual
 
 ## Extract data
 
-In this file we load all the datasets we used and processed throughout the study analysis
-
-**Load library**
+Load all the datasets we used and processed throughout the study analysis
 
 ```{r load_libraries}
-#| echo: false
+#| echo: true
 #| message: false
 #| warning: false
 #| label: setup
@@ -28,7 +26,7 @@ library("viridis")
 **Load data**
 
 ```{r get_data}
-#| echo: false
+#| echo: true
 
 filename <-  c("DONsRaw.csv",
                "COVIDOutbreaks.csv",

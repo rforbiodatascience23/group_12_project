@@ -11,9 +11,8 @@ editor: visual
 
 This file contains the steps we followed to clean the data-sets we used in the study analysis.
 
-## LOAD LIBRARIES
-
 ```{r load libraries}
+#| echo: false
 library("tidyverse")
 ```
 

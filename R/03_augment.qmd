@@ -8,6 +8,7 @@ editor: visual
 ---
 
 ```{r load libraries aug}
+#| echo: false
 library("tidyverse")
 ```
 

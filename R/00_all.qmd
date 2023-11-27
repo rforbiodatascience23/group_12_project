@@ -9,15 +9,11 @@ editor: visual
 
 # Master document
 
-## Load the datasets used in the project
-
-This file contains the script that loads all the raw data we used in the project
+01_load.qmd contains the script that loads all the raw data we used in the project
 
 {{< include "01_load.qmd" >}}
 
-## Clean the datasets
-
-This file contains the cleaning process we followed to optimize the data format for the project
+02_clean.qmd contains the cleaning process we followed to optimize the data format for the project
 
 {{< include 02_clean.qmd >}}
 

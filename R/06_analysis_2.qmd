@@ -7,9 +7,8 @@ format:
 editor: visual
 ---
 
-## Loading Libraries
-
 ```{r load_analysis1}
+#| echo: false
 library("tidyverse")
 library("ggplot2")
 ```
@@ -230,4 +229,3 @@ ggsave(Cont_line,
 
 Cont_line
 ```
-
