@@ -41,15 +41,17 @@ uniqdisease <- uniqueDONs_clean |>
 rawdons_aug <- rawdons_clean |>      
   mutate(       
     Country = sapply(str_extract_all(Description, 
-                                     str_c("United Kingdom|Côte d'Ivoire|Hong Kong|Republic of Korea|Tanzania|Iran|United States|Lao People's Democratic Republic|Venezuela|saudi_arabia|Bolivia|",countries)), 
+                                     str_c("United Kingdom|Côte d'Ivoire|Hong Kong|Republic of Korea|Tanzania|Iran|United States|Lao People's Democratic Republic|Venezuela|saudi_arabia|Bolivia|",
+                                           countries)), 
                      function(x) paste(unique(x), 
-                                       collapse=','))) |>  
+                                       collapse = ','))) |>  
   separate_longer_delim(Country,
-                        delim=",")
+                        delim = ",")
 
 # if country is na find the corresponding don in uniquedisease and fill correspondng country 
 rawdons_aug <- rawdons_aug |> 
-  mutate(Country =na_if(Country, ""))
+  mutate(Country = na_if(Country, 
+                         ""))
 
 ```
 
@@ -81,7 +83,9 @@ The disease that is associated with each DON is taken from the completed datafra
 ```{r}
 
 rawdons_aug <-rawdons_aug |>   
-  left_join(uniqdisease, join_by(DONs, Country))
+  left_join(uniqdisease, 
+            join_by(DONs, 
+                    Country))
 
 rawdons_aug <- rawdons_aug |>  
   filter(!is.na(Disease)) |> 

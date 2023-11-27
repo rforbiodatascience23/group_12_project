@@ -117,13 +117,15 @@ ggsave(fig3_reproduced,
 
 ```{r}
 outbreaks_yearly <- final_outbreaks |> 
-  count(Year, icd104c) |> 
+  count(Year, 
+        icd104c) |> 
   pivot_wider(names_from = icd104c,
               values_from = n,
               values_fill = 0) 
 outbreaks_yearly <- outbreaks_yearly |>
   mutate(Freq = rowSums(select(outbreaks_yearly,
-                               where(is.numeric), -Year)))
+                               where(is.numeric), 
+                               -Year)))
 ```
 
 #### Barplot of the yearly number of outbreaks:
@@ -131,8 +133,10 @@ outbreaks_yearly <- outbreaks_yearly |>
 ```{r}
 # Plot the barplot
 fig4c_reproduced <- ggplot(outbreaks_yearly, 
-                aes(x = Year, y = Freq)) +
-  geom_bar(stat = "identity", fill = "skyblue") +
+                aes(x = Year, 
+                    y = Freq)) +
+  geom_bar(stat = "identity", 
+           fill = "skyblue") +
   labs(title = "Yearly Outbreaks (1996-2022)",
        x = "Year",
        y = "Total Outbreaks"
@@ -145,6 +149,8 @@ fig4c_reproduced <- ggplot(outbreaks_yearly,
 
 fig4c_reproduced
 
-ggsave(fig4c_reproduced, filename = "/net/pupil1/home/people/s222777/projects/group_12_project_/Results/fig4c_reproduced.png", dpi = 300)
+ggsave(fig4c_reproduced, 
+       filename = "/net/pupil1/home/people/s222777/projects/group_12_project_/Results/fig4c_reproduced.png", 
+       dpi = 300)
 
 ```

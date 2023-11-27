@@ -5,6 +5,8 @@ Final group project for Group 12 in R for Bio Data Science course.
 s223712 - Arlinda96
 s222785 - jadth
 s234118 - DardeDTU
+s222940 - Sentario
+s222777- elenikiachaki
 
 ## Description
 

@@ -99,7 +99,8 @@ worldboundaries <- worldboundaries |>
 rawdons_clean <- rawdons|>   
   rename(DONs = ID) |>    
   mutate(Year = as.integer(str_split_i(Date, 
-                                       pattern = "-", 1)))    
+                                       pattern = "-", 
+                                       1)))    
 ```
 
 **Rename of column, handling null and unspecific values:**

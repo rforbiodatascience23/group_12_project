@@ -34,7 +34,8 @@ Fig4b_reproduced <- final_outbreaks |>
   geom_bar()+
   labs(y = "Total frequency of outbreaks \n (1996 - 2021)", 
        x = "Disease") +
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 30)) + 
+  scale_x_discrete(labels = function(x) str_wrap(x, 
+                                                 width = 30)) + 
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, 
                                    vjust = 0.5,
@@ -55,7 +56,8 @@ Fig4b_income <- final_outbreaks |>
   count(Disease) |> 
   arrange(desc(n)) |> 
   slice_head(n = 20) |> 
-  inner_join(final_outbreaks, by = "Disease")  |> 
+  inner_join(final_outbreaks, 
+             by = "Disease")  |> 
   mutate(Disease = fct_infreq(Disease)) |>
   ggplot(mapping = aes(x = Disease, 
                        fill = Income.Group)) +
@@ -113,17 +115,20 @@ Disease_distribution <- final_outbreaks |>
        title = "Disease type distribution over time",
        fill = "Disease classification")
 
-
+# ggsave(Disease_distribution, 
+#        filename = "/net/pupil1/home/people/s######/projects/group_12_project/Results/Disease_distribution.png", 
+#        dpi = 300)
+Disease_distribution
 ```
 
 ## Frequency of outbreaks for countries grouped by income in years 1996-2022
 
 ```{r}
 # calculating the number of outbreaks in countries grouped by income
-A1 <- final_outbreaks %>%
+A1 <- final_outbreaks |> 
   select(Income.Group,
          Year) |> 
-  mutate(one = 1) %>%
+  mutate(one = 1) |> 
   pivot_wider(names_from =Income.Group,
               values_from = one, 
               values_fn = sum)
@@ -140,10 +145,11 @@ dplyr::filter(Income.Group %in% c("High income",
                                   "Upper middle income", 
                                   "Lower middle income", 
                                   "Low income"))
-A2$Income.Group <- factor(A2$Income.Group, levels=c("High income", 
-                                                    "Upper middle income", 
-                                                    "Lower middle income", 
-                                                    "Low income"))
+A2$Income.Group <- factor(A2$Income.Group, 
+                          levels=c("High income",
+                                   "Upper middle income",
+                                   "Lower middle income",
+                                   "Low income"))
 
 #making plot
 Inc_line <- ggplot(data = A2, 
