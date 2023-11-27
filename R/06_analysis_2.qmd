@@ -7,6 +7,8 @@ format:
 editor: visual
 ---
 
+{{< include 05_analysis_1.qmd >}}
+
 ## Loading Libraries
 
 ```{r}
@@ -19,7 +21,7 @@ library("dplyr")
 ## Including the final clean and augmented dataset
 
 ```{r}
-final_outbreaks <- read_tsv("../Data/final_outbreaks.tsv")
+final_outbreaks <- read_tsv("../_raw/Data/final_outbreaks.tsv")
 ```
 
 ## Disease-outbreaks, reproducing fig4b with top 20 diseases
