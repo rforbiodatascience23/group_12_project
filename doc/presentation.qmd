@@ -1,11 +1,13 @@
 ---
-title: "R for Bio Data Science"
-subtitle: "Disease outbreaks 1996-2022"
+title: "Disease outbreaks 1996 - 2022"
+subtitle: "R for Bio Data Science"
 author: "Group 12"
+date: 2023-11-28
+date-format: long
 title-slide-attributes:
-    data-background-image: ../Results/pic2.png
+    data-background-image: images/pic2.png
     data-background-size: contain
-    data-background-opacity: "0.5"
+    data-background-opacity: "0.3"
 format: 
   revealjs:
     theme: solarized
@@ -45,9 +47,15 @@ Disease outbreaks are caused when infectious diseases spread rapidly across the 
 
 ------------------------------------------------------------------------
 
-![](../Results/article.png){fig-align="center"}
+![](images/article.png){.r-stretch fig-align="center"}
 
--   **Their aim** was to create a new dataset of infectious disease outbreaks from the Disease Outbreak News and Coronavirus Dashboard (WHO)
+. . .
+
+::: {style="font-size:30px"}
+::: {style="font-size:35px"}
+**Their aim** was to create a new dataset of infectious disease outbreaks from the Disease Outbreak News and Coronavirus Dashboard (WHO)
+:::
+:::
 
 . . .
 
@@ -56,8 +64,9 @@ Disease outbreaks are caused when infectious diseases spread rapidly across the 
 -   Reproduce their findings
 -   Add other factors such as socioeconomic data
 
+
 ## Materials and Methods
-![](../Results/Flowchart.png){fig-align="center"}
+![](images/Flowchart.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
@@ -119,35 +128,31 @@ Mikolaj's figures
 ## Discussion 1
 
 -   The authors of the article adhere to **FAIR guidelines** for scientific data management
+    -   *Findability, Accessibility, Interoperability, Reusability*
 
--   
+    -   The use of standardised naming (ISO-3166 and ICD-10) makes it possible to merge the data with data from other resources.
 
-    ```         
-          Findability, Accessibility, Interoperability, Reusability
-    ```
+. . .
 
--   
+::: columns
+::: {.column width="60%" style="font-size: 30px"}
+### *Strengths* 
 
-    ```         
-          The use of standardised naming (ISO-3166 and ICD-10) makes it possible to merge the data with data from other resources. 
-    ```
+-   Access and tidy data (using tidyverse princibles)
 
--   *Strengths and limitations:*
+-   Reproduce the plots provided in the article and add novel graphics
 
--   
+-   Added new data on income status, providing further knowledge on outbreaks
+:::
 
-    ```         
-          Access and tidy data (using tidyverse princibles)
-          Reproduce the plots provided in the article and add novel graphics
-          Added new data on income status, providing further knowledge on outbreaks
-    ```
+::: {.column width="40%" style="font-size: 30px"}
+### *Limitations:*
 
--   
+-   Did not include new DONs (webscraping) (No obtained permission, packages, time)
 
-    ```         
-          Did not include new DONs (webscraping) (No obtained permission, packages, time)
-          Current income status - not per year
-    ```
+-   Current income status - not per year
+:::
+:::
 
 ------------------------------------------------------------------------
 
@@ -155,19 +160,13 @@ Mikolaj's figures
 
 **Important for the development of targeting strategies**
 
+::: {style="font-size:35px"}
 -   Geographical factors and socio-economic factors can influence the spread of the disease and the susceptibility of the population
-
-    ```         
-         -  Vaccine consideration before traveling to high-risk geographical regions
-    ```
-
+    -   Vaccine consideration before traveling to high-risk geographical regions
 -   The data of the study does not reflect the intensity of the disease (cases, deaths)
-
-    ```         
-          - epidemiological data
-    ```
-
+    -   epidemiological data
 -   Use for improvement of bio-surveillance: [detection and prevention of biological threats]{.fragment .highlight-green}
+:::
 
 ------------------------------------------------------------------------
 

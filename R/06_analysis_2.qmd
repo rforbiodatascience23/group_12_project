@@ -1,5 +1,5 @@
 ---
-title: "05_analysis_2.qmd"
+title: "06_analysis_2.qmd"
 author: "group_12"
 format:
   html:
@@ -16,10 +16,15 @@ library(ggplot2)
 library(dplyr)
 ```
 
+## Including the final clean and augmented dataset
+
+```{r}
+final_outbreaks <- read_tsv("../Data/final_outbreaks.tsv")
+```
+
 ## Disease-outbreaks, reproducing fig4b with top 20 diseases
 
 ```{r}
-
 #keeping the 20 most frequent diseases
 #the fct_infreq orders the Disease in levels according to frequency
 #the str_wraps wraps text that is over 30 characters
@@ -51,6 +56,9 @@ ggsave(Fig4b_reproduced,
 ## Creating a new Figure 4b, with incorporated information on country income status
 
 ```{r}
+final_outbreaks |> 
+  group_by(Income.Group) |> 
+  count()
 
 Fig4b_income <- final_outbreaks |> 
   count(Disease) |> 
@@ -58,7 +66,13 @@ Fig4b_income <- final_outbreaks |>
   slice_head(n = 20) |> 
   inner_join(final_outbreaks, 
              by = "Disease")  |> 
-  mutate(Disease = fct_infreq(Disease)) |>
+  mutate(Disease = fct_infreq(Disease), 
+         Income.Group = factor(Income.Group, 
+                                levels = c("High income", 
+                                           "Upper middle income", 
+                                           "Lower middle income", 
+                                           "Low income", 
+                                           "No income data available"))) |>
   ggplot(mapping = aes(x = Disease, 
                        fill = Income.Group)) +
   geom_bar()+
@@ -92,8 +106,8 @@ Disease_distribution <- final_outbreaks |>
                fill = Disease_class, 
                group = Disease_class)) +
   geom_bar(stat = "count") +
-  scale_x_continuous(breaks = seq(min(final_outbreaks$Year), 
-                                  max(final_outbreaks$Year), 
+  scale_x_continuous(breaks = seq(min(Year), 
+                                  max(Year), 
                                   by = 1)) +
   scale_y_continuous(breaks = seq(min(0), 
                                   max(300), 

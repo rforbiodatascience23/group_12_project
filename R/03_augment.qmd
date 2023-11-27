@@ -157,7 +157,7 @@ rawdons_aug <-rawdons_aug |>
 New column added for the the classification of different diseases types. COVID-19, Influenza and Cholera were not included in any category as they are major outbreaks and we wanted to show their influence separately.
 
 ```{r}
-final_outbreaks <- final_outbreaks |>
+final_outbreaks <- clean_outbreaks |>
   mutate(icd11l2 = str_trim(icd11l2)) |>
    mutate(Disease_class = case_when(icd11l2 %in% 
                                       c("Certain arthropod-borne viral fevers",
@@ -193,16 +193,9 @@ For income data, we replace the "NA"s with a category called "No income data ava
   final_outbreaks <- final_outbreaks |>
   mutate (Income.Group = if_else(is.na(Income.Group), 
                                  "No income data available", 
-                                 Income.Group),
-          Income.Group = factor(Income.Group, 
-                                levels = c("High income", 
-                                           "Upper middle income", 
-                                           "Lower middle income", 
-                                           "Low income", 
-                                           "No income data available")))
+                                 Income.Group))
 ```
 
-\### THIS DOCUMENT WILL END WITH A 03_DAT_AUG file, that we all use for the graphs.
 
 #### Splitting Coordinates into Latitude and Longitude columns
 
@@ -217,3 +210,11 @@ final_outbreaks <- final_outbreaks |>
   ) |> 
   select(-Coordinates)
 ```
+
+
+## Creating a final (clean and augmented datafile) to use for data-analysis: final_outbreaks##
+
+```{r}
+write_tsv(final_outbreaks, "../Data/final_outbreaks.tsv")
+```
+
