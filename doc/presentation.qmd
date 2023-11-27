@@ -10,6 +10,7 @@ title-slide-attributes:
     data-background-opacity: "0.3"
 format: 
   revealjs:
+    embed-resources: true
     theme: solarized
     incremental: true
     slide-number: true

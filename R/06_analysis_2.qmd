@@ -11,6 +11,11 @@ editor: visual
 #| echo: false
 library("tidyverse")
 library("ggplot2")
+
+#| echo: true
+#| message: false
+#| warning: false
+#| eval: false
 ```
 
 ## Including the final clean and augmented dataset
@@ -22,6 +27,8 @@ final_outbreaks <- read_tsv("../Data/final_outbreaks.tsv")
 ## Disease-outbreaks, reproducing fig4b with top 20 diseases
 
 ```{r}
+#| echo: true
+#| eval: true
 #keeping the 20 most frequent diseases
 #the fct_infreq orders the Disease in levels according to frequency
 #the str_wraps wraps text that is over 30 characters
