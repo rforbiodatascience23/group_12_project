@@ -72,3 +72,17 @@ if ( length(list.files(dir_name,
                        sep = ";")
 }
 ```
+
+
+Writing TSV
+```{r}
+write_tsv(rawdons, "../Data/rawdons.tsv")
+write_tsv(covidOutbreaks, "../Data/covidOutbreaks.tsv")
+write_tsv(outbreaks, "../Data/outbreaks.tsv")
+write_tsv(uniqueDONs, "../Data/uniqueDONs.tsv")
+write_tsv(wdi, "../Data/wdi.tsv")
+write_tsv(worldboundaries, "../Data/worldboundaries.tsv")
+write_tsv(icd1011, "../Data/icd1011.tsv")
+write_tsv(isocodes, "../Data/isocodes.tsv")
+```
+

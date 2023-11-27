@@ -7,8 +7,25 @@ format:
 editor: visual
 ---
 
+\## LOADING DATA
+
 ```{r}
 library("dplyr")
+library("tidyverse")
+library("readr")
+```
+
+```{r}
+rawdons <- read_tsv("../Data/rawdons.tsv")
+covidOutbreaks <- read_tsv("../Data/covidOutbreaks.tsv")
+outbreaks <- read_tsv( "../Data/outbreaks.tsv")
+uniqueDONs <- read_tsv( "../Data/uniqueDONs.tsv")
+wdi <- read_tsv( "../Data/wdi.tsv")
+worldboundaries <- read_tsv( "../Data/worldboundaries.tsv")
+icd1011 <- read_tsv( "../Data/icd1011.tsv")
+isocodes <- read_tsv( "../Data/isocodes.tsv")
+clean_outbreaks <- read_tsv( "../Data/clean_outbreaks.tsv")
+
 ```
 
 ### Loading Data (01_load.qmd):

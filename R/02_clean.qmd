@@ -7,14 +7,33 @@ format:
 editor: visual
 ---
 
-## CLEANING DATA
-
-This file contains the steps we followed to clean the data-sets we used in the study analysis.
 
 ```{r load libraries}
 #| echo: false
 library("tidyverse")
+library("readr")
 ```
+
+## LOADING DATA
+
+```{r}
+rawdons <- read_tsv("../Data/rawdons.tsv")
+covidOutbreaks <- read_tsv("../Data/covidOutbreaks.tsv")
+outbreaks <- read_tsv( "../Data/outbreaks.tsv")
+uniqueDONs <- read_tsv( "../Data/uniqueDONs.tsv")
+wdi <- read_tsv( "../Data/wdi.tsv")
+worldboundaries <- read_tsv( "../Data/worldboundaries.tsv")
+icd1011 <- read_tsv( "../Data/icd1011.tsv")
+isocodes <- read_tsv( "../Data/isocodes.tsv")
+
+```
+
+
+## CLEANING DATA
+
+This file contains the steps we followed to clean the data-sets we used in the study analysis.
+
+
 
 ## CLEAN WDI DATA:
 
