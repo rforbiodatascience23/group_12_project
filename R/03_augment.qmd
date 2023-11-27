@@ -7,9 +7,9 @@ format:
 editor: visual
 ---
 
-{{< include _01_load.qmd >}}
+{{< include 01_load.qmd >}}
 
-{{< include _02_clean.qmd >}}
+{{< include 02_clean.qmd >}}
 
 ```{r load_libraries}
 library(tidyverse)
