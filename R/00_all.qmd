@@ -1,6 +1,9 @@
 ---
 title: "00_all.qmd"
-format: html
+author: "group_12"
+format: 
+  html:
+    embed-resources: true
 editor: visual
 ---
 
