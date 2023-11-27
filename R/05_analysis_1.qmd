@@ -9,6 +9,13 @@ editor: visual
 
 {{< include _03_augment.qmd >}}
 
+## Including the final clean and augmented dataset
+
+```{r}
+final_outbreaks <- read_tsv("../Data/final_outbreaks.tsv")
+```
+
+
 ### Reshaping data set to wide format and adding frequency column (Freq):
 
 ```{r}
