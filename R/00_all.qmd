@@ -11,7 +11,7 @@ editor: visual
 
 01_load.qmd contains the script that loads all the raw data we used in the project
 
-{{< include "01_load.qmd" >}}
+{{< include 01_load.qmd >}}
 
 02_clean.qmd contains the cleaning process we followed to optimize the data format for the project
 
