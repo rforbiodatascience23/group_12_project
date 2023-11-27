@@ -9,35 +9,31 @@ editor: visual
 
 # Master document
 
-
 ## Load the datasets used in the project
 
 This file contains the script that loads all the raw data we used in the project
 
-{{< include 01_load.qmd >}}
+{{< include "01_load.qmd" >}}
 
 
 
-## Clean the datasets 
+## Clean the datasets
 
-This file contains the cleaning process we followed to optimize the data format for the project 
+This file contains the cleaning process we followed to optimize the data format for the project
 
 {{< include 02_clean.qmd >}}
 
+## Creation of new variables
 
-
-## Creation of new variables 
-
-This file contains the new variables useful for our analysis 
+This file contains the new variables useful for our analysis
 
 {{< include 03_augment.qmd >}}
 
+## Analysis
 
-
-## Analysis 
-
-These two files contain the data analysis including plots and figures. 
+These two files contain the data analysis including plots and figures.
 
 {{< include 05_analysis_1.qmd >}}
 
 {{< include 06_analysis_2.qmd >}}
+
