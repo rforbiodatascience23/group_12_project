@@ -13,6 +13,11 @@ editor: visual
 library("dplyr")
 library("tidyverse")
 library("readr")
+
+#| echo: true
+#| message: false
+#| warning: false
+#| eval: false
 ```
 
 ```{r}

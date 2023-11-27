@@ -7,10 +7,12 @@ format:
 editor: visual
 ---
 
-```{r load_analysis2}
-#| echo: false
+```{r}
+#|echo: true
 library("tidyverse")
 library("ggplot2")
+library("viridis")
+
 ```
 
 ## Including the final clean and augmented dataset

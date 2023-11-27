@@ -1,0 +1,998 @@
+# Master document
+
+01_load.qmd contains the script that loads all the raw data we used in the project
+
+---
+title: "01_load.qmd"
+author: "group_12"
+format: 
+  html:
+    embed-resources: true
+editor: visual
+---
+
+## Extract data
+
+Load all the datasets we used and processed throughout the study analysis
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| label: setup
+library("tidyverse")
+library("maps")
+library("ggplot2")
+library("viridis")
+
+```
+
+**Load data**
+
+```{r}
+#| echo: true
+#| eval: true
+filename <-  c("DONsRaw.csv",
+               "COVIDOutbreaks.csv",
+               "Outbreaks.csv",
+               "UniqueDONs.csv",
+               "icd1011.csv",
+               "isocodes.csv",
+               "WDICountry.csv", 
+               "world-administrative-boundaries.csv")
+dir_name <- "../_raw/"
+
+if( !dir.exists(dir_name) ){
+  dir.create(path = dir_name)
+}
+
+if ( length(list.files(dir_name, 
+                       pattern="csv")) != length(filename) ) {
+  print(str_c(str_flatten_comma(filename,), 
+              " required in _raw folder"))
+
+} else if ( length(list.files(dir_name, 
+                              pattern="csv")) == length(filename)) { 
+  rawdons <-  read.csv(str_c(dir_name,
+                             "DONsRaw.csv"))
+  covidOutbreaks <- read.csv(str_c(dir_name,
+                                   "COVIDOutbreaks.csv"), 
+                             sep = ",")
+  outbreaks <- read.csv(str_c(dir_name,
+                              "Outbreaks.csv"), 
+                        sep = ",")
+  uniqueDONs <- read.csv(str_c(dir_name,
+                               "UniqueDONs.csv"),
+                         sep = ",")
+  wdi <- read.csv(str_c(dir_name,"WDICountry.csv"))
+  worldboundaries <- read.csv(str_c(dir_name, 
+                                    "world-administrative-boundaries.csv"), 
+                              sep = ";")
+  icd1011 <- read.csv(str_c(dir_name,
+                            "icd1011.csv"), 
+                      sep =";")
+  isocodes <- read.csv(str_c(dir_name,
+                             "isocodes.csv"), 
+                       sep = ";")
+}
+```
+
+
+Writing TSV
+```{r}
+write_tsv(rawdons, "../Data/rawdons.tsv")
+write_tsv(covidOutbreaks, "../Data/covidOutbreaks.tsv")
+write_tsv(outbreaks, "../Data/outbreaks.tsv")
+write_tsv(uniqueDONs, "../Data/uniqueDONs.tsv")
+write_tsv(wdi, "../Data/wdi.tsv")
+write_tsv(worldboundaries, "../Data/worldboundaries.tsv")
+write_tsv(icd1011, "../Data/icd1011.tsv")
+write_tsv(isocodes, "../Data/isocodes.tsv")
+```
+
+
+
+
+02_clean.qmd contains the cleaning process we followed to optimize the data format for the project
+
+---
+title: "02_clean.qmd"
+author: "group_12"
+format: 
+  html:
+    embed-resources: true
+editor: visual
+---
+
+
+```{r}
+library("tidyverse")
+library("readr")
+
+#| echo: true
+#| message: false
+#| warning: false
+#| eval: false
+```
+
+## LOADING DATA
+
+```{r}
+rawdons <- read_tsv("../Data/rawdons.tsv")
+covidOutbreaks <- read_tsv("../Data/covidOutbreaks.tsv")
+outbreaks <- read_tsv( "../Data/outbreaks.tsv")
+uniqueDONs <- read_tsv( "../Data/uniqueDONs.tsv")
+wdi <- read_tsv( "../Data/wdi.tsv")
+worldboundaries <- read_tsv( "../Data/worldboundaries.tsv")
+icd1011 <- read_tsv( "../Data/icd1011.tsv")
+isocodes <- read_tsv( "../Data/isocodes.tsv")
+
+```
+
+
+## CLEANING DATA
+
+This file contains the steps we followed to clean the data-sets we used in the study analysis.
+
+
+
+## CLEAN WDI DATA:
+
+**We keep only the variables needed, and rename Country.Code to iso3 for merging purposes. Renaming Kosovo iso3, as there is no universally accepted code, and they differ in the world bank (XKX) and WHO (XXK). We filter to include only countries with income data available. :**
+
+```{r}
+wdi_clean <- wdi |> 
+  select(Country.Code, Income.Group) |> 
+  rename(iso3 = Country.Code) |> 
+  mutate(iso3 = if_else(iso3 == "XKX", 
+                        "XXK", 
+                        iso3)) |> 
+  filter(Income.Group !="")
+
+```
+
+## CLEAN WORLD BOUNDARIES DATA:
+
+**Removing rows with blank cells:**
+
+```{r}
+worldboundaries <- worldboundaries |> 
+  filter_all(all_vars(. != ""))
+```
+
+**Renaming iso3, Continent and Coordinates column and removing not needed columns:**
+
+```{r}
+worldboundaries <- worldboundaries |> 
+  rename(
+    iso3 = "ISO.3.country.code",
+    Continent = "Continent.of.the.territory",
+    Coordinates = "Geo.Point") |> 
+  select(-French.Name, 
+         -English.Name,
+         -ISO.3.territory.code, 
+         -Region.of.the.territory, 
+         -ISO.3166.1.Alpha.2.Codes, 
+         -Geo.Shape)
+```
+
+**Correcting iso3 and discarding rows with wrong iso3-Continent combination:**
+
+```{r}
+worldboundaries <- worldboundaries |>
+  mutate(
+    iso3 = case_when(
+      iso3 == "United States of America" ~ "USA",
+      iso3 == "Brazil" ~ "BRA",
+      TRUE ~ iso3
+    ),
+    Continent = case_when(
+      Continent %in% c("Northern America", 
+                       "South America") ~ "Americas",
+      TRUE ~ Continent
+    )
+  ) |>
+  filter(
+    !(Continent != "Americas" & iso3 == "USA") &
+    !(Continent != "Europe" & iso3 %in% c("GBR", 
+                                          "FRA"))
+  )
+```
+
+**Removing rows with duplicates of the same iso3:**
+
+```{r}
+worldboundaries <- worldboundaries |>
+  distinct(iso3, 
+           .keep_all = TRUE)
+```
+
+## CLEAN RAW DONs:
+
+**Changing the column names:**
+
+```{r}
+rawdons_clean <- rawdons|>   
+  rename(DONs = ID) |>    
+  mutate(Year = as.integer(str_split_i(Date, 
+                                       pattern = "-", 
+                                       1)))    
+```
+
+## CLEAN UNIQUE DONs and COVID-19 DATA:
+
+**Rename of column, handling null and unspecific values:**
+
+```{r}
+uniqueDONs_clean <- uniqueDONs |>
+  rename(Index = X) |>
+  mutate(Definition = if_else(Definition == "", 
+                              "Unspecified", 
+                              Definition),
+         icd11l2 = if_else(icd11l2 == "", 
+                           "Not reported", 
+                           icd11l2),
+                           icd11l3 = if_else(icd11l3 == "", 
+                                             "Not reported", 
+                                             icd11l3),
+                           icd11l2 = if_else(str_detect(icd11l2, 
+                                                        "Aetiology"), 
+                                             "Bacteria or viral infection", 
+                                             icd11l2))
+  
+covidOutbreaks_clean <- covidOutbreaks |>
+  rename(Index = X) |>
+  mutate(
+    icd11c1 = as.character(icd11c1),
+    icd11l2 = if_else(str_detect(icd11l2, 
+                                 "International"),
+                      "New uncertain disease", 
+                      icd11l2))
+```
+
+## MERGING DATA
+
+**Merging of unique and COVID-19 outbreaks data:**
+
+```{r}
+total_outbreaks <- 
+  full_join(uniqueDONs_clean, 
+            covidOutbreaks_clean) |>
+  distinct()
+```
+
+**Merging of WDI and total outbreaks data:**
+
+```{r}
+outbreaks_wdi <-  
+  left_join(total_outbreaks, 
+            wdi_clean, 
+            by = "iso3")
+```
+
+**Merging of geographical and total outbreaks data:**
+
+```{r}
+clean_outbreaks <- worldboundaries |> 
+  left_join(drop_na(outbreaks_wdi), 
+            by = "iso3")
+```
+
+## Cleaning merged data
+
+**Correcting/Shortening countries names:**
+
+```{r}
+clean_outbreaks <- clean_outbreaks |> 
+  mutate(
+    Country = case_when(
+      Country == "Congo Democratic Republic of the" ~ "Democratic Republic of Congo",
+      Country == "United States of America" ~ "USA",
+      Country== "C̫te d'Ivoire" ~ "Côte d'Ivoire",
+      Country == "United Kingdom of Great Britain and Northern Ireland" ~ "United Kingdom",
+      TRUE ~ as.character(Country)
+    )
+  )
+```
+
+**Creating a final clean data file: clean_outbreaks**
+
+```{r}
+write_tsv(clean_outbreaks, "../Data/clean_outbreaks.tsv")
+```
+
+
+
+## Creation of new variables
+
+This file contains the new variables useful for our analysis
+
+---
+title: "03_augment.qmd"
+author: "group_12"
+format: 
+  html:
+    embed-resources: true
+editor: visual
+---
+
+
+```{r}
+#| echo: false
+library("tidyverse")
+library("readr")
+
+#| echo: true
+#| message: false
+#| warning: false
+#| eval: false
+```
+
+## LOADING DATA
+
+```{r}
+rawdons <- read_tsv("../Data/rawdons.tsv")
+covidOutbreaks <- read_tsv("../Data/covidOutbreaks.tsv")
+outbreaks <- read_tsv( "../Data/outbreaks.tsv")
+uniqueDONs <- read_tsv( "../Data/uniqueDONs.tsv")
+wdi <- read_tsv( "../Data/wdi.tsv")
+worldboundaries <- read_tsv( "../Data/worldboundaries.tsv")
+icd1011 <- read_tsv( "../Data/icd1011.tsv")
+isocodes <- read_tsv( "../Data/isocodes.tsv")
+clean_outbreaks <- read_tsv( "../Data/clean_outbreaks.tsv")
+```
+
+
+## Data scraping
+
+The isocodes dataset is used to scrape the column *Description* for matching countries. The first value that is extracted is then added to a new column called Country- representing each country that an outbreak originated in
+
+```{r}
+countries <-isocodes |>    
+  distinct(Country) |>    
+  format_delim(delim="|",
+               eol = "|", 
+               col_names = FALSE) |>    
+  str_sub(end =-2)  
+
+uniqdisease <- uniqueDONs_clean |>    
+  select(Country, 
+         DONs, 
+         Disease) |>     
+  separate_longer_delim(DONs, 
+                        delim = ",",) |>    
+  mutate(DONs=str_remove(DONs," "))  
+
+
+rawdons_aug <- rawdons_clean |>      
+  mutate(       
+    Country = sapply(str_extract_all(Description, 
+                                     str_c("United Kingdom|
+                                           Côte d'Ivoire|
+                                           Hong Kong|
+                                           Republic of Korea|
+                                           Tanzania|Iran|
+                                           United States|
+                                           Lao People's Democratic Republic|
+                                           Venezuela|saudi_arabia|
+                                           Bolivia|",
+                                           countries)), 
+                     function(x) paste(unique(x), 
+                                       collapse = ','))) |>  
+  separate_longer_delim(Country,
+                        delim = ",")
+
+# if country is na find the corresponding don in uniquedisease and fill corresponding country 
+rawdons_aug <- rawdons_aug |> 
+  mutate(Country = na_if(Country, 
+                         ""))
+
+```
+
+## The Isocodes
+
+The isocodes are a collection of short country codes for each country and they are merged by the country to created a new object
+
+```{r}
+
+isocodesaug <- isocodes |>    
+  select(iso2,
+         iso3,
+         Country)  
+
+rawdons_aug <-rawdons_aug |>    
+  mutate(Country = str_replace_all(
+    Country, c("Democratic Republic of the Congo" = "Congo Democratic Republic of the",        
+               "Republic of Korea" = "Korea Republic of",
+               "United Republic of Tanzania" = "Tanzania United Republic of"))) |>    
+  left_join(isocodesaug, 
+            join_by(Country)) 
+
+```
+
+## The ICD codes
+
+The disease that is associated with each DON is taken from the completed dataframe *uniquedons.csv*. Then the icd codes, which are a collection of disease descriptions, are merged to create a dataframe with all associated dons, disease and disease descriptions
+
+```{r}
+
+rawdons_aug <-rawdons_aug |>   
+  left_join(uniqdisease, 
+            join_by(DONs, 
+                    Country))
+
+rawdons_aug <- rawdons_aug |>  
+  filter(!is.na(Disease)) |> 
+  mutate(Disease = ifelse(is.na(Disease), 
+                          DONs, 
+                          Disease)) |>
+  left_join(icd1011, join_by(Disease))
+```
+
+## Data Specifics
+
+The Dons that are not related to disease outbreaks are then deleted, such as meetings of international experts (see DON0133), recommendations on treatments (DON0153), or travel requirements (DON0107 and DON0198).
+
+```{r}
+rawdons_aug <- rawdons_aug |>    
+  filter(DONs != "DON0133"& 
+         DONs != "DON0153"& 
+         DONs!="DON0107"& 
+         DONs != "DON0198") |>    
+  arrange(Country) |>    
+  mutate(Country = ifelse((Disease == "Anthrax, 
+                           unspecified" & Year == "2001"), 
+                          "United States", 
+                          Country))
+```
+
+## Duplicate Removal
+
+Combine all dons from the same outbreak into one column by removing duplicates. Deleting all the DONs registering the information on the same disease for the same country more than once in a given calendar year. This create a file with 1233 unique dons out of the original 1566. This is due to the fact that the paper obtained these missing countries from web scraping the titles as well as the description which was not the approach that was used here. The following analysis will use the completed using the *uniquedons* variable.
+
+```{r}
+rawdons_aug <-rawdons_aug |> 
+  mutate(key = as.factor(paste0(iso3, 
+                                Year, 
+                                icd104c))) |> 
+  group_by(key) |> 
+  mutate(AllDONs = paste(DONs, 
+                         collapse = ", ")) |> 
+  ungroup() |> 
+  distinct(Country, 
+           iso2, 
+           iso3, 
+           Year, 
+           icd10n, 
+           icd103n, 
+           icd104n, 
+           icd10c, 
+           icd103c, 
+           icd104c, 
+           icd11c1, 
+           icd11c2, 
+           icd11c3, 
+           icd11l1, 
+           icd11l2, 
+           icd11l3, 
+           Disease, 
+           Definition, 
+           AllDONs) # 1566 unique events apparently but only have 1233 so far as 271 countries are not named in Description column
+```
+
+## Augment the clean merged data file.
+
+New column added for the the classification of different diseases types. COVID-19, Influenza and Cholera were not included in any category as they are major outbreaks and we wanted to show their influence separately.
+
+```{r}
+final_outbreaks <- clean_outbreaks |>
+  mutate(icd11l2 = str_trim(icd11l2)) |>
+   mutate(Disease_class = case_when(icd11l2 %in% 
+                                      c("Certain arthropod-borne viral fevers",
+                                        "Certain zoonotic bacterial diseases",
+                                        "Certain zoonotic viral diseases",
+                                        "Dengue") ~ "Zoonotic diseases",
+                                    icd11l2 %in%
+                                      c("Bacteria or viral infection",
+                                        "Certain other viral diseases",
+                                        "Viral hepatitis",
+                                        "Human immunodeficiency virus disease",
+                                        "Viral infections characterised by skin or mucous membrane lesions",
+                                        "Viral infections of the central nervous system",
+                                        "Lung infections",
+                                        "Human prion diseases") ~ "Viral infections",
+                                    icd11l2 %in% 
+                                      c("Other bacterial diseases",
+                                        "Mycobacterial diseases",
+                                        "Sepsis",
+                                        "Predominantly sexually transmitted infections",
+                                        "Mycoses") ~ "Bacteria and fungus infections",
+                                    icd11l2 %in% c("Parasitic diseases",
+                                                   "Nonintestinal protozoal diseases") ~ "Parasitic infections",
+                                    icd11l2 == "Gastroenteritis or colitis of infectious origin" ~ "Cholera-Intestinal diseases",
+                                    icd11l2 == "Influenza" ~ "Influenza infections",
+                                    icd11l2 == "Not reported" ~ "Uncertain diseases",
+                                    icd11l2 == "New uncertain disease" ~ "Covid-19"))
+```
+
+For income data, we replace the "NA"s with a category called "No income data available".
+
+```{r}
+  final_outbreaks <- final_outbreaks |>
+  mutate (Income.Group = if_else(is.na(Income.Group), 
+                                 "No income data available", 
+                                 Income.Group))
+```
+
+#### Splitting Coordinates into Latitude and Longitude columns
+
+```{r}
+final_outbreaks <- final_outbreaks |> 
+  mutate(
+    Coordinates = str_split(as.character(Coordinates), 
+                            ", ", 
+                            simplify = TRUE),
+    Latitude = as.numeric(Coordinates[, 1]),
+    Longitude = as.numeric(Coordinates[, 2])
+  ) |> 
+  select(-Coordinates)
+```
+
+## Creating a final (clean and augmented datafile) to use for data-analysis: final_outbreaks
+
+```{r}
+write_tsv(final_outbreaks, "../Data/final_outbreaks.tsv")
+```
+
+
+
+## Analysis
+
+These two files contain the data analysis including plots and figures.
+
+---
+title: "05_analysis_1.qmd"
+author: "group_12"
+format:
+  html:
+    embed-resources: true
+editor: visual
+---
+
+```{r}
+#|echo: true
+library("tidyverse")
+library("ggplot2")
+library("viridis")
+
+```
+
+## Including the final clean and augmented dataset
+
+```{r}
+final_outbreaks <- read_tsv("../Data/final_outbreaks.tsv")
+```
+
+### Reshaping data set to wide format and adding frequency column (Freq):
+
+```{r}
+geo_outbreaks_wide <- final_outbreaks |>
+  count(Country, 
+        iso3, 
+        icd104c, 
+        Continent, 
+        Longitude, 
+        Latitude) |>
+  pivot_wider(
+    id_cols = c("Country", 
+                "iso3", 
+                "Continent", 
+                "Longitude", 
+                "Latitude"),
+    names_from = icd104c,
+    values_from = n,
+    values_fill = 0
+  )
+geo_outbreaks_wide <- geo_outbreaks_wide |>
+  mutate(Freq = rowSums(select(geo_outbreaks_wide, 
+                               where(is.numeric), 
+                               -Latitude, 
+                               -Longitude)))
+```
+
+#### Barplot of the 20 Countries with the highest number of outbreaks (1996 - 2022):
+
+```{r}
+# Select the top 20 countries and arrange the data
+top_countries <- geo_outbreaks_wide  |> 
+  arrange(desc(Freq))  |> 
+  slice_head(n = 20)  |> 
+  mutate(Country = fct_reorder(Country, 
+                               Freq))  |> 
+  pull(Country)
+
+# Plot the top 20 countries
+fig4a_reproduced <- geo_outbreaks_wide  |> 
+  filter(Country %in% top_countries)  |> 
+  ggplot(aes(x = fct_reorder(Country, 
+                             -Freq), 
+             y = Freq, 
+             fill = Continent)) +
+  geom_bar(stat = "identity") +
+  labs(y = "Total frequency of outbreaks (1996 - 2022)",
+       x = "Country",
+       title = "Top 20 countries with the highest 
+       number of outbreaks"
+       ) +
+  theme_minimal() +
+  scale_fill_viridis_d(alpha = 1) +
+  theme(axis.text.x = element_text(angle = 90, 
+                                   hjust = 1, size = 8),
+        plot.title = element_text(hjust = 0.5))
+
+fig4a_reproduced 
+ggsave(fig4a_reproduced, 
+       filename = "../Results/fig4a_reproduced.png", 
+       dpi = 300)
+```
+
+#### Map plot with the spatial frequency of outbreaks
+
+```{r}
+# Download world map data
+world <- map_data("world")
+
+fig3_reproduced <- ggplot() +
+  geom_polygon(data = world, 
+               aes(x = long, 
+                   y = lat, 
+                   group = group), 
+               fill = "white", 
+               color = "black") +
+  geom_point(data = geo_outbreaks_wide, 
+             aes(x = Longitude, 
+                 y = Latitude, 
+                 color = Freq), 
+             size = 3) +
+  scale_color_viridis(name = "Frequency", 
+                      direction = -1) +
+  labs(title = "Disease Frequency by Country",
+       x = "Longitude",
+       y = "Latitude"
+       ) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))  
+
+fig3_reproduced
+ggsave(fig3_reproduced, 
+       filename = "../Results/fig3_reproduced.png", 
+       dpi = 300)
+
+```
+
+### Reshaping data set to obtain the total yearly outbreaks:
+
+```{r}
+outbreaks_yearly <- final_outbreaks |> 
+  count(Year, 
+        icd104c) |> 
+  pivot_wider(names_from = icd104c,
+              values_from = n,
+              values_fill = 0) 
+outbreaks_yearly <- outbreaks_yearly |>
+  mutate(Freq = rowSums(select(outbreaks_yearly,
+                               where(is.numeric), 
+                               -Year)))
+```
+
+#### Barplot of the yearly number of outbreaks:
+
+```{r}
+# Plot the barplot
+fig4c_reproduced <- ggplot(outbreaks_yearly, 
+                aes(x = Year, 
+                    y = Freq)) +
+  geom_bar(stat = "identity", 
+           fill = "skyblue") +
+  labs(title = "Yearly Outbreaks (1996-2022)",
+       x = "Year",
+       y = "Total Outbreaks"
+       ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, 
+                                   hjust = 1, 
+                                   size = 8),
+        plot.title = element_text(hjust = 0.5))
+
+fig4c_reproduced
+
+ggsave(fig4c_reproduced, 
+       filename = "../Results/fig4c_reproduced.png", 
+       dpi = 300)
+
+```
+
+---
+title: "06_analysis_2.qmd"
+author: "group_12"
+format:
+  html:
+    embed-resources: true
+editor: visual
+---
+
+```{r}
+
+library("tidyverse")
+library("ggplot2")
+
+#| echo: true
+#| message: false
+#| warning: false
+#| eval: false
+```
+
+## Including the final clean and augmented dataset
+
+```{r}
+final_outbreaks <- read_tsv("../Data/final_outbreaks.tsv")
+```
+
+## Disease-outbreaks, reproducing fig4b with top 20 diseases
+
+```{r}
+#| echo: true
+#| eval: true
+#keeping the 20 most frequent diseases
+#the fct_infreq orders the Disease in levels according to frequency
+#the str_wraps wraps text that is over 30 characters
+
+Fig4b_reproduced <- final_outbreaks |> 
+  count(Disease) |> 
+  arrange(desc(n)) |> 
+  slice_head(n = 20) |>  
+  inner_join(final_outbreaks, by = "Disease")  |> 
+  mutate(Disease = fct_infreq(Disease))  |>  
+  ggplot(mapping = aes(x = Disease)) +
+  geom_bar()+
+  labs(y = "Total frequency of outbreaks \n (1996 - 2021)", 
+       x = "Disease") +
+  scale_x_discrete(labels = function(x) str_wrap(x, 
+                                                 width = 30)) + 
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, 
+                                   vjust = 0.5,
+                                   hjust = 1))
+
+Fig4b_reproduced
+
+ggsave(Fig4b_reproduced, 
+       filename = "../Results/Fig4b_reproduced.png", 
+       dpi = 300)
+```
+
+## Creating a new Figure 4b, with incorporated information on country income status
+
+```{r}
+
+Fig4b_income <- final_outbreaks |> 
+  count(Disease) |> 
+  arrange(desc(n)) |> 
+  slice_head(n = 20) |> 
+  inner_join(final_outbreaks, 
+             by = "Disease")  |> 
+  mutate(Disease = fct_infreq(Disease), 
+         Income.Group = factor(Income.Group, 
+                                levels = c("High income", 
+                                           "Upper middle income", 
+                                           "Lower middle income", 
+                                           "Low income", 
+                                           "No income data available"))) |>
+  ggplot(mapping = aes(x = Disease, 
+                       fill = Income.Group)) +
+  geom_bar()+
+  scale_fill_brewer(palette = "Spectral") +
+  labs(y = "Total frequency of outbreaks \n (1996 - 2021)", 
+       x = "Disease") +
+  scale_x_discrete(labels = function(x) str_wrap(x, 
+                                                 width = 30)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, 
+                                   vjust = 0.5, 
+                                   hjust = 1, 
+                                   size = 8), 
+        legend.title = element_blank())
+
+Fig4b_income
+
+ggsave(Fig4b_income, 
+       filename = "../Results/Fig4b_income.png",
+       dpi = 300)
+
+```
+
+##descriptive data of fig 4b income
+
+```{r}
+
+#distribution of countries by income status in the entire dataset (almost equal - between 20 and 30 %). 
+income_dist <- final_outbreaks |> 
+  group_by(Income.Group) |> 
+  summarise(count = n())  |> 
+  mutate(percentage = (count / sum(count)) * 100)
+income_dist
+
+#distribution of countries by income status for the top 20 diseases (still almost equal)
+income_dist_top20 <- final_outbreaks |> 
+count(Disease) |> 
+  arrange(desc(n)) |> 
+  slice_head(n = 20) |>  
+  inner_join(final_outbreaks, by = "Disease")  |> 
+  group_by(Income.Group) |> 
+  summarise(count = n())  |> 
+  mutate(percentage = (count / sum(count)) * 100)
+income_dist_top20
+
+
+#Now excluding covid and influenza, and looking at the distribution of countries by income status for the top 3-20 diseases (So here, the disease burden changes with 66% of the outbreaks in Low income or lower middle income countries.)
+income_dist_top3_20 <- final_outbreaks |> 
+filter(Disease != "COVID-19", 
+       Disease !="Influenza due to identified zoonotic or pandemic influenza virus") |> 
+  count(Disease) |> 
+  arrange(desc(n)) |> 
+  slice_head(n = 18) |>  
+  inner_join(final_outbreaks, by = "Disease")  |> 
+  group_by(Income.Group) |> 
+  summarise(count = n())  |> 
+  mutate(percentage = (count / sum(count)) * 100)
+income_dist_top3_20
+
+```
+
+## Disease type distribution over the years 1996-2022
+
+```{r}
+Disease_distribution <- final_outbreaks |>
+  drop_na() |> 
+  ggplot(mapping =
+           aes(x = Year,
+               fill = Disease_class, 
+               group = Disease_class)) +
+  geom_bar(stat = "count") +
+  scale_x_continuous(breaks = seq(1996, 
+                                  2022, 
+                                  by = 1)) +
+  scale_y_continuous(breaks = seq(min(0), 
+                                  max(300), 
+                                  by = 20)) +  
+  theme_minimal() +
+  scale_fill_viridis_d(alpha = 0.8) +
+  theme(plot.title = element_text(size = 12,
+                                  vjust = -2,
+                                  hjust = 0.5),
+        axis.title.x = element_text(size = 7),
+        axis.title.y = element_text(size = 8),
+        axis.text.x = element_text(size = 6,
+                                   angle = 45),
+        axis.text.y = element_text(size = 6),
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6)) +
+  labs(x = "Year",
+       y = "Count of disease",
+       title = "Disease type distribution over time",
+       fill = "Disease classification")
+
+ ggsave(Disease_distribution, 
+        filename = "../Results/Disease_distribution.png", 
+        dpi = 300)
+Disease_distribution
+```
+
+## Frequency of outbreaks for countries grouped by income in years 1996-2022
+
+```{r}
+# calculating the number of outbreaks in countries grouped by income
+A1 <- final_outbreaks |> 
+  select(Income.Group,
+         Year) |> 
+  drop_na() |> 
+  mutate(one = 1) |> 
+  pivot_wider(names_from =Income.Group,
+              values_from = one, 
+              values_fn = sum)
+
+A2 <- A1 |> 
+  pivot_longer(cols = -Year, 
+               names_to ="Income.Group",
+               values_to = "Frequency")  
+
+
+#arranging data in an appropriate order
+A2 <- A2 |> 
+  mutate(Income.Group = factor(Income.Group, 
+                          levels=c("High income",
+                                   "Upper middle income",
+                                   "Lower middle income",
+                                   "Low income"
+                                   )))
+
+#making plot
+Inc_line <- ggplot(data = A2, 
+                aes(x = Year, 
+                    y = Frequency,
+                    color = Income.Group,
+                    group = Income.Group
+                    )) + 
+          geom_line(size = 1) +
+      ylab("Frequency of outbreaks") + 
+      xlab("Year") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45)) +
+  theme(legend.position = "right")+
+   #scale_color_viridis_d() +
+  scale_x_continuous(breaks = seq(1996,
+                                  2022, 
+                                  by = 2))+
+   labs(color = "Income group")
+
+#saving graph
+ggsave(Inc_line, 
+       filename ="../Results/Inc_line.png", 
+       dpi = 300)
+
+Inc_line
+```
+
+## Frequency of outbreaks for each continent in years 1996-2022
+
+```{r}
+# calculating the number of outbreaks in countries grouped by continent
+B1 <- final_outbreaks |>
+  select(Continent,
+         Year) |> 
+  mutate(one = 1) |>
+  pivot_wider(names_from = Continent,
+              values_from = one, 
+              values_fn = sum)
+B2 <- B1 |> 
+  pivot_longer(cols = -Year, 
+               names_to = "Continent",
+               values_to = "Frequency") 
+#replacing NA's with 0 value as there was no information of an outbreak for a specific continent in a specific year
+B2 <-B2 |> 
+  mutate(Frequency = replace_na(Frequency, 0))
+
+#plot Frequency of outbreaks for each continent in years 1996-2022
+Cont_line <- ggplot(data = B2, 
+                aes(x = Year, 
+                    y = Frequency,
+                    color = Continent,
+                    group = Continent)) +  
+          geom_line(size = 1) +
+      ylab("Frequency of outbreaks") + 
+      xlab("Year") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45)) +
+  theme(legend.position="right")+
+  scale_color_viridis_d() +
+  scale_x_continuous(breaks = seq(1996,
+                                  2022, 
+                                  by = 2))
+#saving graph
+ggsave(Cont_line, 
+       filename = "../Results/Cont_line.png", 
+       dpi = 300)
+
+Cont_line
+```
+
+
+---
+title: "00_all.qmd"
+author: "group_12"
+format: 
+  html:
+    embed-resources: true
+editor: visual
+---
+

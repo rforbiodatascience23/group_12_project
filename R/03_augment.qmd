@@ -8,10 +8,15 @@ editor: visual
 ---
 
 
-```{r load libraries}
+```{r}
 #| echo: false
 library("tidyverse")
 library("readr")
+
+#| echo: true
+#| message: false
+#| warning: false
+#| eval: false
 ```
 
 ## LOADING DATA

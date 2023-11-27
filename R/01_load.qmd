@@ -11,7 +11,7 @@ editor: visual
 
 Load all the datasets we used and processed throughout the study analysis
 
-```{r load_libraries}
+```{r}
 #| echo: true
 #| message: false
 #| warning: false
@@ -25,9 +25,9 @@ library("viridis")
 
 **Load data**
 
-```{r get_data}
+```{r}
 #| echo: true
-
+#| eval: true
 filename <-  c("DONsRaw.csv",
                "COVIDOutbreaks.csv",
                "Outbreaks.csv",
