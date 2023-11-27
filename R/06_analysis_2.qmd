@@ -25,7 +25,6 @@ final_outbreaks <- read_tsv("../Data/final_outbreaks.tsv")
 ## Disease-outbreaks, reproducing fig4b with top 20 diseases
 
 ```{r}
-
 #keeping the 20 most frequent diseases
 #the fct_infreq orders the Disease in levels according to frequency
 #the str_wraps wraps text that is over 30 characters
@@ -57,6 +56,9 @@ ggsave(Fig4b_reproduced,
 ## Creating a new Figure 4b, with incorporated information on country income status
 
 ```{r}
+final_outbreaks |> 
+  group_by(Income.Group) |> 
+  count()
 
 Fig4b_income <- final_outbreaks |> 
   count(Disease) |> 
@@ -98,8 +100,8 @@ Disease_distribution <- final_outbreaks |>
                fill = Disease_class, 
                group = Disease_class)) +
   geom_bar(stat = "count") +
-  scale_x_continuous(breaks = seq(min(final_outbreaks$Year), 
-                                  max(final_outbreaks$Year), 
+  scale_x_continuous(breaks = seq(min(Year), 
+                                  max(Year), 
                                   by = 1)) +
   scale_y_continuous(breaks = seq(min(0), 
                                   max(300), 
