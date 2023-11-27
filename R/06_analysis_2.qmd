@@ -90,7 +90,6 @@ ggsave(Fig4b_income,
 
 ```
 
-
 ##descriptive data of fig 4b income
 
 ```{r}
@@ -128,7 +127,6 @@ filter(Disease != "COVID-19",
 income_dist_top3_20
 
 ```
-
 
 ## Disease type distribution over the years 1996-2022
 
