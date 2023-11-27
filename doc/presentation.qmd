@@ -120,10 +120,16 @@ Disease outbreaks are caused when infectious diseases spread rapidly across the 
 
 ## Result 5
 
+<<<<<<< HEAD
 
 ::: {style="display: flex; justify-content: space-between;"}
 <img src="../Results/Cont_line.png" alt="Outbreak Frequency by Continent Line Graph" width="45%"/> <img src="../Results/Inc_line.png" alt="Outbreak Frequency by Income Line Graph" width="45%"/>
 :::
+=======
+::: {style="display: flex; justify-content: space-between;"}
+<img src="../Results/Cont_line.png" alt="Outbreak Frequency by Continent Line Graph" width="45%"/> <img src="../Results/Inc_line.png" alt="Outbreak Frequency by Income Line Graph" width="45%"/>
+Mikolaj's figures
+>>>>>>> d2905a059e2249c97b093dc827dd0fc21f6b20c5
 
 ------------------------------------------------------------------------
 

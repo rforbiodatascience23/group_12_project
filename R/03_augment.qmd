@@ -7,11 +7,9 @@ format:
 editor: visual
 ---
 
-{{< include 01_load.qmd >}}
-
 {{< include 02_clean.qmd >}}
 
-```{r load_libraries}
+```{r}
 library("tidyverse")
 ```
 
@@ -213,5 +211,5 @@ final_outbreaks <- final_outbreaks |>
 ## Creating a final (clean and augmented datafile) to use for data-analysis: final_outbreaks
 
 ```{r}
-write_tsv(final_outbreaks, "../Data/final_outbreaks.tsv")
+write_tsv(final_outbreaks, "../_raw/Data/final_outbreaks.tsv")
 ```
