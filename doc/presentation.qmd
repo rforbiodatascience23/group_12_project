@@ -121,6 +121,8 @@ Merged by Alpha-3 Country-codes
 
 ## Result 5
 
+::: {style="display: flex; justify-content: space-between;"}
+<img src="../Results/Cont_line.png" alt="Outbreak Frequency by Continent Line Graph" width="45%"/> <img src="../Results/Inc_line.png" alt="Outbreak Frequency by Income Line Graph" width="45%"/>
 Mikolaj's figures
 
 ------------------------------------------------------------------------
