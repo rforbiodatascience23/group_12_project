@@ -1,12 +1,3 @@
----
-title: "00_all.qmd"
-author: "group_12"
-format: 
-  html:
-    embed-resources: true
-editor: visual
----
-
 # Master document
 
 01_load.qmd contains the script that loads all the raw data we used in the project
@@ -30,3 +21,12 @@ These two files contain the data analysis including plots and figures.
 {{< include 05_analysis_1.qmd >}}
 
 {{< include 06_analysis_2.qmd >}}
+
+---
+title: "00_all.qmd"
+author: "group_12"
+format: 
+  html:
+    embed-resources: true
+editor: visual
+---
