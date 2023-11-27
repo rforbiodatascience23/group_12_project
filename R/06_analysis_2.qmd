@@ -104,7 +104,7 @@ Disease_distribution <- final_outbreaks |>
   scale_y_continuous(breaks = seq(min(0), 
                                   max(300), 
                                   by = 20)) +  
-  theme_classic() +
+  theme_minimal() +
   scale_fill_viridis_d(alpha = 0.8) +
   theme(plot.title = element_text(size = 12,
                                   vjust = -2,
@@ -188,10 +188,10 @@ Inc_line
 
 ```{r}
 # calculating the number of outbreaks in countries grouped by continent
-B1 <- final_outbreaks %>%
+B1 <- final_outbreaks |>
   select(Continent,
          Year) |> 
-  mutate(one = 1) %>%
+  mutate(one = 1) |>
   pivot_wider(names_from = Continent,
               values_from = one, 
               values_fn = sum)
