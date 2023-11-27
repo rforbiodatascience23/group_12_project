@@ -15,15 +15,23 @@ editor: visual
 #| label: setup
 library(tidyverse)
 library(ggplot2)
+library(viridis)
 ```
 
 ```{r}
 geo_outbreaks_wide <- final_outbreaks |>
-  count(Country, iso3, icd104c, 
-        Continent, Longitude, Latitude) |>
+  count(Country, 
+        iso3, 
+        icd104c, 
+        Continent, 
+        Longitude, 
+        Latitude) |>
   pivot_wider(
-    id_cols = c("Country", "iso3", "Continent", 
-                "Longitude", "Latitude"),
+    id_cols = c("Country", 
+                "iso3", 
+                "Continent", 
+                "Longitude", 
+                "Latitude"),
     names_from = icd104c,
     values_from = n,
     values_fill = 0
@@ -31,7 +39,8 @@ geo_outbreaks_wide <- final_outbreaks |>
 geo_outbreaks_wide <- geo_outbreaks_wide |>
   mutate(Freq = rowSums(select(geo_outbreaks_wide, 
                                where(is.numeric), 
-                               -Latitude, -Longitude)))
+                               -Latitude, 
+                               -Longitude)))
 ```
 
 #### Barplot of the 20 Countries with the highest number of outbreaks (1996 - 2022):
@@ -41,13 +50,15 @@ geo_outbreaks_wide <- geo_outbreaks_wide |>
 top_countries <- geo_outbreaks_wide  |> 
   arrange(desc(Freq))  |> 
   slice_head(n = 20)  |> 
-  mutate(Country = fct_reorder(Country, Freq))  |> 
+  mutate(Country = fct_reorder(Country, 
+                               Freq))  |> 
   pull(Country)
 
 # Plot the top 20 countries
 fig4a_reproduced <- geo_outbreaks_wide  |> 
   filter(Country %in% top_countries)  |> 
-  ggplot(aes(x = fct_reorder(Country, -Freq), 
+  ggplot(aes(x = fct_reorder(Country, 
+                             -Freq), 
              y = Freq, 
              fill = Continent)) +
   geom_bar(stat = "identity") +
@@ -62,8 +73,10 @@ fig4a_reproduced <- geo_outbreaks_wide  |>
                                    hjust = 1, size = 8),
         plot.title = element_text(hjust = 0.5))
 
-fig4a_reproduced
-ggsave(fig3_reproduced, filename = "/net/pupil1/home/people/s222777/projects/group_12_project_/Results/fig3_reproduced.png", dpi = 300)
+fig4a_reproduced 
+ggsave(fig4a_reproduced, 
+       filename = "/net/pupil1/home/people/s222777/projects/group_12_project_/Results/fig4a_reproduced.png", 
+       dpi = 300)
 ```
 
 #### Map plot with the spatial frequency of outbreaks
@@ -74,7 +87,9 @@ world <- map_data("world")
 
 fig3_reproduced <- ggplot() +
   geom_polygon(data = world, 
-               aes(x = long, y = lat, group = group), 
+               aes(x = long, 
+                   y = lat, 
+                   group = group), 
                fill = "white", 
                color = "black") +
   geom_point(data = geo_outbreaks_wide, 
@@ -92,7 +107,10 @@ fig3_reproduced <- ggplot() +
   theme(plot.title = element_text(hjust = 0.5))  
 
 fig3_reproduced
-ggsave(fig4a_reproduced, filename = "/net/pupil1/home/people/s222777/projects/group_12_project_/Results/fig4a_reproduced.png", dpi = 300)
+ggsave(fig3_reproduced, 
+       filename = "/net/pupil1/home/people/s222777/projects/group_12_project_/Results/fig3_reproduced.png", 
+       dpi = 300)
+
 ```
 
 ### Reshaping data set to obtain the total yearly outbreaks:

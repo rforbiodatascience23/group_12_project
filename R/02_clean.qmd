@@ -27,7 +27,9 @@ library(tidyverse)
 wdi_clean <- wdi |> 
   select(Country.Code, Income.Group) |> 
   rename(iso3 = Country.Code) |> 
-  mutate(iso3 = if_else(iso3 == "XKX", "XXK", iso3)) |> 
+  mutate(iso3 = if_else(iso3 == "XKX", 
+                        "XXK", 
+                        iso3)) |> 
   filter(Income.Group !="")
 
 ```
@@ -48,8 +50,13 @@ worldboundaries <- worldboundaries |>
   rename(
     iso3 = "ISO.3.country.code",
     Continent = "Continent.of.the.territory",
-    Coordinates="Geo.Point") |> 
-  select(-French.Name, -English.Name,-ISO.3.territory.code, -Region.of.the.territory, -ISO.3166.1.Alpha.2.Codes, -Geo.Shape)
+    Coordinates = "Geo.Point") |> 
+  select(-French.Name, 
+         -English.Name,
+         -ISO.3.territory.code, 
+         -Region.of.the.territory, 
+         -ISO.3166.1.Alpha.2.Codes, 
+         -Geo.Shape)
 ```
 
 **Correcting iso3 and discarding rows with wrong iso3-Continent combination:**
@@ -63,13 +70,15 @@ worldboundaries <- worldboundaries |>
       TRUE ~ iso3
     ),
     Continent = case_when(
-      Continent %in% c("Northern America", "South America") ~ "Americas",
+      Continent %in% c("Northern America", 
+                       "South America") ~ "Americas",
       TRUE ~ Continent
     )
   ) |>
   filter(
     !(Continent != "Americas" & iso3 == "USA") &
-    !(Continent != "Europe" & iso3 %in% c("GBR", "FRA"))
+    !(Continent != "Europe" & iso3 %in% c("GBR", 
+                                          "FRA"))
   )
 ```
 
@@ -77,7 +86,8 @@ worldboundaries <- worldboundaries |>
 
 ```{r}
 worldboundaries <- worldboundaries |>
-  distinct(iso3, .keep_all = TRUE)
+  distinct(iso3, 
+           .keep_all = TRUE)
 ```
 
 ## CLEAN UNIQUE DONs and COVID-19 DATA:
@@ -88,7 +98,8 @@ worldboundaries <- worldboundaries |>
 #SHOULD THIS BE IN THE AUGMENT FILE?? (Arlinda)
 rawdons_clean <- rawdons|>   
   rename(DONs = ID) |>    
-  mutate(Year = as.integer(str_split_i(Date, pattern ="-", 1)))    
+  mutate(Year = as.integer(str_split_i(Date, 
+                                       pattern = "-", 1)))    
 ```
 
 **Rename of column, handling null and unspecific values:**
@@ -96,16 +107,28 @@ rawdons_clean <- rawdons|>
 ```{r}
 uniqueDONs_clean <- uniqueDONs |>
   rename(Index = X) |>
-  mutate(Definition = if_else(Definition == "", "Unspecified", Definition),
-         icd11l2 = if_else(icd11l2 == "", "Not reported", icd11l2),
-                           icd11l3 = if_else(icd11l3 == "", "Not reported", icd11l3),
-                           icd11l2 = if_else(str_detect(icd11l2, "Aetiology"), "Bacteria or viral infection", icd11l2))
+  mutate(Definition = if_else(Definition == "", 
+                              "Unspecified", 
+                              Definition),
+         icd11l2 = if_else(icd11l2 == "", 
+                           "Not reported", 
+                           icd11l2),
+                           icd11l3 = if_else(icd11l3 == "", 
+                                             "Not reported", 
+                                             icd11l3),
+                           icd11l2 = if_else(str_detect(icd11l2, 
+                                                        "Aetiology"), 
+                                             "Bacteria or viral infection", 
+                                             icd11l2))
   
 covidOutbreaks_clean <- covidOutbreaks |>
   rename(Index = X) |>
   mutate(
     icd11c1 = as.character(icd11c1),
-    icd11l2 = if_else(str_detect(icd11l2, "International"), "New uncertain disease", icd11l2))
+    icd11l2 = if_else(str_detect(icd11l2, 
+                                 "International"),
+                      "New uncertain disease", 
+                      icd11l2))
 ```
 
 ## MERGING DATA
@@ -116,7 +139,8 @@ covidOutbreaks_clean <- covidOutbreaks |>
 
 ```{r}
 total_outbreaks <- 
-  full_join(uniqueDONs_clean, covidOutbreaks_clean) |>
+  full_join(uniqueDONs_clean, 
+            covidOutbreaks_clean) |>
   distinct()
 ```
 
@@ -124,14 +148,17 @@ total_outbreaks <-
 
 ```{r}
 outbreaks_wdi <-  
-  left_join(total_outbreaks, wdi_clean, by = "iso3")
+  left_join(total_outbreaks, 
+            wdi_clean, 
+            by = "iso3")
 ```
 
 **Merging of geographical and total outbreaks data:**
 
 ```{r}
 final_outbreaks <- worldboundaries |> 
-  left_join(drop_na(outbreaks_wdi), by = "iso3") ## here I replaced the na.omit with drop_na to be in tidyverse (Arlinda)
+  left_join(drop_na(outbreaks_wdi), 
+            by = "iso3") ## here I replaced the na.omit with drop_na to be in tidyverse (Arlinda)
 ```
 
 ## Cleaning merged data

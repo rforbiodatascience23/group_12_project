@@ -19,24 +19,33 @@ library(tidyverse)
 
 The tidyverse library "who" is used to scrape the column *Description* for matching countries. The first value that is extracted is then added to a new column called Country- representing each country that an outbreak originated in
 
-***************THIS LINE NEEDS TO BE CHANGED / Camilla ***************************''
+\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*THIS LINE NEEDS TO BE CHANGED / Camilla \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*''
 
 ```{r}
 countries <-isocodes |>    
   distinct(Country) |>    
-  format_delim(delim="|",eol = "|", col_names = FALSE) |>    
+  format_delim(delim="|",
+               eol = "|", 
+               col_names = FALSE) |>    
   str_sub(end =-2)  
 
 uniqdisease <- uniqueDONs_clean |>    
-  select(Country, DONs, Disease) |>     
-  separate_longer_delim(DONs, delim = ",",) |>    
+  select(Country, 
+         DONs, 
+         Disease) |>     
+  separate_longer_delim(DONs, 
+                        delim = ",",) |>    
   mutate(DONs=str_remove(DONs," "))  
 
 
 rawdons_aug <- rawdons_clean |>      
   mutate(       
-    Country = sapply(str_extract_all(Description, str_c("United Kingdom|Côte d'Ivoire|Hong Kong|Republic of Korea|Tanzania|Iran|United States|Lao People's Democratic Republic|Venezuela|saudi_arabia|Bolivia|",countries)), function(x) paste(unique(x), collapse=','))) |>  
-  separate_longer_delim(Country,delim=",")
+    Country = sapply(str_extract_all(Description, 
+                                     str_c("United Kingdom|Côte d'Ivoire|Hong Kong|Republic of Korea|Tanzania|Iran|United States|Lao People's Democratic Republic|Venezuela|saudi_arabia|Bolivia|",countries)), 
+                     function(x) paste(unique(x), 
+                                       collapse=','))) |>  
+  separate_longer_delim(Country,
+                        delim=",")
 
 # if country is na find the corresponding don in uniquedisease and fill correspondng country 
 rawdons_aug <- rawdons_aug |> 
@@ -51,12 +60,17 @@ The isocodes are a collection of short country codes for each country and they a
 ```{r}
 
 isocodesaug <- isocodes |>    
-  select(iso2,iso3,Country)  
+  select(iso2,
+         iso3,
+         Country)  
 
 rawdons_aug <-rawdons_aug |>    
   mutate(Country = str_replace_all(
-    Country, c("Democratic Republic of the Congo"="Congo Democratic Republic of the",        "Republic of Korea"="Korea Republic of","United Republic of Tanzania"="Tanzania United Republic of"))) |>    
-  left_join(isocodesaug, join_by(Country)) 
+    Country, c("Democratic Republic of the Congo" = "Congo Democratic Republic of the",        
+               "Republic of Korea" = "Korea Republic of",
+               "United Republic of Tanzania" = "Tanzania United Republic of"))) |>    
+  left_join(isocodesaug, 
+            join_by(Country)) 
 
 ```
 
@@ -71,7 +85,9 @@ rawdons_aug <-rawdons_aug |>
 
 rawdons_aug <- rawdons_aug |>  
   filter(!is.na(Disease)) |> 
-  mutate(Disease = ifelse(is.na(Disease), DONs, Disease)) |>
+  mutate(Disease = ifelse(is.na(Disease), 
+                          DONs, 
+                          Disease)) |>
   left_join(icd1011, join_by(Disease))
 ```
 
@@ -81,9 +97,12 @@ The Dons that are not related to disease outbreaks are then deleted, such as mee
 
 ```{r}
 rawdons_aug <- rawdons_aug |>    
-  filter(DONs!="DON0133"& DONs!="DON0153"& DONs!="DON0107"& DONs!="DON0198") |>    
+  filter(DONs != "DON0133"& DONs != "DON0153"& DONs!="DON0107"& DONs != "DON0198") |>    
   arrange(Country) |>    
-  mutate(Country = ifelse((Disease=="Anthrax, unspecified" & Year=="2001"), "United States", Country ))
+  mutate(Country = ifelse((Disease == "Anthrax, 
+                           unspecified" & Year == "2001"), 
+                          "United States", 
+                          Country))
 ```
 
 ## Duplicate Removal
@@ -92,11 +111,32 @@ Combine all dons from the same outbreak into one column by removing duplicates. 
 
 ```{r}
 rawdons_aug <-rawdons_aug |> 
-  mutate(key = as.factor(paste0(iso3, Year, icd104c))) |> 
+  mutate(key = as.factor(paste0(iso3, 
+                                Year, 
+                                icd104c))) |> 
   group_by(key) |> 
-  mutate(AllDONs = paste(DONs, collapse = ", ")) |> 
+  mutate(AllDONs = paste(DONs, 
+                         collapse = ", ")) |> 
   ungroup() |> 
-  distinct(Country, iso2, iso3, Year, icd10n, icd103n, icd104n, icd10c, icd103c, icd104c, icd11c1, icd11c2, icd11c3, icd11l1, icd11l2, icd11l3, Disease, Definition, AllDONs) # 1566 unique events apparently but only have 1233 so far as 271 countries are not named in Description column
+  distinct(Country, 
+           iso2, 
+           iso3, 
+           Year, 
+           icd10n, 
+           icd103n, 
+           icd104n, 
+           icd10c, 
+           icd103c, 
+           icd104c, 
+           icd11c1, 
+           icd11c2, 
+           icd11c3, 
+           icd11l1, 
+           icd11l2, 
+           icd11l3, 
+           Disease, 
+           Definition, 
+           AllDONs) # 1566 unique events apparently but only have 1233 so far as 271 countries are not named in Description column
 ```
 
 ##Augment the clean merged data file.
@@ -138,12 +178,15 @@ For income data, we replace the "NA"s with a category called "No income data ava
 
 ```{r}
   final_outbreaks <- final_outbreaks |>
-  mutate (Income.Group = if_else(is.na(Income.Group), "No income data available", Income.Group),
-          Income.Group = factor(Income.Group, levels = c("High income", 
-                                                         "Upper middle income",
-                                                         "Lower middle income",
-                                                         "Low income",
-                                                         "No income data available")))
+  mutate (Income.Group = if_else(is.na(Income.Group), 
+                                 "No income data available", 
+                                 Income.Group),
+          Income.Group = factor(Income.Group, 
+                                levels = c("High income", 
+                                           "Upper middle income", 
+                                           "Lower middle income", 
+                                           "Low income", 
+                                           "No income data available")))
 ```
 
 \### THIS DOCUMENT WILL END WITH A 03_DAT_AUG file, that we all use for the graphs.
@@ -153,7 +196,9 @@ For income data, we replace the "NA"s with a category called "No income data ava
 ```{r}
 final_outbreaks <- final_outbreaks |> 
   mutate(
-    Coordinates = str_split(as.character(Coordinates), ", ", simplify = TRUE),
+    Coordinates = str_split(as.character(Coordinates), 
+                            ", ", 
+                            simplify = TRUE),
     Latitude = as.numeric(Coordinates[, 1]),
     Longitude = as.numeric(Coordinates[, 2])
   ) |> 
