@@ -34,7 +34,7 @@ wdi_clean |>
 
 #### Clean World Boundaries Data
 
-Rows with blank cells are filtered out, and similarly to WDI data preprocessing, columns are renamed "ISO.3.country.code" to "iso3", "Continent.of.the.territory" to "Continent","Geo.Point" to "Coordinates"), whilst the unnecessary ones are removed (French.Name, English.Name, ISO.3.territory.code, Region.of.the.territory, ISO.3166.1.Alpha.2.Codes, Geo.Shape). Inaccurate iso3 codes found in the raw data are corrected and rows with incorrect iso3-Continent combinations are discarded. Finally, multiple rows with the same iso3 code values are removed, ensuring that each row corresponds to a unique iso3 country code.
+Rows with blank cells are filtered out, and similarly to WDI data preprocessing, columns are renamed "ISO.3.country.code" to "iso3", "Continent.of.the.territory" to "Continent","Geo.Point" to "Coordinates"), whilst the unnecessary ones are removed (French.Name, English.Name, ISO.3.territory.code, Region.of.the.territory, ISO.3166.1.Alpha.2.Codes, Geo.Shape, Status). Inaccurate iso3 codes found in the raw data are corrected and rows with incorrect iso3-Continent combinations are discarded. Finally, multiple rows with the same iso3 code values are removed, ensuring that each row corresponds to a unique iso3 country code.
 
 The final worldboundaries data set includes the following columns:
 

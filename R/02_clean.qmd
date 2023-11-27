@@ -56,7 +56,7 @@ worldboundaries <- worldboundaries |>
          -ISO.3.territory.code, 
          -Region.of.the.territory, 
          -ISO.3166.1.Alpha.2.Codes, 
-         -Geo.Shape)
+         -Geo.Shape, -Sta)
 ```
 
 **Correcting iso3 and discarding rows with wrong iso3-Continent combination:**

@@ -173,7 +173,7 @@ Inc_line <- ggplot(data = A2,
           geom_line(size = 1) +
       ylab("Frequency of outbreaks") + 
       xlab("Year") +
-  theme_classic() +
+  theme_minimal() +
   theme(axis.text.x = element_text(angle = 0)) +
   theme(legend.position = "right")+
    #scale_color_viridis_d() +
@@ -218,7 +218,7 @@ Cont_line <- ggplot(data = B2,
           geom_line(size = 1) +
       ylab("Frequency of outbreaks") + 
       xlab("Year") +
-  theme_classic() +
+  theme_minimal() +
   theme(axis.text.x = element_text(angle = 0)) +
   theme(legend.position="right")+
   scale_color_viridis_d() +

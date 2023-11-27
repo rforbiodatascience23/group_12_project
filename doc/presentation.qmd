@@ -64,21 +64,16 @@ Disease outbreaks are caused when infectious diseases spread rapidly across the 
 -   Reproduce their findings
 -   Add other factors such as socioeconomic data
 
-
 ## Materials and Methods
+
 ![](images/Flowchart.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
 ## Result 1
 
-**Final dataset:**
-
-```         
-Merged by Alpha-3 Country-codes
-    2227 (????) observations from 1996-2022
-    233 (???) countries
-```
+**Final data set handling:**
+![](images/results1.png)
 
 ------------------------------------------------------------------------
 
@@ -94,11 +89,9 @@ Merged by Alpha-3 Country-codes
 <img src="../Results/fig4c_reproduced.png" alt="Yearly Outbreaks Frequency (Reproduced)" width="50%" height="70%" style="margin-top: 5%"/> <img src="../Results/Disease_distribution.png" alt="Yearly Outbreaks colored by Disease Classification " width="35%" style="margin-left: 5%"/>
 :::
 
-
-
 ------------------------------------------------------------------------
 
-## Result 3
+## Result 3 {.smaller}
 
 **Outbreaks frequency and Income status**
 
@@ -106,22 +99,31 @@ Merged by Alpha-3 Country-codes
 <img src="../Results/Fig4b_reproduced.png" alt="Fig. 4b Top 20 disease-outbreaks(Reproduced)" width="45%"/> <img src="../Results/Fig4b_income.png" alt="Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)" width="45%"/>
 :::
 
-
 ------------------------------------------------------------------------
 
 ## Result 4
 
 **Spatial distribution of outbreaks frequency**
 
+-   13 out of the 20 top countries -> [Africa]{.fragment .highlight-red}
+
+-   3rd country with the most outbreaks -> [USA]{.fragment .highlight-red}
+
+
 ::: {style="display: flex; justify-content: space-between;"}
-<img src="../Results/fig4a_reproduced.png" alt="Top 20 Countries with highest Outbreak Frequency" width="45%"/> <img src="../Results/fig3_reproduced.png" alt="Outbreak Frequency Map Graph" width="45%"/>
+<img src="../Results/fig4a_reproduced.png" alt="Top 20 Countries with highest Outbreak Frequency" width="40%" style="margin-right: 5px;"/> <img src="../Results/fig3_reproduced.png" alt="Outbreak Frequency Map Graph" width="45%"/>
 :::
+
+
 
 ------------------------------------------------------------------------
 
 ## Result 5
 
-Mikolaj's figures
+
+::: {style="display: flex; justify-content: space-between;"}
+<img src="../Results/Cont_line.png" alt="Outbreak Frequency by Continent Line Graph" width="45%"/> <img src="../Results/Inc_line.png" alt="Outbreak Frequency by Income Line Graph" width="45%"/>
+:::
 
 ------------------------------------------------------------------------
 
@@ -136,7 +138,7 @@ Mikolaj's figures
 
 ::: columns
 ::: {.column width="60%" style="font-size: 30px"}
-### *Strengths* 
+### *Strengths*
 
 -   Access and tidy data (using tidyverse princibles)
 
