@@ -65,7 +65,7 @@ Fig4b_income <- final_outbreaks |>
 
 Fig4b_income
 
-ggsave(Fig4b_income, filename = "Results/Fig4b_income.png", dpi = 300)
+ggsave(Fig4b_income, filename = "../Results/Fig4b_income.png", dpi = 300)
 
 ```
 
@@ -102,5 +102,6 @@ Disease_distribution <- final_outbreaks |>
        title = "Disease type distribution over time",
        fill = "Disease classification")
 
+ggsave(Disease_distribution, filename = "../Results/Disease_distribution.png", dpi = 300)
 
 ```
