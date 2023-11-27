@@ -94,6 +94,10 @@ Disease outbreaks are caused when infectious diseases spread rapidly across the 
 
 **Outbreaks frequency and Income status**
 
+-   The 20 top diseases -\> [almost equally distributed in income groups]{.fragment .highlight-blue}
+
+-   Excluding Covid and influenza -\> [66 % in low income or low middle income countries]{.fragment .highlight-blue}
+
 ::: {style="display: flex; justify-content: space-between;"}
 <img src="../Results/Fig4b_reproduced.png" alt="Fig. 4b Top 20 disease-outbreaks(Reproduced)" width="45%"/> <img src="../Results/Fig4b_income.png" alt="Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)" width="45%"/>
 :::

@@ -53,9 +53,6 @@ ggsave(Fig4b_reproduced,
 ## Creating a new Figure 4b, with incorporated information on country income status
 
 ```{r}
-final_outbreaks |> 
-  group_by(Income.Group) |> 
-  count()
 
 Fig4b_income <- final_outbreaks |> 
   count(Disease) |> 
@@ -92,6 +89,46 @@ ggsave(Fig4b_income,
        dpi = 300)
 
 ```
+
+
+##descriptive data of fig 4b income
+
+```{r}
+
+#distribution of countries by income status in the entire dataset (almost equal - between 20 and 30 %). 
+income_dist <- final_outbreaks |> 
+  group_by(Income.Group) |> 
+  summarise(count = n())  |> 
+  mutate(percentage = (count / sum(count)) * 100)
+income_dist
+
+#distribution of countries by income status for the top 20 diseases (still almost equal)
+income_dist_top20 <- final_outbreaks |> 
+count(Disease) |> 
+  arrange(desc(n)) |> 
+  slice_head(n = 20) |>  
+  inner_join(final_outbreaks, by = "Disease")  |> 
+  group_by(Income.Group) |> 
+  summarise(count = n())  |> 
+  mutate(percentage = (count / sum(count)) * 100)
+income_dist_top20
+
+
+#Now excluding covid and influenza, and looking at the distribution of countries by income status for the top 3-20 diseases (So here, the disease burden changes with 66% of the outbreaks in Low income or lower middle income countries.)
+income_dist_top3_20 <- final_outbreaks |> 
+filter(Disease != "COVID-19", 
+       Disease !="Influenza due to identified zoonotic or pandemic influenza virus") |> 
+  count(Disease) |> 
+  arrange(desc(n)) |> 
+  slice_head(n = 18) |>  
+  inner_join(final_outbreaks, by = "Disease")  |> 
+  group_by(Income.Group) |> 
+  summarise(count = n())  |> 
+  mutate(percentage = (count / sum(count)) * 100)
+income_dist_top3_20
+
+```
+
 
 ## Disease type distribution over the years 1996-2022
 
