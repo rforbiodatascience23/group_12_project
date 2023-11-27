@@ -40,17 +40,33 @@ if( !dir.exists(dir_name) ){
   dir.create(path = dir_name)
 }
 
-if ( length(list.files(dir_name, pattern="csv")) != length(filename) ) {
-  print(str_c(str_flatten_comma(filename,), " required in _raw folder"))
+if ( length(list.files(dir_name, 
+                       pattern="csv")) != length(filename) ) {
+  print(str_c(str_flatten_comma(filename,), 
+              " required in _raw folder"))
 
-} else if ( length(list.files(dir_name, pattern="csv")) == length(filename)) { 
-  rawdons <-  read.csv(str_c(dir_name,"DONsRaw.csv"))
-  covidOutbreaks <- read.csv(str_c(dir_name,"COVIDOutbreaks.csv"), sep = ",")
-  outbreaks <- read.csv(str_c(dir_name,"Outbreaks.csv"), sep = ",")
-  uniqueDONs <- read.csv(str_c(dir_name,"UniqueDONs.csv"),sep = ",")
+} else if ( length(list.files(dir_name, 
+                              pattern="csv")) == length(filename)) { 
+  rawdons <-  read.csv(str_c(dir_name,
+                             "DONsRaw.csv"))
+  covidOutbreaks <- read.csv(str_c(dir_name,
+                                   "COVIDOutbreaks.csv"), 
+                             sep = ",")
+  outbreaks <- read.csv(str_c(dir_name,
+                              "Outbreaks.csv"), 
+                        sep = ",")
+  uniqueDONs <- read.csv(str_c(dir_name,
+                               "UniqueDONs.csv"),
+                         sep = ",")
   wdi <- read.csv(str_c(dir_name,"WDICountry.csv"))
-  worldboundaries <- read.csv(str_c(dir_name, "world-administrative-boundaries.csv"), sep = ";")
-  icd1011 <- read.csv(str_c(dir_name,"icd1011.csv"), sep =";")
-  isocodes <- read.csv(str_c(dir_name,"isocodes.csv"), sep = ";")
+  worldboundaries <- read.csv(str_c(dir_name, 
+                                    "world-administrative-boundaries.csv"), 
+                              sep = ";")
+  icd1011 <- read.csv(str_c(dir_name,
+                            "icd1011.csv"), 
+                      sep =";")
+  isocodes <- read.csv(str_c(dir_name,
+                             "isocodes.csv"), 
+                       sep = ";")
 }
 ```
