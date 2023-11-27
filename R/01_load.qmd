@@ -17,7 +17,11 @@ In this file we load all the datasets we used and processed throughout the study
 #| echo: false
 #| message: false
 #| warning: false
+#| label: setup
 library("tidyverse")
+library("maps")
+library("ggplot2")
+library("viridis")
 
 ```
 

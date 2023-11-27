@@ -7,7 +7,10 @@ format:
 editor: visual
 ---
 
-{{< include 03_augment.qmd >}}
+```{r load_analysis2}
+library("tidyverse")
+library("ggplot2")
+```
 
 ## Including the final clean and augmented dataset
 
@@ -16,13 +19,6 @@ editor: visual
 ```
 
 ### Reshaping data set to wide format and adding frequency column (Freq):
-
-```{r}
-#| label: setup
-library("tidyverse")
-library("ggplot2")
-library("viridis")
-```
 
 ```{r}
 geo_outbreaks_wide <- final_outbreaks |>
