@@ -156,7 +156,7 @@ outbreaks_wdi <-
 **Merging of geographical and total outbreaks data:**
 
 ```{r}
-final_outbreaks <- worldboundaries |> 
+clean_outbreaks <- worldboundaries |> 
   left_join(drop_na(outbreaks_wdi), 
             by = "iso3")
 ```
@@ -166,7 +166,7 @@ final_outbreaks <- worldboundaries |>
 **Correcting/Shortening countries names:**
 
 ```{r}
-final_outbreaks <- final_outbreaks |> 
+clean_outbreaks <- clean_outbreaks |> 
   mutate(
     Country = case_when(
       Country == "Congo Democratic Republic of the" ~ "Democratic Republic of Congo",
@@ -181,5 +181,12 @@ final_outbreaks <- final_outbreaks |>
 **Removing missing values**
 
 ```{r}
-final_outbreaks <- drop_na(final_outbreaks)
+clean_outbreaks <- drop_na(clean_outbreaks)
 ```
+
+**Creating a final clean data file: clean_outbreaks**
+
+```{r}
+write_tsv(clean_outbreaks, "../Data/clean_outbreaks.tsv")
+```
+

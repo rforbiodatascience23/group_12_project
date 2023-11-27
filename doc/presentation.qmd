@@ -62,11 +62,11 @@ Disease outbreaks are caused when infectious diseases spread rapidly across the 
 **Our aim** was to :
 
 -   Reproduce their findings
--   Add other factors such as socioecononmic data
+-   Add other factors such as socioeconomic data
+
 
 ## Materials and Methods
-
-![](images/Flowchart.png){fig-align="center"}
+![](../Results/Flowchart.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
@@ -90,9 +90,11 @@ Merged by Alpha-3 Country-codes
 
 -   Frequency of zoonotic diseases has increased the last decade
 
-::: {style="display: flex; justify-content: space-between;"}
-![](/../Results/Disease_distribution.png){width="580" height="440"}
+::: {style="display: flex; justify-content: flex-start; align-items: flex-start;"}
+<img src="../Results/fig4c_reproduced.png" alt="Yearly Outbreaks Frequency (Reproduced)" width="50%" height="70%" style="margin-top: 5%"/> <img src="../Results/Disease_distribution.png" alt="Yearly Outbreaks colored by Disease Classification " width="35%" style="margin-left: 5%"/>
 :::
+
+
 
 ------------------------------------------------------------------------
 
@@ -103,6 +105,7 @@ Merged by Alpha-3 Country-codes
 ::: {style="display: flex; justify-content: space-between;"}
 <img src="../Results/Fig4b_reproduced.png" alt="Fig. 4b Top 20 disease-outbreaks(Reproduced)" width="45%"/> <img src="../Results/Fig4b_income.png" alt="Fig. 4b Top 20 disease-outbreaks colored by country income status (Novel)" width="45%"/>
 :::
+
 
 ------------------------------------------------------------------------
 
@@ -118,11 +121,7 @@ Merged by Alpha-3 Country-codes
 
 ## Result 5
 
-::: {style="text-align: center;"}
-**Yearly Disease Outbreaks** ![](../Results/fig4c_reproduced.png){width="800" height="500"}
-:::
-
-We could include Mikolaj's figure next to this one.
+Mikolaj's figures
 
 ------------------------------------------------------------------------
 
@@ -174,5 +173,5 @@ We could include Mikolaj's figure next to this one.
 ## Thank you!
 
 ::: {style="display: flex; justify-content: space-between;"}
-![](../Results/pic1.png){width="500" height="400"}
+![](../Results/pic1.png){fig-align="center" width="500" height="400"}
 :::
