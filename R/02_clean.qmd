@@ -7,15 +7,13 @@ format:
 editor: visual
 ---
 
-{{< include 01_load.qmd >}}
-
 ## CLEANING DATA
 
 This file contains the steps we followed to clean the data-sets we used in the study analysis.
 
 ## LOAD LIBRARIES
 
-```{r}
+```{r load libraries}
 library("tidyverse")
 ```
 

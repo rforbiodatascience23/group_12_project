@@ -7,15 +7,11 @@ format:
 editor: visual
 ---
 
-{{< include 05_analysis_1.qmd >}}
-
 ## Loading Libraries
 
-```{r}
-#| echo = TRUE
+```{r load_analysis1}
 library("tidyverse")
 library("ggplot2")
-library("dplyr")
 ```
 
 ## Including the final clean and augmented dataset
@@ -234,3 +230,4 @@ ggsave(Cont_line,
 
 Cont_line
 ```
+

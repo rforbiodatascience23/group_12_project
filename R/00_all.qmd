@@ -15,8 +15,6 @@ This file contains the script that loads all the raw data we used in the project
 
 {{< include "01_load.qmd" >}}
 
-
-
 ## Clean the datasets
 
 This file contains the cleaning process we followed to optimize the data format for the project
@@ -36,4 +34,3 @@ These two files contain the data analysis including plots and figures.
 {{< include 05_analysis_1.qmd >}}
 
 {{< include 06_analysis_2.qmd >}}
-
