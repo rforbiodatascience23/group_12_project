@@ -181,7 +181,7 @@ clean_outbreaks <- clean_outbreaks |>
 **Removing missing values**
 
 ```{r}
-clean_outbreaks <- drop_na(clean_outbreaks)
+#clean_outbreaks <- drop_na(clean_outbreaks)
 ```
 
 **Creating a final clean data file: clean_outbreaks**
