@@ -7,23 +7,37 @@ format:
 editor: visual
 ---
 
-## Quarto
+# Master document
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
 
-## Running Code
+## Load the datasets used in the project
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+This file contains the script that loads all the raw data we used in the project
 
-```{r}
-1 + 1
-```
+{{< include 01_load.qmd >}}
 
-You can add options to executable code like this
 
-```{r}
-#| echo: false
-2 * 2
-```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+## Clean the datasets 
+
+This file contains the cleaning process we followed to optimize the data format for the project 
+
+{{< include 02_clean.qmd >}}
+
+
+
+## Creation of new variables 
+
+This file contains the new variables useful for our analysis 
+
+{{< include 03_augment.qmd >}}
+
+
+
+## Analysis 
+
+These two files contain the data analysis including plots and figures. 
+
+{{< include 05_analysis_1.qmd >}}
+
+{{< include 06_analysis_2.qmd >}}
