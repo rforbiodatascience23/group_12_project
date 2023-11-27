@@ -21,7 +21,7 @@ library("dplyr")
 ## Including the final clean and augmented dataset
 
 ```{r}
-final_outbreaks <- read_tsv("../_raw/Data/final_outbreaks.tsv")
+#final_outbreaks <- read_tsv("../_raw/Data/final_outbreaks.tsv")
 ```
 
 ## Disease-outbreaks, reproducing fig4b with top 20 diseases
@@ -176,7 +176,7 @@ Inc_line <- ggplot(data = A2,
       ylab("Frequency of outbreaks") + 
       xlab("Year") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 0)) +
+  theme(axis.text.x = element_text(angle = 45)) +
   theme(legend.position = "right")+
    #scale_color_viridis_d() +
   scale_x_continuous(breaks = seq(1996,
@@ -221,7 +221,7 @@ Cont_line <- ggplot(data = B2,
       ylab("Frequency of outbreaks") + 
       xlab("Year") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 0)) +
+  theme(axis.text.x = element_text(angle = 45)) +
   theme(legend.position="right")+
   scale_color_viridis_d() +
   scale_x_continuous(breaks = seq(1996,

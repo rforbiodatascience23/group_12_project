@@ -12,7 +12,7 @@ editor: visual
 ## Including the final clean and augmented dataset
 
 ```{r}
-final_outbreaks <- read_tsv("../_raw/Data/final_outbreaks.tsv")
+#final_outbreaks <- read_tsv("../_raw/Data/final_outbreaks.tsv")
 ```
 
 ### Reshaping data set to wide format and adding frequency column (Freq):
@@ -75,7 +75,7 @@ fig4a_reproduced <- geo_outbreaks_wide  |>
        ) +
   theme_minimal() +
   scale_fill_viridis_d(alpha = 1) +
-  theme(axis.text.x = element_text(angle = 65, 
+  theme(axis.text.x = element_text(angle = 90, 
                                    hjust = 1, size = 8),
         plot.title = element_text(hjust = 0.5))
 
