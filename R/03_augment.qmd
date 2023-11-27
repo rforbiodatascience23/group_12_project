@@ -210,5 +210,5 @@ final_outbreaks <- final_outbreaks |>
 ## Creating a final (clean and augmented datafile) to use for data-analysis: final_outbreaks
 
 ```{r}
-write_tsv(final_outbreaks, "../_raw/final_outbreaks.tsv")
+write_tsv(final_outbreaks, "../Data/final_outbreaks.tsv")
 ```
