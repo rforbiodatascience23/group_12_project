@@ -77,7 +77,7 @@ Fig4b_income <- final_outbreaks |>
 Fig4b_income
 
 ggsave(Fig4b_income, 
-       filename = "Results/Fig4b_income.png", 
+       filename = "Results/Fig4b_income.png",
        dpi = 300)
 
 ```
@@ -115,9 +115,9 @@ Disease_distribution <- final_outbreaks |>
        title = "Disease type distribution over time",
        fill = "Disease classification")
 
-# ggsave(Disease_distribution, 
-#        filename = "/net/pupil1/home/people/s######/projects/group_12_project/Results/Disease_distribution.png", 
-#        dpi = 300)
+ ggsave(Disease_distribution, 
+        filename = "../Results/Disease_distribution.png", 
+        dpi = 300)
 Disease_distribution
 ```
 
@@ -158,7 +158,7 @@ Inc_line <- ggplot(data = A2,
                     color = Income.Group,
                     group = Income.Group
                     )) + 
-        #  geom_point() +  
+          #geom_point() +  
           geom_line(size = 1) +
       ylab("Frequency of outbreaks") + 
       xlab("Year") +
@@ -172,7 +172,7 @@ Inc_line <- ggplot(data = A2,
    labs(color = "Income group")
 #saving graph
 ggsave(Inc_line, 
-       filename = "/net/pupil1/home/people/s222940/projects/group_12_project/Results/Inc_line.png", 
+       filename ="../Results/Inc_line.png", 
        dpi = 300)
 
 Inc_line
@@ -215,7 +215,7 @@ Cont_line <- ggplot(data = B2,
                                   by = 2))
 #saving graph
 ggsave(Cont_line, 
-       filename = "/net/pupil1/home/people/s222940/projects/group_12_project/Results/Cont_line.png", 
+       filename = "../Results/Cont_line.png", 
        dpi = 300)
 
 Cont_line

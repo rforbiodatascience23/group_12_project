@@ -75,7 +75,7 @@ fig4a_reproduced <- geo_outbreaks_wide  |>
 
 fig4a_reproduced 
 ggsave(fig4a_reproduced, 
-       filename = "/net/pupil1/home/people/s222777/projects/group_12_project_/Results/fig4a_reproduced.png", 
+       filename = "../Results/fig4a_reproduced.png", 
        dpi = 300)
 ```
 
@@ -108,7 +108,7 @@ fig3_reproduced <- ggplot() +
 
 fig3_reproduced
 ggsave(fig3_reproduced, 
-       filename = "/net/pupil1/home/people/s222777/projects/group_12_project_/Results/fig3_reproduced.png", 
+       filename = "../Results/fig3_reproduced.png", 
        dpi = 300)
 
 ```
@@ -150,7 +150,7 @@ fig4c_reproduced <- ggplot(outbreaks_yearly,
 fig4c_reproduced
 
 ggsave(fig4c_reproduced, 
-       filename = "/net/pupil1/home/people/s222777/projects/group_12_project_/Results/fig4c_reproduced.png", 
+       filename = "../Results/fig4c_reproduced.png", 
        dpi = 300)
 
 ```
