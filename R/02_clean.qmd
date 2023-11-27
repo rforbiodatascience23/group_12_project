@@ -95,7 +95,6 @@ worldboundaries <- worldboundaries |>
 **Changing the column names:**
 
 ```{r}
-#SHOULD THIS BE IN THE AUGMENT FILE?? (Arlinda)
 rawdons_clean <- rawdons|>   
   rename(DONs = ID) |>    
   mutate(Year = as.integer(str_split_i(Date, 
@@ -159,7 +158,7 @@ outbreaks_wdi <-
 ```{r}
 final_outbreaks <- worldboundaries |> 
   left_join(drop_na(outbreaks_wdi), 
-            by = "iso3") ## here I replaced the na.omit with drop_na to be in tidyverse (Arlinda)
+            by = "iso3")
 ```
 
 ## Cleaning merged data
@@ -182,5 +181,5 @@ final_outbreaks <- final_outbreaks |>
 **Removing missing values**
 
 ```{r}
-final_outbreaks <- drop_na(final_outbreaks) #same here (Arlinda)
+final_outbreaks <- drop_na(final_outbreaks)
 ```
