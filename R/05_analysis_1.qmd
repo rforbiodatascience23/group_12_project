@@ -15,14 +15,13 @@ editor: visual
 final_outbreaks <- read_tsv("../Data/final_outbreaks.tsv")
 ```
 
-
 ### Reshaping data set to wide format and adding frequency column (Freq):
 
 ```{r}
 #| label: setup
-library(tidyverse)
-library(ggplot2)
-library(viridis)
+library("tidyverse")
+library("ggplot2")
+library("viridis")
 ```
 
 ```{r}

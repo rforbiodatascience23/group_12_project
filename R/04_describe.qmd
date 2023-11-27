@@ -7,19 +7,41 @@ format:
 editor: visual
 ---
 
+```{r}
+library("dplyr")
+```
+
 ### Loading Data (01_load.qmd):
+
+This script is dedicated to loading datasets that will be used for the study analysis.
+
+The tidyverse library is initially imported, and then the data is loaded: The script checks for the existence of the required CSV files in the \_raw folder. If the folder doesn't exist, it creates one. If the necessary files are not present, it prints a message indicating the missing files. If all files are present, the script reads each CSV file into its respective variable (rawdons, covidOutbreaks, etc.).
 
 ### Cleaning Data (02_clead.qmd):
 
-Before cleaning the data, tidyverse library is imported. Following this, each of the following data set are cleaned seperately:
+Before cleaning the data, tidyverse library is imported. Following this, each of the following data sets are cleaned seperately:
 
 #### Clean WDI Data
 
 Specific columns from the WDI dataset are selected(Country.Code, Income.Group) and renamed ("Country.Code" to "iso3"). The iso3 Country codes are cleaned and standardized. Data is filtered depending on the availability of income data.
 
+The clean wdi data set includes the following information:
+
+```{r}
+wdi_clean |>
+  glimpse()
+```
+
 #### Clean World Boundaries Data
 
 Rows with blank cells are filtered out, and similarly to WDI data preprocessing, columns are renamed "ISO.3.country.code" to "iso3", "Continent.of.the.territory" to "Continent","Geo.Point" to "Coordinates"), whilst the unnecessary ones are removed (French.Name, English.Name, ISO.3.territory.code, Region.of.the.territory, ISO.3166.1.Alpha.2.Codes, Geo.Shape). Inaccurate iso3 codes found in the raw data are corrected and rows with incorrect iso3-Continent combinations are discarded. Finally, multiple rows with the same iso3 code values are removed, ensuring that each row corresponds to a unique iso3 country code.
+
+The final worldboundaries data set includes the following columns:
+
+```{r}
+worldboundaries |>
+  glimpse()
+```
 
 #### Clean RAW DONS Data:
 
@@ -27,7 +49,17 @@ Rows with blank cells are filtered out, and similarly to WDI data preprocessing,
 
 #### Clean Unique DONs and COVID-19 Data
 
-Rename function is here used to rename the "X" column to "Index" in both uniqueDONs_clean and covidOutbreaks_clean data sets. Additionally, null and unspecified values in the same data sets.
+Rename function is here used to rename the "X" column to "Index" in both uniqueDONs_clean and covidOutbreaks_clean data sets. Additionally, null and unspecified values are handled in the same data sets. These result in the following data sets:
+
+```{r}
+uniqueDONs_clean |>
+  glimpse()
+```
+
+```{r}
+covidOutbreaks_clean |>
+  glimpse()
+```
 
 #### Merging Data:
 
@@ -37,19 +69,50 @@ The data is being merged in 3 consecutive join steps:
 
     Full joins the uniqueDONs_clean and covidOutbreaks_clean datasets.
 
-```{=html}
-<!-- -->
-```
 2.  Merging WDI and Total Outbreaks Data
 
     Left joins the total_outbreaks dataset with the wdi_clean dataset based on the iso3 code.
 
 3.  Merging Geographical and Total Outbreaks Data
 
-    Left joins the worldboundaries dataset with the merged total_outbreaks and wdi_clean dataset based on the iso3 code, creating the final_outbreaks dataset.
+    Left joins the worldboundaries dataset with the merged total_outbreaks and wdi_clean dataset based on the iso3 code, creating the clean_outbreaks dataset. The summary of the data set can be seen below:
 
-### Cleaning Merged Data
+### Cleaning and Saving Merged Data
 
-Country names are shortened in the final_outbreak data set, to facilitate the visualization in the analysis. Missing values are removed from the final_outbreaks dataset.
+Country names are shortened in the clean_outbreak data set, to facilitate the visualization in the analysis. Missing values are removed from the clean_outbreaks dataset. I final tsv file including the clean_outbreaks is written and saved in data folder.
+
+The content of the data set can be seen below:
+
+```{r}
+glimpse(clean_outbreaks)
+```
 
 ### Augmenting Data: (03_augment.qmd):
+
+Firstly, the tidyverse library is imported. Following this, the data is augmented for further analysis:
+
+#### Data Scraping:
+
+The isocodes dataset is used to scrape the "Description" column for matching countries. The extracted values are added to a new column called "Country," representing each country where an outbreak originated.
+
+#### The Isocodes:
+
+The isocodes dataset is selected, and the iso codes are merged to create a new object. The rawdons_aug dataset is left-joined with isocodes based on the "Country" column.
+
+#### The ICD Codes:
+
+The rawdons_aug dataset is left-joined with the uniqdisease and icd1011 datasets based on specific columns. Rows related to non-outbreak events are filtered out, such as meetings and recommendations. Duplicate rows representing the same outbreak are removed, resulting in a dataset with 1233 unique events.
+
+#### Augment the Clean Merged Data File:
+
+in the clean_oubreaks data set, a new column, "Disease_class," is added based on the classification of different disease types. For income data, "NA"s are replaced with a category called "No income data available". Finally, the "Coordinates" column is split into "Latitude" and "Longitude". Upon these changes, the data set clean_outbreaks is converted to final_outbreaks, which is being used, later on in the analysis section.
+
+The summary of the data set can be seen below:
+
+```{r}
+glimpse(final_outbreaks)
+```
+
+#### Creating a Final Datafile:
+
+A final data file, final_outbreaks.tsv, is created by writing the final_outbreaks dataset to a TSV file.

@@ -12,7 +12,7 @@ editor: visual
 {{< include 02_clean.qmd >}}
 
 ```{r load_libraries}
-library(tidyverse)
+library("tidyverse")
 ```
 
 ## Data scraping
@@ -54,7 +54,7 @@ rawdons_aug <- rawdons_clean |>
   separate_longer_delim(Country,
                         delim = ",")
 
-# if country is na find the corresponding don in uniquedisease and fill correspondng country 
+# if country is na find the corresponding don in uniquedisease and fill corresponding country 
 rawdons_aug <- rawdons_aug |> 
   mutate(Country = na_if(Country, 
                          ""))
@@ -84,7 +84,7 @@ rawdons_aug <-rawdons_aug |>
 
 ## The ICD codes
 
-The disease that is associated with each DON is taken from the completed dataframe *uniquedons.csv*. Then the icd codes, which are a collection of disease descriptions, are merged to create a dataframe with all associated dons, disease and diseaase descriptions
+The disease that is associated with each DON is taken from the completed dataframe *uniquedons.csv*. Then the icd codes, which are a collection of disease descriptions, are merged to create a dataframe with all associated dons, disease and disease descriptions
 
 ```{r}
 
@@ -152,7 +152,7 @@ rawdons_aug <-rawdons_aug |>
            AllDONs) # 1566 unique events apparently but only have 1233 so far as 271 countries are not named in Description column
 ```
 
-##Augment the clean merged data file.
+## Augment the clean merged data file.
 
 New column added for the the classification of different diseases types. COVID-19, Influenza and Cholera were not included in any category as they are major outbreaks and we wanted to show their influence separately.
 
@@ -196,7 +196,6 @@ For income data, we replace the "NA"s with a category called "No income data ava
                                  Income.Group))
 ```
 
-
 #### Splitting Coordinates into Latitude and Longitude columns
 
 ```{r}
@@ -211,10 +210,8 @@ final_outbreaks <- final_outbreaks |>
   select(-Coordinates)
 ```
 
-
-## Creating a final (clean and augmented datafile) to use for data-analysis: final_outbreaks##
+## Creating a final (clean and augmented datafile) to use for data-analysis: final_outbreaks
 
 ```{r}
 write_tsv(final_outbreaks, "../Data/final_outbreaks.tsv")
 ```
-
