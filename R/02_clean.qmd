@@ -187,5 +187,5 @@ clean_outbreaks <- clean_outbreaks |>
 **Creating a final clean data file: clean_outbreaks**
 
 ```{r}
-write_tsv(clean_outbreaks, "../_raw/Data/clean_outbreaks.tsv")
+write_tsv(clean_outbreaks, "../Data/clean_outbreaks.tsv")
 ```
