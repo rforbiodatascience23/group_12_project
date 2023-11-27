@@ -187,7 +187,7 @@ final_outbreaks <- clean_outbreaks |>
                                     icd11l2 == "New uncertain disease" ~ "Covid-19"))
 ```
 
-For income data, we replace the "NA"s with a category called "No income data available", then we make the variable a factor based on income, ranking "high income" highest, and "No income data available" lowest.
+For income data, we replace the "NA"s with a category called "No income data available".
 
 ```{r}
   final_outbreaks <- final_outbreaks |>
