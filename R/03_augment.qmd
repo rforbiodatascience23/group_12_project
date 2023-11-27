@@ -193,13 +193,7 @@ For income data, we replace the "NA"s with a category called "No income data ava
   final_outbreaks <- final_outbreaks |>
   mutate (Income.Group = if_else(is.na(Income.Group), 
                                  "No income data available", 
-                                 Income.Group),
-          Income.Group = factor(Income.Group, 
-                                levels = c("High income", 
-                                           "Upper middle income", 
-                                           "Lower middle income", 
-                                           "Low income", 
-                                           "No income data available")))
+                                 Income.Group))
 ```
 
 

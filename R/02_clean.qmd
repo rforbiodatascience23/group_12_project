@@ -133,7 +133,6 @@ covidOutbreaks_clean <- covidOutbreaks |>
 
 ## MERGING DATA
 
-(This data-set will end with one merged file: **02_CLEAN**)
 
 **Merging of unique and COVID-19 outbreaks data:**
 

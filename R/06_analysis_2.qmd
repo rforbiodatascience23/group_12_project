@@ -66,7 +66,13 @@ Fig4b_income <- final_outbreaks |>
   slice_head(n = 20) |> 
   inner_join(final_outbreaks, 
              by = "Disease")  |> 
-  mutate(Disease = fct_infreq(Disease)) |>
+  mutate(Disease = fct_infreq(Disease), 
+         Income.Group = factor(Income.Group, 
+                                levels = c("High income", 
+                                           "Upper middle income", 
+                                           "Lower middle income", 
+                                           "Low income", 
+                                           "No income data available"))) |>
   ggplot(mapping = aes(x = Disease, 
                        fill = Income.Group)) +
   geom_bar()+
