@@ -72,8 +72,7 @@ Disease outbreaks are caused when infectious diseases spread rapidly across the 
 
 ## Result 1
 
-**Final data set handling:**
-![](images/results1.png)
+**Final data set handling:** ![](images/results1.png)
 
 ------------------------------------------------------------------------
 
@@ -105,16 +104,13 @@ Disease outbreaks are caused when infectious diseases spread rapidly across the 
 
 **Spatial distribution of outbreaks frequency**
 
--   13 out of the 20 top countries -> [Africa]{.fragment .highlight-blue}
+-   13 out of the 20 top countries -\> [Africa]{.fragment .highlight-blue}
 
--   3rd country with the most outbreaks -> [USA]{.fragment .highlight-blue}
-
+-   3rd country with the most outbreaks -\> [USA]{.fragment .highlight-blue}
 
 ::: {style="display: flex; justify-content: space-between;"}
 <img src="../Results/fig4a_reproduced.png" alt="Top 20 Countries with highest Outbreak Frequency" width="40%" style="margin-right: 5px;"/> <img src="../Results/fig3_reproduced.png" alt="Outbreak Frequency Map Graph" width="45%"/>
 :::
-
-
 
 ------------------------------------------------------------------------
 
@@ -123,6 +119,7 @@ Disease outbreaks are caused when infectious diseases spread rapidly across the 
 ::: {style="display: flex; justify-content: space-between;"}
 <img src="../Results/Cont_line.png" alt="Outbreak Frequency by Continent Line Graph" width="45%"/> <img src="../Results/Inc_line.png" alt="Outbreak Frequency by Income Line Graph" width="45%"/>
 :::
+
 ------------------------------------------------------------------------
 
 ## Discussion 1
